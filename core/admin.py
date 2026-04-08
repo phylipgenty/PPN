@@ -16,9 +16,11 @@ class ContactMessageAdmin(admin.ModelAdmin):
     list_filter = ('is_read', 'created_at')
     search_fields = ('name', 'email', 'subject', 'message')
     readonly_fields = ('created_at',)
+    actions = ['mark_as_read']
 
     def mark_as_read(self, request, queryset):
         queryset.update(is_read=True)
+    mark_as_read.short_description = "Mark selected messages as read"
 
 
 # APPOINTMENTS
@@ -40,12 +42,14 @@ class TestimonyAdmin(admin.ModelAdmin):
     list_display = ('name', 'location', 'is_approved', 'created_at')
     list_filter = ('is_approved', 'created_at')
     search_fields = ('name', 'location', 'content')
+    actions = ['approve_testimonies']
 
     def approve_testimonies(self, request, queryset):
         queryset.update(is_approved=True)
+    approve_testimonies.short_description = "Approve selected testimonies"
 
 
-# NEWSLETTER
+# NEWSLETTER SUBSCRIBERS
 @admin.register(NewsletterSubscriber)
 class NewsletterSubscriberAdmin(admin.ModelAdmin):
     list_display = ('email', 'subscribed_at', 'is_active')
@@ -69,9 +73,10 @@ class SermonAdmin(admin.ModelAdmin):
     search_fields = ('title', 'preacher')
 
 
-# BLOG POSTS (CLEAN + SAFE)
+# BLOG POSTS – No slug, no image_url, only file upload
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'date', 'is_published')
     list_filter = ('is_published', 'date')
     search_fields = ('title', 'content')
+    fields = ('title', 'image', 'content', 'author', 'date', 'is_published')

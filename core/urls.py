@@ -8,9 +8,9 @@ urlpatterns = [
     path('sermons/', views.sermons, name='sermons'),
     path('testimonies/', views.testimonies, name='testimonies'),
 
-    # BLOGS (FULLY DYNAMIC SYSTEM ONLY)
+    # BLOGS – using primary key (pk) because slug removed
     path('blogs/', views.blog_list, name='blog_list'),
-    path('blog/<slug:slug>/', views.blog_detail, name='blog_detail'),
+    path('blog/<int:pk>/', views.blog_detail, name='blog_detail'),   # <-- changed from <slug:slug>
 
     # APPOINTMENT / CONTACT
     path('appointment/', views.appointment, name='appointment'),
@@ -21,7 +21,7 @@ urlpatterns = [
     path('newsletter-signup/', views.newsletter_signup, name='newsletter_signup'),
     path('prayer-request/', views.prayer_request, name='prayer_request'),
 
-    # TESTIMONY DEBUG/TEST
+    # TESTIMONY SUBMISSION
     path('test/', views.test, name='test'),
 
     # DONATIONS

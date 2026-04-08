@@ -158,14 +158,11 @@ def blog_list(request):
 
 
 # =========================
-# BLOG DETAIL (FULLY DYNAMIC ONLY)
+# BLOG DETAIL – using primary key (pk)
 # =========================
-def blog_detail(request, slug):
-    blog = get_object_or_404(BlogPost, slug=slug, is_published=True)
-
-    return render(request, 'blog_detail.html', {
-        'blog': blog
-    })
+def blog_detail(request, pk):
+    blog = get_object_or_404(BlogPost, pk=pk, is_published=True)
+    return render(request, 'blog_detail.html', {'blog': blog})
 
 
 # =========================
@@ -257,6 +254,9 @@ def donation_cancel(request):
     return render(request, 'donation_status.html', {'status': 'cancel'})
 
 
+# =========================
+# CREATE ADMIN (TEMPORARY)
+# =========================
 from django.http import HttpResponse
 from django.contrib.auth import get_user_model
 

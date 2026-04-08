@@ -112,31 +112,16 @@ class Sermon(models.Model):
 
 
 # =========================
-# BLOG POSTS (FIXED)
+# BLOG POSTS (NO SLUG – use primary key in URLs)
 # =========================
 class BlogPost(models.Model):
     title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True, blank=True)  # <-- IMPORTANT FIX
     image = models.ImageField(upload_to='blogs/', blank=True, null=True)
     content = models.TextField()
     author = models.CharField(max_length=100, default="Pastor Henry Onyirioha")
     date = models.DateField(auto_now_add=True)
     is_published = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            base_slug = slugify(self.title)
-            slug = base_slug
-            counter = 1
-
-            while BlogPost.objects.filter(slug=slug).exists():
-                slug = f"{base_slug}-{counter}"
-                counter += 1
-
-            self.slug = slug
-
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
