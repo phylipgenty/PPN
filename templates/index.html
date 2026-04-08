@@ -175,12 +175,12 @@
   </div>
 </div>
 
-    <!-- Recent Sermons -->
+    <!-- Recent Sermons (FIXED: clickable cards) -->
     <div class="sermons-preview">
       <div class="section-title"><i class="fas fa-bible"></i> Recent Sermons</div>
       <div class="videos-grid">
         {% for sermon in latest_sermons %}
-        <div class="video-card glass-card-light">
+        <div class="video-card glass-card-light" onclick="window.open('https://www.youtube.com/watch?v={{ sermon.video_id }}', '_blank')" style="cursor: pointer;">
           <div class="video-thumb">
             <img src="https://img.youtube.com/vi/{{ sermon.video_id }}/maxresdefault.jpg" alt="{{ sermon.title }}">
           </div>
