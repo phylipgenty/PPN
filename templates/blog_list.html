@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Blog | Prayer Power Network{% endblock %}
+
+{% block extra_css %}
+<style>
+  .blog-intro {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    color: #e0d6f5;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .blog-card {
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: rgba(30, 20, 50, 0.85);
+    border-radius: 1.2rem;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    min-height: 180px;
+    position: relative;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  }
+
+  .blog-card::before {
+    content: "";
+    height: 4px;
+    width: 100%;
+    background: linear-gradient(90deg, #ffcd5c, transparent);
+    display: block;
+    margin-bottom: 0.8rem;
+    border-radius: 2px;
+  }
+
+  .blog-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .blog-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffefc0;
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-excerpt {
+    font-size: 0.85rem;
+    color: #e0d6f5;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+
+  .read-more {
+    background: transparent;
+    border: 1px solid #ffcd5c;
+    color: #ffcd5c;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-size: 0.8rem;
+    align-self: flex-start;
+    transition: 0.2s;
+  }
+
+  .read-more:hover {
+    background: #ffcd5c;
+    color: #1a1a2a;
+  }
+
+  @media (max-width: 1200px) {
+    .blog-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  @media (max-width: 900px) {
+    .blog-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .blog-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 400px) {
+    .blog-grid { grid-template-columns: 1fr; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <div class="section-title">
+    <i class="fas fa-blog"></i> Latest from Our Blog
+  </div>
+
+  <div class="blog-intro">
+    <p>Encouraging articles, prophetic insights, and teaching to strengthen your faith.</p>
+  </div>
+
+  {% if posts %}
+
+  <div class="blog-grid">
+
+    {% for post in posts %}
+    <div class="blog-card">
+      <div class="blog-info">
+        <h3 class="blog-title">{{ post.title }}</h3>
+
+        <p class="blog-excerpt">
+          {{ post.content|striptags|truncatechars:120 }}
+        </p>
+
+        <a href="{% url 'blog_detail' post.slug %}" class="read-more">
+          Read More →
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+
+  {% else %}
+    <p style="text-align:center; color:#e0d6f5;">
+      No blog posts available yet.
+    </p>
+  {% endif %}
+
+</div>
+{% endblock %}

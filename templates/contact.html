@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us | Prayer Power Network{% endblock %}
+
+{% block extra_css %}
+<style>
+  .contact-container {
+    max-width: 800px;
+    margin: 2rem auto;
+  }
+  .contact-card {
+    padding: 2rem;
+  }
+  .contact-card h1 {
+    text-align: center;
+    color: #ffefc0;
+    margin-bottom: 1rem;
+  }
+  .contact-intro {
+    text-align: center;
+    color: #e0d6f5;
+    margin-bottom: 2rem;
+  }
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .form-group label {
+    font-weight: 600;
+    color: #ffefc0;
+    font-size: 0.9rem;
+  }
+  .form-group input,
+  .form-group textarea {
+    padding: 0.8rem 1rem;
+    border-radius: 0.8rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #ffcd5c;
+    background: rgba(255,255,255,0.25);
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: #cdc4e8;
+  }
+  button[type="submit"] {
+    background: #ffcd5c;
+    color: #1a1a2a;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 2rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 0.5rem;
+  }
+  button[type="submit"]:hover {
+    background: #ffc43a;
+    transform: scale(1.02);
+  }
+  .alert {
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .alert-success {
+    background: rgba(0,128,0,0.2);
+    border: 1px solid #00aa00;
+    color: #a0e0a0;
+  }
+  .alert-error {
+    background: rgba(255,0,0,0.2);
+    border: 1px solid #ff4444;
+    color: #ffa0a0;
+  }
+  .contact-details {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1rem;
+    text-align: center;
+  }
+  .contact-detail-item {
+    background: rgba(30,20,50,0.7);
+    padding: 1rem;
+    border-radius: 1rem;
+    flex: 1;
+    min-width: 150px;
+  }
+  .contact-detail-item i {
+    font-size: 1.5rem;
+    color: #ffcd5c;
+    margin-bottom: 0.5rem;
+  }
+  .contact-detail-item p {
+    color: #e0d6f5;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container contact-container">
+  <div class="glass-card-light contact-card">
+    <h1><i class="fas fa-envelope"></i> Contact Us</h1>
+    <div class="contact-intro">
+      <p>We'd love to hear from you! Reach out with prayer requests, questions, or partnership inquiries.</p>
+    </div>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST" class="contact-form">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="id_name">Full Name *</label>
+        <input type="text" name="name" id="id_name" class="form-control" placeholder="Your full name" required>
+      </div>
+      <div class="form-group">
+        <label for="id_email">Email Address *</label>
+        <input type="email" name="email" id="id_email" class="form-control" placeholder="Your email address" required>
+      </div>
+      <div class="form-group">
+        <label for="id_subject">Subject *</label>
+        <input type="text" name="subject" id="id_subject" class="form-control" placeholder="Subject" required>
+      </div>
+      <div class="form-group">
+        <label for="id_message">Message *</label>
+        <textarea name="message" id="id_message" class="form-control" placeholder="Your message..." rows="5" required></textarea>
+      </div>
+      <button type="submit">Send Message</button>
+    </form>
+
+    <div class="contact-details">
+      <div class="contact-detail-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <p>Prayer Power Network<br>London, UK</p>
+      </div>
+      <div class="contact-detail-item">
+        <i class="fas fa-envelope"></i>
+        <p>info@prayerpowernetwork.org</p>
+      </div>
+      <div class="contact-detail-item">
+        <i class="fas fa-phone-alt"></i>
+        <p>+44 7990 348763 (WhatsApp)</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Manchester Big Event | Prayer Power Network{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* EVENT BANNER */
+  .event-banner {
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+  }
+
+  .event-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* HERO SECTION */
+  .manchester-hero {
+    position: relative;
+    width: 100%;
+    min-height: 70vh;
+    background: url('{% static "images/manchester-flyer.jpg" %}') center center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .manchester-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+  }
+
+  .manchester-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    padding: 2rem;
+  }
+
+  .manchester-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
+
+  .manchester-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .countdown-box {
+    background: rgba(0,0,0,0.7);
+    padding: 1.5rem;
+    border-radius: 2rem;
+    display: inline-block;
+  }
+
+  .countdown {
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: monospace;
+    letter-spacing: 5px;
+  }
+
+  @media (max-width: 768px) {
+    .manchester-content h1 {
+      font-size: 2rem;
+    }
+
+    .countdown {
+      font-size: 1.5rem;
+    }
+
+    .event-banner {
+      height: 200px;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- EVENT BANNER -->
+<div class="event-banner">
+  <img src="{% static 'images/img1.jpeg' %}" alt="Manchester Event Banner">
+</div>
+
+<!-- HERO SECTION -->
+<div class="manchester-hero">
+  <div class="manchester-overlay"></div>
+
+  <div class="manchester-content">
+    <h1>🇬🇧 Manchester Big Event 2026 🇬🇧</h1>
+    <p>Join us for a life-changing day of prayer, worship, and prophecy</p>
+
+    <div class="countdown-box">
+      <div id="manchesterCountdown" class="countdown"></div>
+    </div>
+  </div>
+</div>
+
+<!-- OPTIONAL EXTRA SECTION -->
+<!-- You can later add event details, registration, map, etc. -->
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function startManchesterCountdown() {
+    const countdownEl = document.getElementById('manchesterCountdown');
+    if (!countdownEl) return;
+
+    const eventDate = new Date(2026, 4, 15, 18, 0, 0); // May 15, 2026 18:00
+
+    const timer = setInterval(() => {
+      const now = new Date();
+      const distance = eventDate - now;
+
+      if (distance < 0) {
+        clearInterval(timer);
+        countdownEl.innerHTML = "🔥 EVENT STARTED! 🔥";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % 86400000) / 3600000);
+      const mins = Math.floor((distance % 3600000) / 60000);
+      const secs = Math.floor((distance % 60000) / 1000);
+
+      countdownEl.innerHTML = `${days}d ${hours}h ${mins}m ${secs}s`;
+    }, 1000);
+  }
+
+  startManchesterCountdown();
+</script>
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Newsletter | Prayer Power Network{% endblock %}
+
+{% block extra_css %}
+<style>
+  .newsletter-container {
+    max-width: 700px;
+    margin: 2rem auto;
+  }
+  .newsletter-card {
+    padding: 2rem;
+    text-align: center;
+  }
+  .newsletter-card h1 {
+    color: #ffefc0;
+    margin-bottom: 1rem;
+  }
+  .newsletter-description {
+    color: #e0d6f5;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+  .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+  .newsletter-form input {
+    padding: 0.8rem 1rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+  }
+  .newsletter-form input:focus {
+    outline: none;
+    border-color: #ffcd5c;
+  }
+  .newsletter-form input::placeholder {
+    color: #cdc4e8;
+  }
+  .newsletter-form button {
+    background: #ffcd5c;
+    color: #1a1a2a;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 2rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .newsletter-form button:hover {
+    background: #ffc43a;
+    transform: scale(1.02);
+  }
+  .benefits-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .benefit-item {
+    background: rgba(30,20,50,0.7);
+    padding: 1rem;
+    border-radius: 1rem;
+    flex: 1;
+    min-width: 150px;
+  }
+  .benefit-item i {
+    font-size: 1.8rem;
+    color: #ffcd5c;
+    margin-bottom: 0.5rem;
+  }
+  .benefit-item h4 {
+    color: #ffefc0;
+    margin-bottom: 0.3rem;
+  }
+  .benefit-item p {
+    font-size: 0.8rem;
+    color: #e0d6f5;
+  }
+  .alert {
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .alert-success {
+    background: rgba(0,128,0,0.2);
+    border: 1px solid #00aa00;
+    color: #a0e0a0;
+  }
+  .alert-error {
+    background: rgba(255,0,0,0.2);
+    border: 1px solid #ff4444;
+    color: #ffa0a0;
+  }
+  .alert-info {
+    background: rgba(0,100,200,0.2);
+    border: 1px solid #4488ff;
+    color: #aaccff;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container newsletter-container">
+  <div class="glass-card-light newsletter-card">
+    <h1><i class="fas fa-envelope-open-text"></i> Stay Connected</h1>
+    <div class="newsletter-description">
+      <p>Join our prayer community and receive daily devotionals, prophetic alerts, event updates, and encouragement straight to your inbox.</p>
+    </div>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST" class="newsletter-form">
+      {% csrf_token %}
+      <input type="email" name="email" placeholder="Enter your email address" required>
+      <button type="submit">Subscribe Now</button>
+    </form>
+
+    <div class="benefits-list">
+      <div class="benefit-item">
+        <i class="fas fa-praying-hands"></i>
+        <h4>Daily Prayer Alerts</h4>
+        <p>Start your day with focused prayer points</p>
+      </div>
+      <div class="benefit-item">
+        <i class="fas fa-church"></i>
+        <h4>Event Notifications</h4>
+        <p>Be first to know about conferences and gatherings</p>
+      </div>
+      <div class="benefit-item">
+        <i class="fas fa-bible"></i>
+        <h4>Exclusive Teachings</h4>
+        <p>Receive prophetic insights and sermon notes</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,247 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | Prayer Power Network</title>
+  <link rel="icon" type="image/png" href="{% static 'images/PPN logo1.png' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">
+    <img src="{% static 'images/PPN logo1.png' %}" alt="Logo" class="logo-img">
+    PRAYER POWER NETWORK
+  </div>
+  <div class="menu-icon" id="menuToggle">
+    <i class="fas fa-bars"></i>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="{% url 'about' %}">About</a></li>
+    <li><a href="{% url 'events' %}">Events</a></li>
+    <li><a href="{% url 'sermons' %}">Sermons</a></li>
+    <li><a href="{% url 'testimonies' %}">Testimonies</a></li>
+    <li><a href="{% url 'blog_list' %}">Blogs</a></li>
+    <li><a href="{% url 'donate' %}" class="donate-btn">Donate</a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">More <i class="fas fa-caret-down"></i></a>
+      <div class="dropdown-content">
+        <a href="{% url 'contact' %}">Contact Us</a>
+        <a href="{% url 'appointment' %}">Book Appointment</a>
+        <a href="{% url 'newsletter_signup' %}">Newsletter</a>
+        <a href="{% url 'test' %}">Share Your Testimony</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+<!-- Gallery Slideshow -->
+<div class="gallery-section">
+  <div class="gallery-slideshow-container">
+    <div class="gallery-slide fade" style="background-image: url('{% static 'images/gallery1.jpeg' %}');"></div>
+    <div class="gallery-slide fade" style="background-image: url('{% static 'images/gallery2.jpeg' %}');"></div>
+    <div class="gallery-slide fade" style="background-image: url('{% static 'images/gallery3.jpeg' %}');"></div>
+  </div>
+  <div class="gallery-caption">
+    <h2>Moments of Worship & Revival</h2>
+    <p>Glimpses of God's move across our gatherings</p>
+  </div>
+</div>
+
+<main>
+  <!-- Hero Slideshow -->
+  <div class="hero" id="home">
+    <div class="slideshow-container">
+      <div class="slide fade" style="background-image: url('{% static 'images/img1.jpeg' %}');"></div>
+      <div class="slide fade" style="background-image: url('{% static 'images/img2.jpeg' %}');"></div>
+      <div class="slide fade" style="background-image: url('{% static 'images/img3_1.jpeg' %}');"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-cross"></div>
+    <div class="hero-content">
+      <button class="btn-primary" id="watchLiveNowBtn">
+        <i class="fas fa-play-circle"></i>
+        <a href="https://www.youtube.com/@henryonyirioha_ppn" target="_blank">WATCH LIVE NOW</a>
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Manchester Banner -->
+    <div class="manchester-banner">
+      <h2>🇬🇧 MANCHESTER BIG EVENT 🇬🇧</h2>
+      <p id="manchesterCountdown" class="countdown"></p>
+      <a href="{% url 'manchester' %}" class="gold-btn">Go to Manchester Page →</a>
+    </div>
+
+    <!-- Action Cards -->
+    <div class="cards-row">
+      <div class="feature-card-img" id="joinCard">
+        <div class="card-overlay"></div>
+        <div class="card-content">
+          <i class="fas fa-users"></i>
+          <h3>JOIN OUR PRAYER NETWORK</h3>
+          <p>Connect with a global community of believers</p>
+        </div>
+      </div>
+      <div class="feature-card-img" id="liveCard">
+        <div class="card-overlay"></div>
+        <div class="card-content">
+          <i class="fas fa-video"></i>
+          <h3>WATCH LIVE STREAMS</h3>
+          <p>Experience worship and prophetic declarations</p>
+        </div>
+      </div>
+      <div class="feature-card-img" id="prayerCard">
+        <div class="card-overlay"></div>
+        <div class="card-content">
+          <i class="fas fa-envelope-open-text"></i>
+          <h3>SEND PRAYER REQUESTS</h3>
+          <p>Let our community intercede on your behalf</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Our Church Gallery -->
+    <div>
+      <div class="section-title"><i class="fas fa-church"></i> Our Church</div>
+      <div class="videos-grid">
+        <div class="video-card glass-card-light">
+          <div class="video-thumb">
+            <img src="{% static 'images/Northampton/nor2.jpeg' %}" alt="Main Sanctuary" class="thumb-img">
+          </div>
+          <div class="video-info">
+            <h4>Northampton 2026</h4>
+            <p> Leaders and Ministers Retreat</p>
+          </div>
+        </div>
+        <div class="video-card glass-card-light">
+          <div class="video-thumb">
+            <img src="{% static 'images/Edinburgh/edi2.jpeg' %}" alt="Worship Service" class="thumb-img">
+          </div>
+          <div class="video-info">
+            <h4>Edinburgh 2024</h4>
+            <p>The PPN Annual Healing and Deliverance Conference</p>
+          </div>
+        </div>
+        <div class="video-card glass-card-light">
+          <div class="video-thumb">
+            <img src="{% static 'images/Birmingham/bir1.jpeg' %}" alt="Prayer Tower" class="thumb-img">
+          </div>
+          <div class="video-info">
+            <h4>Birmingham 2025</h4>
+            <p>The PPN Annual Healing and Deliverance Conference</p>
+          </div>
+        </div>
+        <div class="video-card glass-card-light">
+          <div class="video-thumb">
+            <img src="{% static 'images/Northampton/nor8.jpeg' %}" alt="Children's Ministry" class="thumb-img">
+          </div>
+          <div class="video-info">
+            <h4>Northampton 2026</h4>
+            <p>Leaders and Ministers Retreat</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   <!-- Testimonies -->
+<div class="double-column">
+  <div class="upcoming-box glass-card-light">
+    <h3><i class="fas fa-calendar-alt"></i> The season of Restoration</h3>
+    <img src="{% static 'images/img2.jpeg' %}" alt="Restoration season" style="width:100%; border-radius:1rem;">
+  </div>
+  <div class="testimonies-box glass-card-light">
+    <h3><i class="fas fa-comment-dots"></i> Testimonies</h3>
+    <div class="testimony-carousel">
+      <button class="carousel-btn prev-btn" id="testiPrevBtn">&#10094;</button>
+      <div class="carousel-container">
+        <div class="carousel-track" id="testiCarouselTrack">
+          <img src="{% static 'images/testimonies/tes1.jpeg' %}" alt="Testimony 1" class="testimony-carousel-img">
+          <img src="{% static 'images/testimonies/tes2.jpeg' %}" alt="Testimony 2" class="testimony-carousel-img">
+          <img src="{% static 'images/testimonies/tes3.jpeg' %}" alt="Testimony 3" class="testimony-carousel-img">
+          <img src="{% static 'images/testimonies/tes4.jpeg' %}" alt="Testimony 4" class="testimony-carousel-img">
+        </div>
+      </div>
+      <button class="carousel-btn next-btn" id="testiNextBtn">&#10095;</button>
+    </div>
+    <div class="carousel-dots" id="testiDots"></div>
+    <a href="{% url 'testimonies' %}" style="display: inline-block; margin-top: 1rem;">Read all →</a>
+  </div>
+</div>
+
+    <!-- Recent Sermons -->
+    <div class="sermons-preview">
+      <div class="section-title"><i class="fas fa-bible"></i> Recent Sermons</div>
+      <div class="videos-grid">
+        {% for sermon in latest_sermons %}
+        <div class="video-card glass-card-light">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/{{ sermon.video_id }}/maxresdefault.jpg" alt="{{ sermon.title }}">
+          </div>
+          <div class="video-info">
+            <h4>{{ sermon.title }}</h4>
+            <div class="video-meta">{{ sermon.preacher }} | {{ sermon.date }}</div>
+          </div>
+        </div>
+        {% empty %}
+        <p>No sermons yet. Check back soon.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="newsletter glass-card-light">
+      <h3>Get Daily Prayer Notifications</h3>
+      <form action="{% url 'newsletter_signup' %}" method="POST" class="news-form">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Your email" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <!-- Latest Blogs (fixed image conditional) -->
+    <div class="info-grid">
+      {% for post in latest_posts %}
+      <div class="info-card glass-card-light">
+        {% if post.image_url %}
+          <img src="{{ post.image_url }}" alt="{{ post.title }}" class="blog-img">
+        {% else %}
+          <img src="{% static 'images/blog-placeholder.jpg' %}" alt="Blog image" class="blog-img">
+        {% endif %}
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content|striptags|truncatechars:80 }}</p>
+        <a href="{% url 'blog_detail' post.slug %}" class="reminder-btn">Read More</a>
+      </div>
+      {% empty %}
+      <p>No blog posts yet. Check back soon.</p>
+      {% endfor %}
+    </div>
+
+    <!-- PayPal Donate -->
+    <div class="paypal-donate">
+    <h3>Support the Ministry</h3>
+      <a href="{% url 'donate' %}" class="gold-btn">Donate via PayPal or Bank →</a>
+    </div>
+
+     <footer>
+      <div class="footer-content">
+        <div class="footer-social">
+          <a href="https://www.facebook.com/prayerpowernetwork" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.youtube.com/channel/UCS1lJ8S-1KBpQavhqSiwehQ" target="_blank"><i class="fab fa-youtube"></i></a>
+          <a href="https://instagram.com/prayerpower_network" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>© 2026 Prayer Power Network (A Non-Denominational Church) <br> Registered charity number: 1192591 | <a href="#">Terms & Services</a> | Faith, Hope, Love</p>
+      </div>
+    </footer>
+  </div>
+</main>
+
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

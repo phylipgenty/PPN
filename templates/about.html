@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us | Prayer Power Network{% endblock %}
+
+{% block extra_css %}
+<style>
+  .about-hero {
+    text-align: center;
+    padding: 3rem 1rem;
+    margin-bottom: 2rem;
+  }
+  .about-hero h1 {
+    font-size: 2.5rem;
+    color: #ffefc0;  /* warm light to match new theme */
+    margin-bottom: 1rem;
+  }
+  .about-hero p {
+    max-width: 700px;
+    margin: 0 auto;
+    color: #e0d6f5;
+    font-size: 1.1rem;
+  }
+  .founders-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+  .founders-img-wrapper {
+    flex: 1;
+    min-width: 280px;
+  }
+  .founders-img {
+    width: 100%;
+    border-radius: 1.5rem;
+    object-fit: cover;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    border: 3px solid #ffcd5c;
+  }
+  .founders-info {
+    flex: 1.5;
+    min-width: 280px;
+  }
+  .founders-name {
+    font-size: 1.8rem;
+    color: #ffefc0;
+    margin-bottom: 0.3rem;
+  }
+  .founders-title {
+    font-size: 1rem;
+    color: #ffcd5c;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .founders-bio {
+    color: #e0d6f5;
+    line-height: 1.6;
+  }
+  .mission-section {
+    background: rgba(30, 20, 50, 0.6);
+    border-radius: 1.8rem;
+    padding: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+  }
+  .mission-section h2 {
+    color: #ffefc0;
+    margin-bottom: 1rem;
+  }
+  .mission-section p {
+    max-width: 800px;
+    margin: 0 auto;
+    color: #e0d6f5;
+    line-height: 1.6;
+  }
+  .values-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+  .value-item {
+    flex: 1;
+    min-width: 180px;
+    text-align: center;
+    padding: 1rem;
+    background: rgba(30, 20, 50, 0.5);
+    border-radius: 1.5rem;
+  }
+  .value-item i {
+    font-size: 2rem;
+    color: #ffcd5c;
+    margin-bottom: 0.5rem;
+  }
+  .value-item h4 {
+    color: #ffefc0;
+    margin-bottom: 0.5rem;
+  }
+  .value-item p {
+    font-size: 0.85rem;
+    color: #cdc4e8;
+  }
+  @media (max-width: 768px) {
+    .founders-card {
+      flex-direction: column;
+      text-align: center;
+    }
+    .founders-info {
+      text-align: center;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="about-hero">
+    <h1>About Prayer Power Network</h1>
+    <p>Raising a global army of prayer warriors, igniting faith, and transforming lives through the power of prayer and the Word.</p>
+  </div>
+
+  <!-- Founders Section -->
+  <div class="founders-card glass-card-light">
+    <div class="founders-img-wrapper">
+      <img src="{% static 'images/pastor-couple.jpeg' %}" alt="Pastor Henry & Joy Onyirioha" class="founders-img" onerror="this.src='https://via.placeholder.com/600x400?text=Pastor+Henry+%26+Joy'">
+    </div>
+    <div class="founders-info">
+      <h2 class="founders-name">Pastor Henry & Joy Onyirioha</h2>
+      <p class="founders-title">Founders of Prayer Power Network</p>
+      <div class="founders-bio">
+        <p>Pastor Henry is a prophetic voice, teacher, and prayer leader with a burning passion to see believers walk in supernatural power. He founded Prayer Power Network to equip the body of Christ for effective prayer and spiritual warfare. With decades of ministry experience, he has ministered across the UK, Africa, and online, seeing countless testimonies of healing, deliverance, and breakthrough.</p>
+        <p style="margin-top: 0.8rem;">Joy is a worship leader, intercessor, and women's ministry director. Her heart for prayer and prophetic worship has opened heavens in many gatherings. She leads the PPN worship team and oversees the women's prayer fellowship. Together with Pastor Henry, she has built a community where faith comes alive and lives are transformed by God's presence.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mission Section -->
+  <div class="mission-section glass-card-light">
+    <h2><i class="fas fa-bullseye"></i> Our Mission</h2>
+    <p>To ignite faith, build prayer warriors, and transform communities through the uncompromising word of God and the power of the Holy Spirit. We exist to see lives changed, families restored, and nations impacted for Christ.</p>
+  </div>
+
+  <!-- Core Values -->
+  <div class="values-list">
+    <div class="value-item">
+      <i class="fas fa-praying-hands"></i>
+      <h4>Prayer</h4>
+      <p>Prayer is our foundation and first response.</p>
+    </div>
+    <div class="value-item">
+      <i class="fas fa-bible"></i>
+      <h4>Word</h4>
+      <p>We stand on the uncompromised truth of Scripture.</p>
+    </div>
+    <div class="value-item">
+      <i class="fas fa-heart"></i>
+      <h4>Love</h4>
+      <p>We demonstrate God's love through action.</p>
+    </div>
+    <div class="value-item">
+      <i class="fas fa-fire"></i>
+      <h4>Power</h4>
+      <p>We believe in the present-day power of the Holy Spirit.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

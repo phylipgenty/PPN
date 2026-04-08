@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Book Appointment | Prayer Power Network{% endblock %}
+
+{% block extra_css %}
+<style>
+  .appointment-container {
+    max-width: 800px;
+    margin: 2rem auto;
+  }
+  .appointment-card {
+    padding: 2rem;
+  }
+  .appointment-card h1 {
+    text-align: center;
+    color: #ffefc0;
+    margin-bottom: 1rem;
+  }
+  .appointment-intro {
+    text-align: center;
+    color: #e0d6f5;
+    margin-bottom: 2rem;
+  }
+  .appointment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .form-group label {
+    font-weight: 600;
+    color: #ffefc0;
+    font-size: 0.9rem;
+  }
+  .form-group label .required {
+    color: #ffcd5c;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.8rem 1rem;
+    border-radius: 0.8rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #ffcd5c;
+    background: rgba(255,255,255,0.25);
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: #cdc4e8;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  button[type="submit"] {
+    background: #ffcd5c;
+    color: #1a1a2a;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 2rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 0.5rem;
+  }
+  button[type="submit"]:hover {
+    background: #ffc43a;
+    transform: scale(1.02);
+  }
+  .alert {
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .alert-success {
+    background: rgba(0,128,0,0.2);
+    border: 1px solid #00aa00;
+    color: #a0e0a0;
+  }
+  .alert-error {
+    background: rgba(255,0,0,0.2);
+    border: 1px solid #ff4444;
+    color: #ffa0a0;
+  }
+  @media (max-width: 600px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container appointment-container">
+  <div class="glass-card-light appointment-card">
+    <h1><i class="fas fa-calendar-check"></i> Book an Appointment</h1>
+    <div class="appointment-intro">
+      <p>Schedule a one-on-one pastoral session, prayer, or counseling. We will get back to you within 24 hours.</p>
+    </div>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST" class="appointment-form">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="name">Full Name <span class="required">*</span></label>
+        <input type="text" name="name" id="name" placeholder="Your full name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address <span class="required">*</span></label>
+        <input type="email" name="email" id="email" placeholder="Your email address" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number <span class="required">*</span></label>
+        <input type="tel" name="phone" id="phone" placeholder="Your phone number" required>
+      </div>
+      <div class="form-group">
+        <label for="appointment_type">Appointment Type</label>
+        <select name="appointment_type" id="appointment_type">
+          <option value="prayer">Prayer Request</option>
+          <option value="counseling">Pastoral Counseling</option>
+          <option value="deliverance">Deliverance Session</option>
+          <option value="marriage">Marriage Counseling</option>
+          <option value="general">General Appointment</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="preferred_date">Preferred Date <span class="required">*</span></label>
+          <input type="date" name="preferred_date" id="preferred_date" required>
+        </div>
+        <div class="form-group">
+          <label for="preferred_time">Preferred Time <span class="required">*</span></label>
+          <input type="time" name="preferred_time" id="preferred_time" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="message">Additional Message / Notes</label>
+        <textarea name="message" id="message" rows="4" placeholder="Any specific prayer request or details..."></textarea>
+      </div>
+      <button type="submit">Submit Request</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Events | Prayer Power Network{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* Gallery slideshow with controls */
+  .events-gallery {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .events-gallery .gallery-slideshow-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .events-gallery .gallery-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+  }
+
+  .events-gallery .gallery-slide.active {
+    opacity: 1;
+  }
+
+  .events-gallery .gallery-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: white;
+    background: rgba(0,0,0,0.6);
+    padding: 1rem;
+    z-index: 2;
+  }
+
+  /* Controls */
+  .gallery-controls {
+    position: absolute;
+    bottom: 80px;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .gallery-arrow {
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50%;
+  }
+
+  .gallery-arrow:hover {
+    background: rgba(0,0,0,0.8);
+  }
+
+  .gallery-dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .gallery-dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .gallery-dot.active {
+    background-color: #ffcd5c;
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Events grid */
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .event-card {
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s;
+  }
+
+  .event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+  }
+
+  .event-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .event-info {
+    padding: 1.5rem;
+  }
+
+  .event-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffefc0;
+    margin-bottom: 0.5rem;
+  }
+
+  .event-date,
+  .event-location {
+    font-size: 0.85rem;
+    color: #cdc4e8;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .event-description {
+    color: #e0d6f5;
+    line-height: 1.5;
+    margin-top: 0.8rem;
+  }
+
+  .no-events {
+    text-align: center;
+    padding: 3rem;
+    color: #e0d6f5;
+  }
+
+  @media (max-width: 768px) {
+    .events-gallery {
+      height: 40vh;
+    }
+
+    .gallery-controls {
+      bottom: 60px;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- GALLERY -->
+<div class="events-gallery">
+  <div class="gallery-slideshow-container">
+
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir1.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir2.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor7.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir4.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir6.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi2.jpeg' %}');"></div>
+
+  </div>
+
+  <div class="gallery-caption">
+    <h2>Past Events & Gatherings</h2>
+    <p>Moments of worship, prayer, and breakthrough</p>
+  </div>
+
+  <div class="gallery-controls">
+    <button class="gallery-arrow" id="galleryPrevBtn">&#10094;</button>
+    <div class="gallery-dots" id="galleryDots"></div>
+    <button class="gallery-arrow" id="galleryNextBtn">&#10095;</button>
+  </div>
+</div>
+
+<!-- EVENTS -->
+<div class="container">
+  <div class="section-title">
+    <i class="fas fa-calendar-alt"></i> Upcoming Events
+  </div>
+
+  <div class="events-grid">
+
+    {% for event in events %}
+    <div class="event-card glass-card-light">
+
+      {% if event.image %}
+        <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-image">
+      {% else %}
+        <img src="{% static 'images/event-placeholder.jpg' %}" alt="Event placeholder" class="event-image">
+      {% endif %}
+
+      <div class="event-info">
+        <h3 class="event-title">{{ event.title }}</h3>
+
+        <div class="event-date">
+          <i class="far fa-calendar-alt"></i>
+          {{ event.start_date|date:"M d, Y" }}
+          {% if event.end_date and event.end_date != event.start_date %}
+            – {{ event.end_date|date:"M d, Y" }}
+          {% endif %}
+        </div>
+
+        <div class="event-location">
+          <i class="fas fa-map-marker-alt"></i>
+          {{ event.location }}
+        </div>
+
+        <p class="event-description">
+          {{ event.description|truncatechars:120 }}
+        </p>
+      </div>
+    </div>
+
+    {% empty %}
+    <div class="no-events">
+      <p>No upcoming events at this time. Check back soon!</p>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  (function () {
+    const container = document.querySelector('.gallery-slideshow-container');
+    if (!container) return;
+
+    const slides = Array.from(container.querySelectorAll('.gallery-slide'));
+    if (!slides.length) return;
+
+    let current = 0;
+    let timer;
+
+    const dotsContainer = document.getElementById('galleryDots');
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.classList.add('gallery-dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.gallery-dot');
+
+    function update() {
+      slides.forEach((s, i) => s.classList.toggle('active', i === current));
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    function goTo(i) {
+      current = (i + slides.length) % slides.length;
+      update();
+      reset();
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    function reset() {
+      clearInterval(timer);
+      timer = setInterval(next, 6000);
+    }
+
+    document.getElementById('galleryNextBtn').onclick = next;
+    document.getElementById('galleryPrevBtn').onclick = prev;
+
+    update();
+    reset();
+  })();
+</script>
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Share Your Testimony | Prayer Power Network{% endblock %}
+
+{% block extra_css %}
+<style>
+  .share-container {
+    max-width: 700px;
+    margin: 2rem auto;
+  }
+  .share-card {
+    padding: 2rem;
+  }
+  .share-card h1 {
+    text-align: center;
+    color: #ffefc0;
+    margin-bottom: 1rem;
+  }
+  .share-intro {
+    text-align: center;
+    color: #e0d6f5;
+    margin-bottom: 2rem;
+  }
+  .testimony-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .form-group label {
+    font-weight: 600;
+    color: #ffefc0;
+  }
+  .form-group input, .form-group textarea {
+    padding: 0.8rem;
+    border-radius: 0.8rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-family: inherit;
+  }
+  .form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #ffcd5c;
+  }
+  button[type="submit"] {
+    background: #ffcd5c;
+    color: #1a1a2a;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 2rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 0.5rem;
+  }
+  button[type="submit"]:hover {
+    background: #ffc43a;
+    transform: scale(1.02);
+  }
+  .alert {
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .alert-success {
+    background: rgba(0,128,0,0.2);
+    border: 1px solid #00aa00;
+    color: #a0e0a0;
+  }
+  .alert-error {
+    background: rgba(255,0,0,0.2);
+    border: 1px solid #ff4444;
+    color: #ffa0a0;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container share-container">
+  <div class="glass-card-light share-card">
+    <h1><i class="fas fa-pen-fancy"></i> Share Your Testimony</h1>
+    <div class="share-intro">
+      <p>Has God done something amazing in your life? Tell us about it, and we'll share it to encourage others.</p>
+    </div>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data" class="testimony-form">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="name">Your Name *</label>
+        <input type="text" name="name" id="name" required placeholder="e.g., Sarah J.">
+      </div>
+      <div class="form-group">
+        <label for="location">Location (optional)</label>
+        <input type="text" name="location" id="location" placeholder="e.g., Manchester, UK">
+      </div>
+      <div class="form-group">
+        <label for="content">Your Testimony *</label>
+        <textarea name="content" id="content" rows="6" required placeholder="Share what God has done..."></textarea>
+      </div>
+      <div class="form-group">
+        <label for="image">Upload a Photo (optional)</label>
+        <input type="file" name="image" id="image" accept="image/*">
+        <small style="color:#cdc4e8;">You can upload a picture (JPEG, PNG). Max size 5MB.</small>
+      </div>
+      <button type="submit">Submit Testimony</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

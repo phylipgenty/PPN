@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Donate | Prayer Power Network{% endblock %}
+
+{% block extra_css %}
+<style>
+  .donate-container {
+    max-width: 800px;
+    margin: 2rem auto;
+  }
+  .donate-card {
+    padding: 2rem;
+    text-align: center;
+  }
+  .donate-card h1 {
+    color: #ffefc0;
+    margin-bottom: 1rem;
+  }
+  .donate-intro {
+    color: #e0d6f5;
+    margin-bottom: 2rem;
+  }
+  .donation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+  }
+  .form-group label {
+    color: #ffefc0;
+    font-weight: 600;
+  }
+  .form-group input {
+    padding: 0.8rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 1rem;
+  }
+  .form-group input:focus {
+    outline: none;
+    border-color: #ffcd5c;
+  }
+  .donate-btn {
+    background: #ffcd5c;
+    color: #1a1a2a;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 2rem;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .donate-btn:hover {
+    background: #ffc43a;
+  }
+  .bank-details {
+    background: rgba(30,20,50,0.7);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    text-align: left;
+    margin-top: 2rem;
+  }
+  .bank-details h3 {
+    color: #ffefc0;
+    margin-bottom: 1rem;
+  }
+  .bank-details p {
+    margin: 0.5rem 0;
+    color: #e0d6f5;
+  }
+  .highlight {
+    color: #ffcd5c;
+    font-weight: bold;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container donate-container">
+  <div class="glass-card-light donate-card">
+    <h1><i class="fas fa-heart"></i> Support the Mission</h1>
+    <div class="donate-intro">
+      <p>Your generous gift helps us reach more souls, support missions, and keep prayer alive worldwide.</p>
+    </div>
+
+    <form method="POST" action="{% url 'process_donation' %}" class="donation-form">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" name="name" id="name" required placeholder="e.g., John Doe">
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" name="email" id="email" required placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label for="amount">Amount (GBP)</label>
+        <input type="number" name="amount" id="amount" step="0.01" min="1" required placeholder="e.g., 25.00">
+      </div>
+      <button type="submit" class="donate-btn">Donate with PayPal</button>
+    </form>
+
+    <div class="bank-details">
+      <h3><i class="fas fa-university"></i> Bank Transfer Details</h3>
+      <p><span class="highlight">Account Name:</span> PRAYER POWER NETWORK</p>
+      <p><span class="highlight">Bank:</span> NATIONAL WESTMINSTER BANK PLC</p>
+      <p><span class="highlight">Sort Code:</span> 60-01-16</p>
+      <p><span class="highlight">Account Number:</span> 45330514</p>
+      <p><span class="highlight">WhatsApp:</span> <a href="https://wa.me/447990348763" target="_blank" style="color:#ffcd5c;">+44 7990 348763</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
