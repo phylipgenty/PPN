@@ -1,29 +1,84 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
 
-{% block title %}{{ blog.title }}{% endblock %}
+{% block title %}{{ blog.title }} | Prayer Power Network{% endblock %}
+
+{% block extra_css %}
+<style>
+  .blog-detail-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(30,20,50,0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .blog-detail-title {
+    font-size: 2rem;
+    color: #ffefc0;
+    margin-bottom: 0.5rem;
+  }
+  .blog-detail-meta {
+    color: #cdc4e8;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+  .blog-detail-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .blog-detail-content {
+    color: #e0d6f5;
+    line-height: 1.7;
+    font-size: 1.05rem;
+  }
+  .blog-detail-content p {
+    margin-bottom: 1.2rem;
+  }
+  .back-link {
+    display: inline-block;
+    margin-top: 2rem;
+    color: #ffcd5c;
+    text-decoration: none;
+    border-bottom: 1px solid #ffcd5c;
+  }
+  .back-link:hover {
+    color: white;
+    border-bottom-color: white;
+  }
+  @media (max-width: 768px) {
+    .blog-detail-title {
+      font-size: 1.5rem;
+    }
+    .blog-detail-container {
+      padding: 1.5rem;
+    }
+  }
+</style>
+{% endblock %}
 
 {% block content %}
-
-<div class="container mt-5">
-
-    <!-- BLOG TITLE -->
-    <h1 class="mb-3">{{ blog.title }}</h1>
-
-    <!-- META INFO -->
-    <p class="text-muted">
-        By {{ blog.author }} • {{ blog.date }}
-    </p>
-
-    <!-- IMAGE -->
-    {% if blog.image %}
-        <img src="{{ blog.image.url }}" class="img-fluid mb-4" alt="{{ blog.title }}">
-    {% endif %}
-
-    <!-- CONTENT -->
-    <div class="blog-content">
-        {{ blog.content|safe }}
+<div class="container">
+  <div class="blog-detail-container">
+    <h1 class="blog-detail-title">{{ blog.title }}</h1>
+    <div class="blog-detail-meta">
+      <i class="far fa-calendar-alt"></i> {{ blog.date|date:"M d, Y" }} &nbsp;|&nbsp;
+      <i class="fas fa-user"></i> {{ blog.author }}
     </div>
 
-</div>
+    {% if blog.image %}
+      <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="blog-detail-image">
+    {% endif %}
 
+    <div class="blog-detail-content">
+      {{ blog.content|safe }}
+    </div>
+
+    <a href="{% url 'blog_list' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to all blogs</a>
+  </div>
+</div>
 {% endblock %}
