@@ -1,0 +1,1 @@
+web: python -m gunicorn ppn_project.wsgi:application
