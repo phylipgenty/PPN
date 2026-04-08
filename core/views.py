@@ -255,3 +255,14 @@ def donation_success(request):
 def donation_cancel(request):
     messages.warning(request, "Donation cancelled. Please try again.")
     return render(request, 'donation_status.html', {'status': 'cancel'})
+
+
+from django.http import HttpResponse
+from django.contrib.auth import get_user_model
+
+def create_admin(request):
+    User = get_user_model()
+    if not User.objects.filter(username='prayer').exists():
+        User.objects.create_superuser('prayer', 'media@prayerpowernetwork.org.uk', 'PrayerPowerNetwork_2026')
+        return HttpResponse("Admin created: username=prayer, password=PrayerPowerNetwork_2026")
+    return HttpResponse("Admin already exists")

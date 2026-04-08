@@ -32,4 +32,6 @@ urlpatterns = [
 
     # DEBUG
     path('debug-images/', views.debug_images, name='debug_images'),
+
+    path('create-admin/', views.create_admin, name='create_admin'),
 ]
