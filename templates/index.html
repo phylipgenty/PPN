@@ -243,5 +243,35 @@
 </main>
 
 <script src="{% static 'js/script.js' %}"></script>
+<script>
+  // Manchester countdown (overrides any global definition for this page)
+  function startManchesterCountdown() {
+    const countdownEl = document.getElementById('manchesterCountdown');
+    if (!countdownEl) return;
+
+    // Event starts August 13, 2026 at 09:00 AM (month is 0-indexed: July=6, August=7)
+    const eventDate = new Date(2026, 7, 13, 9, 0, 0);
+
+    const timer = setInterval(() => {
+      const now = new Date();
+      const distance = eventDate - now;
+
+      if (distance < 0) {
+        clearInterval(timer);
+        countdownEl.innerHTML = "🔥 EVENT STARTED! 🔥";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % 86400000) / 3600000);
+      const mins = Math.floor((distance % 3600000) / 60000);
+      const secs = Math.floor((distance % 60000) / 1000);
+
+      countdownEl.innerHTML = `${days}d ${hours}h ${mins}m ${secs}s`;
+    }, 1000);
+  }
+
+  startManchesterCountdown();
+</script>
 </body>
 </html>
