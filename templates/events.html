@@ -5,8 +5,8 @@
 
 {% block extra_css %}
 <style>
-  /* Gallery slideshow with controls */
-  .events-gallery {
+  /* Shared gallery styles */
+  .gallery-section {
     position: relative;
     width: 100%;
     height: 100vh;
@@ -14,7 +14,7 @@
     margin-bottom: 2rem;
   }
 
-  .events-gallery .gallery-slideshow-container {
+  .gallery-section .gallery-slideshow-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -23,7 +23,7 @@
     z-index: 0;
   }
 
-  .events-gallery .gallery-slide {
+  .gallery-section .gallery-slide {
     position: absolute;
     top: 0;
     left: 0;
@@ -35,11 +35,11 @@
     transition: opacity 1.5s ease-in-out;
   }
 
-  .events-gallery .gallery-slide.active {
+  .gallery-section .gallery-slide.active {
     opacity: 1;
   }
 
-  .events-gallery .gallery-caption {
+  .gallery-section .gallery-caption {
     position: absolute;
     bottom: 20px;
     left: 0;
@@ -51,7 +51,6 @@
     z-index: 2;
   }
 
-  /* Controls */
   .gallery-controls {
     position: absolute;
     bottom: 80px;
@@ -155,10 +154,9 @@
   }
 
   @media (max-width: 768px) {
-    .events-gallery {
+    .gallery-section {
       height: 40vh;
     }
-
     .gallery-controls {
       bottom: 60px;
     }
@@ -168,51 +166,62 @@
 
 {% block content %}
 
-<!-- GALLERY -->
-<div class="events-gallery">
-  <div class="gallery-slideshow-container">
-
+<!-- ================= PAST EVENTS GALLERY ================= -->
+<div class="gallery-section" id="pastGallery">
+  <div class="gallery-slideshow-container" id="pastSlideshow">
     <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir1.jpeg' %}');"></div>
     <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir2.jpeg' %}');"></div>
     <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor7.jpeg' %}');"></div>
     <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir4.jpeg' %}');"></div>
     <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir6.jpeg' %}');"></div>
     <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi2.jpeg' %}');"></div>
-
   </div>
-
   <div class="gallery-caption">
     <h2>Past Events & Gatherings</h2>
     <p>Moments of worship, prayer, and breakthrough</p>
   </div>
-
   <div class="gallery-controls">
-    <button class="gallery-arrow" id="galleryPrevBtn">&#10094;</button>
-    <div class="gallery-dots" id="galleryDots"></div>
-    <button class="gallery-arrow" id="galleryNextBtn">&#10095;</button>
+    <button class="gallery-arrow pastPrevBtn">&#10094;</button>
+    <div class="gallery-dots" id="pastDots"></div>
+    <button class="gallery-arrow pastNextBtn">&#10095;</button>
   </div>
 </div>
 
-<!-- EVENTS -->
+<!-- ================= FUTURE EVENTS GALLERY (MANUAL) ================= -->
+<div class="gallery-section" id="futureGallery">
+  <div class="gallery-slideshow-container" id="futureSlideshow">
+    <div class="gallery-slide" style="background-image: url('{% static 'images/img1.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/img2.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/img3.jpeg' %}');"></div>
+    <!-- Add more future event images as needed -->
+  </div>
+  <div class="gallery-caption">
+    <h2>Future Events – Save the Dates!</h2>
+    <p>Coming soon: conferences, prayer camps, and revival gatherings</p>
+  </div>
+  <div class="gallery-controls">
+    <button class="gallery-arrow futurePrevBtn">&#10094;</button>
+    <div class="gallery-dots" id="futureDots"></div>
+    <button class="gallery-arrow futureNextBtn">&#10095;</button>
+  </div>
+</div>
+
+<!-- ================= DYNAMIC UPCOMING EVENTS ================= -->
 <div class="container">
   <div class="section-title">
     <i class="fas fa-calendar-alt"></i> Upcoming Events
   </div>
 
   <div class="events-grid">
-
     {% for event in events %}
     <div class="event-card glass-card-light">
-
       {% if event.image %}
         <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-image">
       {% else %}
         <img src="{% static 'images/event-placeholder.jpg' %}" alt="Event placeholder" class="event-image">
       {% endif %}
-
       <div class="event-info">
         <h3 class="event-title">{{ event.title }}</h3>
-
         <div class="event-date">
           <i class="far fa-calendar-alt"></i>
           {{ event.start_date|date:"M d, Y" }}
@@ -220,52 +229,48 @@
             – {{ event.end_date|date:"M d, Y" }}
           {% endif %}
         </div>
-
         <div class="event-location">
           <i class="fas fa-map-marker-alt"></i>
           {{ event.location }}
         </div>
-
-        <p class="event-description">
-          {{ event.description|truncatechars:120 }}
-        </p>
+        <p class="event-description">{{ event.description|truncatechars:120 }}</p>
       </div>
     </div>
-
     {% empty %}
     <div class="no-events">
       <p>No upcoming events at this time. Check back soon!</p>
     </div>
     {% endfor %}
-
   </div>
 </div>
-
 {% endblock %}
 
 {% block extra_js %}
 <script>
-  (function () {
-    const container = document.querySelector('.gallery-slideshow-container');
+  // Helper to create a carousel for a specific gallery
+  function initGallery(containerId, slideshowId, prevBtnClass, nextBtnClass, dotsId) {
+    const container = document.getElementById(containerId);
     if (!container) return;
-
-    const slides = Array.from(container.querySelectorAll('.gallery-slide'));
+    const slideshow = document.getElementById(slideshowId);
+    if (!slideshow) return;
+    const slides = Array.from(slideshow.querySelectorAll('.gallery-slide'));
     if (!slides.length) return;
 
     let current = 0;
     let timer;
 
-    const dotsContainer = document.getElementById('galleryDots');
-
-    slides.forEach((_, i) => {
-      const dot = document.createElement('div');
-      dot.classList.add('gallery-dot');
-      if (i === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => goTo(i));
-      dotsContainer.appendChild(dot);
-    });
-
-    const dots = document.querySelectorAll('.gallery-dot');
+    // Create dots
+    const dotsContainer = document.getElementById(dotsId);
+    if (dotsContainer) {
+      slides.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.classList.add('gallery-dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+      });
+    }
+    const dots = document.querySelectorAll(`#${containerId} .gallery-dot`);
 
     function update() {
       slides.forEach((s, i) => s.classList.toggle('active', i === current));
@@ -275,22 +280,29 @@
     function goTo(i) {
       current = (i + slides.length) % slides.length;
       update();
-      reset();
+      resetTimer();
     }
 
     function next() { goTo(current + 1); }
     function prev() { goTo(current - 1); }
 
-    function reset() {
-      clearInterval(timer);
+    function resetTimer() {
+      if (timer) clearInterval(timer);
       timer = setInterval(next, 6000);
     }
 
-    document.getElementById('galleryNextBtn').onclick = next;
-    document.getElementById('galleryPrevBtn').onclick = prev;
+    // Attach button events
+    const prevBtn = container.querySelector(prevBtnClass);
+    const nextBtn = container.querySelector(nextBtnClass);
+    if (prevBtn) prevBtn.onclick = prev;
+    if (nextBtn) nextBtn.onclick = next;
 
     update();
-    reset();
-  })();
+    resetTimer();
+  }
+
+  // Initialize both galleries
+  initGallery('pastGallery', 'pastSlideshow', '.pastPrevBtn', '.pastNextBtn', 'pastDots');
+  initGallery('futureGallery', 'futureSlideshow', '.futurePrevBtn', '.futureNextBtn', 'futureDots');
 </script>
 {% endblock %}
