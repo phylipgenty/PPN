@@ -79,4 +79,4 @@ class BlogPostAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'date', 'is_published')
     list_filter = ('is_published', 'date')
     search_fields = ('title', 'content')
-    fields = ('title', 'image', 'content', 'author', 'date', 'is_published')
+    fields = ('title', 'image', 'content', 'author', 'is_published')   # removed 'date'
