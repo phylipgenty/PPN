@@ -6,7 +6,7 @@
 {% block extra_css %}
 <style>
   .newsletter-container {
-    max-width: 700px;
+    max-width: 900px;
     margin: 2rem auto;
   }
   .newsletter-card {
@@ -59,6 +59,39 @@
   .newsletter-form button:hover {
     background: #ffc43a;
     transform: scale(1.02);
+  }
+  .resources-section {
+    margin: 2rem 0;
+    text-align: left;
+    background: rgba(30,20,50,0.5);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+  }
+  .resources-section h3 {
+    color: #ffefc0;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .resources-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .resource-link {
+    background: rgba(255,255,255,0.1);
+    padding: 0.6rem 1.2rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    color: #ffefc0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: 0.2s;
+  }
+  .resource-link:hover {
+    background: #ffcd5c;
+    color: #1a1a2a;
   }
   .benefits-list {
     display: flex;
@@ -132,6 +165,44 @@
       <input type="email" name="email" placeholder="Enter your email address" required>
       <button type="submit">Subscribe Now</button>
     </form>
+
+    <!-- ========== HARDCODED PDF RESOURCES ========== -->
+    <div class="resources-section">
+      <h3><i class="fas fa-download"></i> You can now Read and Download Resources:</h3>
+      <div class="resources-list">
+        <a href="{% static 'images/newsletters/n1.pdf' %}" class="resource-link" download>
+          <i class="fas fa-file-pdf"></i> PPN Newsletter April 2026
+        </a>
+        <a href="{% static 'images/newsletters/n2.pdf' %}" class="resource-link" download>
+          <i class="fas fa-file-pdf"></i> PPN Newsletter March 2026
+        </a>
+        <a href="{% static 'images/newsletters/n3.pdf' %}" class="resource-link" download>
+          <i class="fas fa-file-pdf"></i> PPN Newsletter January 2026
+        </a>
+        <a href="{% static 'images/newsletters/n4.pdf' %}" class="resource-link" download>
+          <i class="fas fa-file-pdf"></i> PPN Newsletter November 2025
+        </a>
+        <a href="{% static 'images/newsletters/n5.pdf' %}" class="resource-link" download>
+          <i class="fas fa-file-pdf"></i> PPN Newsletter February 2026
+        </a>
+        <a href="{% static 'images/newsletters/n6.pdf' %}" class="resource-link" download>
+          <i class="fas fa-file-pdf"></i> PPN Newsletter December 2025
+        </a>
+        <a href="{% static 'images/newsletters/n7.pdf' %}" class="resource-link" download>
+          <i class="fas fa-file-pdf"></i> PPN Newsletter October 2025
+        </a>
+        <a href="{% static 'images/newsletters/n8.pdf' %}" class="resource-link" download>
+          <i class="fas fa-file-pdf"></i> PPN Newsletter September 2025
+        </a>
+        <a href="{% static 'images/newsletters/n9.pdf' %}" class="resource-link" download>
+          <i class="fas fa-file-pdf"></i> PPN Newsletter June 2025
+        </a>
+        <a href="{% static 'images/newsletters/n10.pdf' %}" class="resource-link" download>
+          <i class="fas fa-file-pdf"></i> PPN Newsletter April 2025
+        </a>
+        <!-- Add more as needed -->
+      </div>
+    </div>
 
     <div class="benefits-list">
       <div class="benefit-item">
