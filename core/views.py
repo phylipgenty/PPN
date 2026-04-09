@@ -269,3 +269,26 @@ def create_admin(request):
         User.objects.create_superuser('prayer', 'media@prayerpowernetwork.org.uk', 'PrayerPowerNetwork_2026')
         return HttpResponse("Admin created: username=prayer, password=PrayerPowerNetwork_2026")
     return HttpResponse("Admin already exists")
+
+# Testing the cloudinary kini
+from django.http import HttpResponse
+from django.core.files.storage import default_storage
+import os
+
+def debug_cloudinary(request):
+    cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME', 'NOT SET')
+    api_key = os.environ.get('CLOUDINARY_API_KEY', 'NOT SET')
+    api_secret = os.environ.get('CLOUDINARY_API_SECRET', 'NOT SET')
+    url = os.environ.get('CLOUDINARY_URL', 'NOT SET')
+    storage_class = str(default_storage.__class__)
+    output = f"""
+    <h2>Cloudinary Debug Info</h2>
+    <ul>
+        <li><b>CLOUDINARY_CLOUD_NAME:</b> {cloud_name}</li>
+        <li><b>CLOUDINARY_API_KEY:</b> {api_key}</li>
+        <li><b>CLOUDINARY_API_SECRET:</b> {api_secret[:5] + '...' if api_secret != 'NOT SET' else 'NOT SET'}</li>
+        <li><b>CLOUDINARY_URL:</b> {url[:30] + '...' if url != 'NOT SET' else 'NOT SET'}</li>
+        <li><b>Default Storage Class:</b> {storage_class}</li>
+    </ul>
+    """
+    return HttpResponse(output)

@@ -35,4 +35,5 @@ urlpatterns = [
     path('debug-images/', views.debug_images, name='debug_images'),
 
     path('create-admin/', views.create_admin, name='create_admin'),
+    path('debug-cloudinary/', views.debug_cloudinary, name='debug_cloudinary'),
 ]
