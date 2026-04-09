@@ -72,13 +72,12 @@
     </div>
   </div>
 
-  <div class="container">
-    <!-- Manchester Banner -->
-    <div class="manchester-banner">
-      <h2>MANCHESTER BIG EVENT</h2>  <!-- Removed 🇬🇧 flag -->
-      <p id="manchesterCountdown" class="countdown"></p>
-      <a href="{% url 'manchester' %}" class="gold-btn">Go to Manchester Page →</a>
-    </div>
+  <!-- Manchester Banner -->
+<div class="manchester-banner" style="background: url('{% static 'images/manchester-flyer.jpeg' %}') center/cover no-repeat;">
+  <h2>MANCHESTER BIG EVENT</h2>
+  <p id="manchesterCountdown" class="countdown"></p>
+  <a href="{% url 'manchester' %}" class="gold-btn">Go to Manchester Page →</a>
+</div>
 
     <!-- Action Cards -->
     <div class="cards-row">

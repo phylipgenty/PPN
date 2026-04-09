@@ -74,9 +74,8 @@
   }
   .resources-list {
     display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
+    flex-direction: column;
+    gap: 0.8rem;
   }
   .resource-link {
     background: rgba(255,255,255,0.1);
@@ -84,9 +83,9 @@
     border-radius: 2rem;
     text-decoration: none;
     color: #ffefc0;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.8rem;
     transition: 0.2s;
   }
   .resource-link:hover {
@@ -166,39 +165,39 @@
       <button type="submit">Subscribe Now</button>
     </form>
 
-    <!-- ========== HARDCODED PDF RESOURCES ========== -->
+    <!-- Read-only newsletter archive (latest to oldest) -->
     <div class="resources-section">
-      <h3><i class="fas fa-download"></i> You can now Read and Download Resources:</h3>
+      <h3><i class="fas fa-book-open"></i> Read Past Newsletters</h3>
       <div class="resources-list">
         <a href="{% static 'images/newsletters/n1.pdf' %}" class="resource-link" target="_blank">
-          <i class="fas fa-file-pdf"></i> PPN Newsletter April 2026
-        </a>
-        <a href="{% static 'images/newsletters/n2.pdf' %}" class="resource-link" target="_blank">
-          <i class="fas fa-file-pdf"></i> PPN Newsletter March 2026
-        </a>
-        <a href="{% static 'images/newsletters/n3.pdf' %}" class="resource-link" target="_blank">
-          <i class="fas fa-file-pdf"></i> PPN Newsletter January 2026
-        </a>
-        <a href="{% static 'images/newsletters/n4.pdf' %}" class="resource-link" target="_blank">
-          <i class="fas fa-file-pdf"></i> PPN Newsletter November 2025
+          <i class="fas fa-file-pdf"></i> April 2026 – The Season of Restoration
         </a>
         <a href="{% static 'images/newsletters/n5.pdf' %}" class="resource-link" target="_blank">
-          <i class="fas fa-file-pdf"></i> PPN Newsletter February 2026
+          <i class="fas fa-file-pdf"></i> March 2026 – Walking in Divine Health
+        </a>
+        <a href="{% static 'images/newsletters/n2.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> February 2026 – Financial Breakthrough
+        </a>
+        <a href="{% static 'images/newsletters/n3.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> January 2026 – New Year, New Level
         </a>
         <a href="{% static 'images/newsletters/n6.pdf' %}" class="resource-link" target="_blank">
-          <i class="fas fa-file-pdf"></i> PPN Newsletter December 2025
+          <i class="fas fa-file-pdf"></i> December 2025 – Christmas Prophetic Word
+        </a>
+        <a href="{% static 'images/newsletters/n4.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> November 2025 – Thanksgiving Edition
         </a>
         <a href="{% static 'images/newsletters/n7.pdf' %}" class="resource-link" target="_blank">
-          <i class="fas fa-file-pdf"></i> PPN Newsletter October 2025
+          <i class="fas fa-file-pdf"></i> October 2025 – The Power of Testimony
         </a>
         <a href="{% static 'images/newsletters/n8.pdf' %}" class="resource-link" target="_blank">
-          <i class="fas fa-file-pdf"></i> PPN Newsletter September 2025
+          <i class="fas fa-file-pdf"></i> September 2025 – Back to School Prayer
         </a>
         <a href="{% static 'images/newsletters/n9.pdf' %}" class="resource-link" target="_blank">
-          <i class="fas fa-file-pdf"></i> PPN Newsletter June 2025
+          <i class="fas fa-file-pdf"></i> June 2025 – Mid‑Year Revival
         </a>
         <a href="{% static 'images/newsletters/n10.pdf' %}" class="resource-link" target="_blank">
-          <i class="fas fa-file-pdf"></i> PPN Newsletter April 2025
+          <i class="fas fa-file-pdf"></i> April 2025 – Easter Special
         </a>
       </div>
     </div>

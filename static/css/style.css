@@ -462,7 +462,6 @@ body {
 
 /* ---------- MANCHESTER BANNER ---------- */
 .manchester-banner {
-  background: url("{% static 'images/manchester-flyer.jpeg' %}") center/cover no-repeat;
   position: relative;
   border-radius: 2rem;
   padding: 3rem 1.5rem;
@@ -481,6 +480,7 @@ body {
   border-radius: 2rem;
   z-index: 1;
 }
+
 .manchester-banner h2, .manchester-banner p, .manchester-banner a {
   position: relative;
   z-index: 2;
