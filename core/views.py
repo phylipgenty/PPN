@@ -254,6 +254,9 @@ def donation_cancel(request):
     return render(request, 'donation_status.html', {'status': 'cancel'})
 
 
+def regular(request):
+    return render(request, 'regular.html')
+
 # =========================
 # CREATE ADMIN (TEMPORARY)
 # =========================

@@ -30,6 +30,7 @@ urlpatterns = [
     path('donation/success/', views.donation_success, name='donation_success'),
     path('donation/cancel/', views.donation_cancel, name='donation_cancel'),
 
+    path('regular/', views.regular, name='regular'),
     # DEBUG
     path('debug-images/', views.debug_images, name='debug_images'),
 
