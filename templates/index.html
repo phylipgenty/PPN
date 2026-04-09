@@ -23,7 +23,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="#home">Home</a></li>
     <li><a href="{% url 'about' %}">About</a></li>
-    <li><a href="{% url 'events' %}">Events</a></li>
+    <li><a href="{% url 'events' %}">Gallery</a></li>  <!-- Changed from Events to Gallery -->
     <li><a href="{% url 'sermons' %}">Sermons</a></li>
     <li><a href="{% url 'testimonies' %}">Testimonies</a></li>
     <li><a href="{% url 'blog_list' %}">Blogs</a></li>
@@ -64,17 +64,18 @@
     <div class="hero-overlay"></div>
     <div class="hero-cross"></div>
     <div class="hero-content">
-      <button class="btn-primary" id="watchLiveNowBtn">
+      <!-- "WATCH LIVE NOW" button removed as requested -->
+      <!-- <button class="btn-primary" id="watchLiveNowBtn">
         <i class="fas fa-play-circle"></i>
         <a href="https://www.youtube.com/@henryonyirioha_ppn" target="_blank">WATCH LIVE NOW</a>
-      </button>
+      </button> -->
     </div>
   </div>
 
   <div class="container">
     <!-- Manchester Banner -->
     <div class="manchester-banner">
-      <h2>🇬🇧 MANCHESTER BIG EVENT 🇬🇧</h2>
+      <h2>MANCHESTER BIG EVENT</h2>  <!-- Removed 🇬🇧 flag -->
       <p id="manchesterCountdown" class="countdown"></p>
       <a href="{% url 'manchester' %}" class="gold-btn">Go to Manchester Page →</a>
     </div>
@@ -89,7 +90,7 @@
           <p>Connect with a global community of believers</p>
         </div>
       </div>
-      <div class="feature-card-img" id="liveCard">
+      <div class="feature-card-img" id="liveCard" onclick="window.open('https://www.youtube.com/@henryonyirioha_ppn/streams', '_blank')" style="cursor: pointer;">
         <div class="card-overlay"></div>
         <div class="card-content">
           <i class="fas fa-video"></i>
@@ -107,46 +108,54 @@
       </div>
     </div>
 
-    <!-- Our Church Gallery -->
+    <!-- Our Church Gallery (now each card links to gallery page) -->
     <div>
       <div class="section-title"><i class="fas fa-church"></i> Our Gatherings</div>
       <div class="videos-grid">
-        <div class="video-card glass-card-light">
-          <div class="video-thumb">
-            <img src="{% static 'images/Northampton/nor2.jpeg' %}" alt="Main Sanctuary" class="thumb-img">
+        <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
+          <div class="video-card glass-card-light">
+            <div class="video-thumb">
+              <img src="{% static 'images/Northampton/nor2.jpeg' %}" alt="Main Sanctuary" class="thumb-img">
+            </div>
+            <div class="video-info">
+              <h4>Northampton 2026</h4>
+              <p> Leaders and Ministers Retreat</p>
+            </div>
           </div>
-          <div class="video-info">
-            <h4>Northampton 2026</h4>
-            <p> Leaders and Ministers Retreat</p>
+        </a>
+        <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
+          <div class="video-card glass-card-light">
+            <div class="video-thumb">
+              <img src="{% static 'images/Edinburgh/edi2.jpeg' %}" alt="Worship Service" class="thumb-img">
+            </div>
+            <div class="video-info">
+              <h4>Edinburgh 2024</h4>
+              <p>The PPN Annual Healing and Deliverance Conference</p>
+            </div>
           </div>
-        </div>
-        <div class="video-card glass-card-light">
-          <div class="video-thumb">
-            <img src="{% static 'images/Edinburgh/edi2.jpeg' %}" alt="Worship Service" class="thumb-img">
+        </a>
+        <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
+          <div class="video-card glass-card-light">
+            <div class="video-thumb">
+              <img src="{% static 'images/Birmingham/bir1.jpeg' %}" alt="Prayer Tower" class="thumb-img">
+            </div>
+            <div class="video-info">
+              <h4>Birmingham 2025</h4>
+              <p>The PPN Annual Healing and Deliverance Conference</p>
+            </div>
           </div>
-          <div class="video-info">
-            <h4>Edinburgh 2024</h4>
-            <p>The PPN Annual Healing and Deliverance Conference</p>
+        </a>
+        <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
+          <div class="video-card glass-card-light">
+            <div class="video-thumb">
+              <img src="{% static 'images/Northampton/nor8.jpeg' %}" alt="Children's Ministry" class="thumb-img">
+            </div>
+            <div class="video-info">
+              <h4>Northampton 2026</h4>
+              <p>Leaders and Ministers Retreat</p>
+            </div>
           </div>
-        </div>
-        <div class="video-card glass-card-light">
-          <div class="video-thumb">
-            <img src="{% static 'images/Birmingham/bir1.jpeg' %}" alt="Prayer Tower" class="thumb-img">
-          </div>
-          <div class="video-info">
-            <h4>Birmingham 2025</h4>
-            <p>The PPN Annual Healing and Deliverance Conference</p>
-          </div>
-        </div>
-        <div class="video-card glass-card-light">
-          <div class="video-thumb">
-            <img src="{% static 'images/Northampton/nor8.jpeg' %}" alt="Children's Ministry" class="thumb-img">
-          </div>
-          <div class="video-info">
-            <h4>Northampton 2026</h4>
-            <p>Leaders and Ministers Retreat</p>
-          </div>
-        </div>
+        </a>
       </div>
     </div>
 
@@ -205,8 +214,9 @@
       </form>
     </div>
 
-    <!-- Latest Blogs (fixed: uses uploaded image, not URL, and primary key) -->
+    <!-- Latest Blogs - Title changed to "Pastor Henry's Blog" -->
     <div class="info-grid">
+      <div class="section-title"><i class="fas fa-blog"></i> Pastor Henry's Blog</div>
       {% for post in latest_posts %}
       <div class="info-card glass-card-light">
         {% if post.image %}
