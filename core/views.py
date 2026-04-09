@@ -271,11 +271,9 @@ def create_admin(request):
     return HttpResponse("Admin already exists")
 
 # Testing the cloudinary kini
-from django.http import HttpResponse
-from django.core.files.storage import default_storage
-import os
-
 def debug_cloudinary(request):
+    import os
+    from django.core.files.storage import default_storage
     cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME', 'NOT SET')
     api_key = os.environ.get('CLOUDINARY_API_KEY', 'NOT SET')
     api_secret = os.environ.get('CLOUDINARY_API_SECRET', 'NOT SET')
