@@ -57,9 +57,32 @@
     border-radius: 1rem;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   }
+  /* Map section */
+  .map-section {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    text-align: center;
+  }
+  .map-section h2 {
+    color: #ffefc0;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+  .map-container {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  .map-container iframe {
+    width: 100%;
+    height: 400px;
+    border: 0;
+  }
   @media (max-width: 768px) {
     .countdown-content h1 { font-size: 1.8rem; }
     .countdown { font-size: 1.5rem; }
+    .map-container iframe { height: 300px; }
   }
 </style>
 {% endblock %}
@@ -79,6 +102,20 @@
 <!-- Flier image below -->
 <div class="flier-section">
   <img src="{% static 'images/img3_1.jpeg' %}" alt="Manchester Event Flier with QR Code">
+</div>
+
+<!-- Google Maps location -->
+<div class="map-section">
+  <h2><i class="fas fa-map-marker-alt"></i> Event Location</h2>
+  <div class="map-container">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2372.145123456789!2d-2.2507477!3d53.4887035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487bb1cf7ca880af%3A0x4bac48037a0ad2d6!2s5%20Mary%20St%2C%20Cheetham%20Hill%2C%20Manchester%20M3%201NH%2C%20UK!5e0!3m2!1sen!2suk!4v1744312345678!5m2!1sen!2suk" 
+      allowfullscreen="" 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+  <p style="color: #e0d6f5; margin-top: 1rem;">5 Mary Street, Cheetham Hill, Manchester M3 1NH, UK</p>
 </div>
 {% endblock %}
 
