@@ -5,7 +5,6 @@
 
 {% block extra_css %}
 <style>
-
 .reminder-btn {
   background: transparent;
   border: 1px solid #ffcd5c;
@@ -20,63 +19,56 @@
   background: #ffcd5c;
   color: #1a1a2a;
 }
+.regular-container {
+  max-width: 900px;
+  margin: 2rem auto;
+}
+.regular-card {
+  padding: 2rem;
+}
+.regular-card h1 {
+  color: #ffefc0;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.regular-intro {
+  color: #e0d6f5;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.event-category {
+  margin-bottom: 2rem;
+  background: rgba(30,20,50,0.7);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+}
+.event-category h2 {
+  color: #ffcd5c;
+  margin-bottom: 0.5rem;
+  border-left: 3px solid #ffcd5c;
+  padding-left: 1rem;
+}
+.event-time {
+  font-weight: bold;
+  color: #ffefc0;
+  margin-bottom: 0.5rem;
+}
+.event-description {
+  color: #e0d6f5;
+  line-height: 1.6;
+  margin-top: 0.5rem;
+}
+.back-link {
+  display: inline-block;
+  margin-top: 2rem;
+  text-align: center;
+  width: 100%;
+}
+@media (max-width: 600px) {
   .regular-container {
-    max-width: 800px;
-    margin: 2rem auto;
+    padding: 0 1rem;
   }
-  .regular-card {
-    padding: 2rem;
-  }
-  .regular-card h1 {
-    color: #ffefc0;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-  .regular-intro {
-    color: #e0d6f5;
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  .event-category {
-    margin-bottom: 2rem;
-    background: rgba(30,20,50,0.7);
-    border-radius: 1.5rem;
-    padding: 1.5rem;
-  }
-  .event-category h2 {
-    color: #ffcd5c;
-    margin-bottom: 1rem;
-    border-left: 3px solid #ffcd5c;
-    padding-left: 1rem;
-  }
-  .event-list {
-    list-style: none;
-    padding-left: 0;
-  }
-  .event-list li {
-    color: #e0d6f5;
-    margin-bottom: 0.8rem;
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-  }
-  .event-time {
-    font-weight: bold;
-    color: #ffefc0;
-    min-width: 180px;
-  }
-  .event-name {
-    font-style: normal;
-  }
-  @media (max-width: 600px) {
-    .event-list li {
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-    .event-time {
-      min-width: auto;
-    }
-  }
+}
 </style>
 {% endblock %}
 
@@ -88,30 +80,54 @@
       <p>Join us for our weekly, monthly, and annual gatherings. All times are UK time.</p>
     </div>
 
+    <!-- Weekly -->
     <div class="event-category">
-      <h2><i class="fas fa-calendar-day"></i> Weekly</h2>
-      <ul class="event-list">
-        <li><span class="event-time">Sunday – 8:00 PM</span> <span class="event-name">Sunday Charge – Prophetic Prayer & Worship</span></li>
-      </ul>
+      <h2><i class="fas fa-calendar-day"></i> Weekly Sunday Charge</h2>
+      <div class="event-time">Sunday – 8:00 PM</div>
+      <div class="event-description">
+        <p>Welcome to our Weekly Sunday Charge – a divine appointment designed to ignite your spirit, align your destiny, and position you for victorious living in Christ.</p>
+        <p>This is not just another service; it is a moment of spiritual awakening. Each gathering is a prophetic encounter where God’s Word comes with power, clarity, and direction. Here, burdens are lifted, yokes are broken, and lives are transformed through the ministry of the Word, prayer, and the presence of God.</p>
+        <p>Every Sunday, we engage in heartfelt worship, revelatory teaching, and targeted prayers that address real-life situations. Whether you are trusting God for restoration, seeking direction, or pressing into a deeper walk with Him, the Weekly Sunday Charge is a place where heaven meets earth on your behalf.</p>
+        <p>Join us this Sunday and experience the transforming power of God.</p>
+      </div>
     </div>
 
+    <!-- Monthly: Midnight Battle Cry -->
     <div class="event-category">
-      <h2><i class="fas fa-calendar-alt"></i> Monthly</h2>
-      <ul class="event-list">
-        <li><span class="event-time">First Friday – 11:00 PM</span> <span class="event-name">Midnight Battle Cry – Spiritual Warfare Prayer</span></li>
-        <li><span class="event-time">Last Saturday – 11:00 PM</span> <span class="event-name">Pray Into The New Month – Declaration & Prophetic Shift</span></li>
-      </ul>
+      <h2><i class="fas fa-moon"></i> Midnight Battle Cry</h2>
+      <div class="event-time">First Friday of each month – 11:00 PM</div>
+      <div class="event-description">
+        <p>This is a period of engaging the Night Season for Divine Interventions. Midnight is not just a time on the clock; it is a realm of spiritual transactions. Scripture reveals that while men slept, destinies were tampered with, but it is also at midnight that chains are broken, prisons are shaken, and God rises to defend His people.</p>
+        <p>Our Midnight Battle Cry is a prophetic prayer program designed to confront and overturn stubborn battles that resist daytime efforts. It is a call to rise in spiritual authority, to legislate in the spirit, and to enforce the victory secured in Christ. DON’T MISS THE NEXT SESSION.</p>
+      </div>
     </div>
 
+    <!-- Monthly: Pray Into The New Month -->
     <div class="event-category">
-      <h2><i class="fas fa-church"></i> Annual</h2>
-      <ul class="event-list">
-        <li><span class="event-time">July</span> <span class="event-name">Healing and Deliverance Conference</span></li>
-        <li><span class="event-time">October</span> <span class="event-name">Leaders and Ministers Retreat</span></li>
-      </ul>
+      <h2><i class="fas fa-calendar-alt"></i> Pray Into The New Month</h2>
+      <div class="event-time">Last Saturday of each month – 11:00 PM</div>
+      <div class="event-description">
+        <p>It is a prophetic prayer gathering designed to position you ahead of time, so you don’t react to the month, you command it; for alignment, restoration, and fresh fire.</p>
+        <p>The Bible declares in Job 38:12, “Have you commanded the morning since your days began, and caused the dawn to know its place?” This program is a spiritual platform where destinies are realigned, atmospheres are shifted, and the voice of prayer establishes God’s agenda over your days.</p>
+        <p>In every new month lies possibilities, but only those who engage spiritually take delivery of what heaven has prepared. Through intense prayers, prophetic declarations, and strategic intercession, we will dismantle every negative carryover and enforce divine outcomes.</p>
+        <p>Join us as we pray, declare, and step into a month of undeniable testimonies.</p>
+      </div>
     </div>
 
-    <div style="text-align: center; margin-top: 2rem;">
+    <!-- Annual -->
+    <div class="event-category">
+      <h2><i class="fas fa-church"></i> Annual Conferences</h2>
+      <div class="event-time">July – Healing and Deliverance Conference</div>
+      <div class="event-description">
+        <p>A powerful gathering of prayer, worship, and teaching focused on supernatural healing and deliverance from every form of bondage.</p>
+      </div>
+      <div class="event-time" style="margin-top: 1rem;">October – Leaders and Ministers Retreat</div>
+      <div class="event-description">
+        <p>An exclusive retreat for leaders and ministers to be refreshed, recharged, and equipped for greater impact in God’s kingdom.</p>
+      </div>
+    </div>
+
+    <div class="back-link">
       <a href="{% url 'index' %}" class="gold-btn">← Back to Home</a>
     </div>
   </div>

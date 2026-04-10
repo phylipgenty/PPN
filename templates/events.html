@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Events | Prayer Power Network{% endblock %}
+{% block title %}Gallery | Prayer Power Network{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -147,12 +147,6 @@
     margin-top: 0.8rem;
   }
 
-  .no-events {
-    text-align: center;
-    padding: 3rem;
-    color: #e0d6f5;
-  }
-
   @media (max-width: 768px) {
     .gallery-section {
       height: 40vh;
@@ -169,12 +163,33 @@
 <!-- ================= PAST EVENTS GALLERY ================= -->
 <div class="gallery-section" id="pastGallery">
   <div class="gallery-slideshow-container" id="pastSlideshow">
+    <!-- Birmingham 2025 -->
     <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir1.jpeg' %}');"></div>
     <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir2.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor7.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir3.jpeg' %}');"></div>
     <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir4.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir5.jpeg' %}');"></div>
     <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir6.jpeg' %}');"></div>
+    <!-- Edinburgh 2024 -->
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi1.jpeg' %}');"></div>
     <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi2.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi3.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi4.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi5.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi6.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi7.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi8.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi9.jpeg' %}');"></div>
+    <!-- Northampton 2025 -->
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor1.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor2.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor3.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor4.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor5.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor6.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor7.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor8.jpeg' %}');"></div>
+    <!-- Add more slides as needed -->
   </div>
   <div class="gallery-caption">
     <h2>Past Events & Gatherings</h2>
@@ -187,26 +202,8 @@
   </div>
 </div>
 
-<!-- ================= FUTURE EVENTS GALLERY (MANUAL) ================= -->
-<div class="gallery-section" id="futureGallery">
-  <div class="gallery-slideshow-container" id="futureSlideshow">
-    <div class="gallery-slide" style="background-image: url('{% static 'images/img1.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/img2.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/img3.jpeg' %}');"></div>
-    <!-- Add more future event images as needed -->
-  </div>
-  <div class="gallery-caption">
-    <h2>Future Events – Save the Dates!</h2>
-    <p>Coming soon: conferences, prayer camps, and revival gatherings</p>
-  </div>
-  <div class="gallery-controls">
-    <button class="gallery-arrow futurePrevBtn">&#10094;</button>
-    <div class="gallery-dots" id="futureDots"></div>
-    <button class="gallery-arrow futureNextBtn">&#10095;</button>
-  </div>
-</div>
-
-<!-- ================= DYNAMIC UPCOMING EVENTS ================= -->
+<!-- ================= DYNAMIC EVENTS FROM ADMIN (no "no events" message) ================= -->
+{% if events %}
 <div class="container">
   <div class="section-title">
     <i class="fas fa-calendar-alt"></i> Upcoming Events
@@ -230,28 +227,25 @@
           {% endif %}
         </div>
         <div class="event-location">
-          <i class="fas fa-map-marker-alt"></i>
-          {{ event.location }}
+          <i class="fas fa-map-marker-alt"></i> {{ event.location }}
         </div>
         <p class="event-description">{{ event.description|truncatechars:120 }}</p>
       </div>
     </div>
-    {% empty %}
-    <div class="no-events">
-      <p>No upcoming events at this time. Check back soon!</p>
-    </div>
     {% endfor %}
   </div>
 </div>
+{% endif %}
+
 {% endblock %}
 
 {% block extra_js %}
 <script>
-  // Helper to create a carousel for a specific gallery
-  function initGallery(containerId, slideshowId, prevBtnClass, nextBtnClass, dotsId) {
-    const container = document.getElementById(containerId);
+  // Initialize the past gallery only
+  (function() {
+    const container = document.getElementById('pastGallery');
     if (!container) return;
-    const slideshow = document.getElementById(slideshowId);
+    const slideshow = document.getElementById('pastSlideshow');
     if (!slideshow) return;
     const slides = Array.from(slideshow.querySelectorAll('.gallery-slide'));
     if (!slides.length) return;
@@ -260,7 +254,7 @@
     let timer;
 
     // Create dots
-    const dotsContainer = document.getElementById(dotsId);
+    const dotsContainer = document.getElementById('pastDots');
     if (dotsContainer) {
       slides.forEach((_, i) => {
         const dot = document.createElement('div');
@@ -270,7 +264,7 @@
         dotsContainer.appendChild(dot);
       });
     }
-    const dots = document.querySelectorAll(`#${containerId} .gallery-dot`);
+    const dots = document.querySelectorAll('#pastGallery .gallery-dot');
 
     function update() {
       slides.forEach((s, i) => s.classList.toggle('active', i === current));
@@ -292,17 +286,13 @@
     }
 
     // Attach button events
-    const prevBtn = container.querySelector(prevBtnClass);
-    const nextBtn = container.querySelector(nextBtnClass);
+    const prevBtn = container.querySelector('.pastPrevBtn');
+    const nextBtn = container.querySelector('.pastNextBtn');
     if (prevBtn) prevBtn.onclick = prev;
     if (nextBtn) nextBtn.onclick = next;
 
     update();
     resetTimer();
-  }
-
-  // Initialize both galleries
-  initGallery('pastGallery', 'pastSlideshow', '.pastPrevBtn', '.pastNextBtn', 'pastDots');
-  initGallery('futureGallery', 'futureSlideshow', '.futurePrevBtn', '.futureNextBtn', 'futureDots');
+  })();
 </script>
 {% endblock %}
