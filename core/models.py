@@ -1,6 +1,5 @@
 from django.db import models
-from django.utils.text import slugify
-
+from cloudinary.models import CloudinaryField   # <-- ADD THIS
 
 # Contact form messages
 class ContactMessage(models.Model):
@@ -45,12 +44,12 @@ class Appointment(models.Model):
         ordering = ['-created_at']
 
 
-# Testimonies
+# Testimonies – image changed to CloudinaryField
 class Testimony(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100, blank=True)
     content = models.TextField()
-    image = models.ImageField(upload_to='testimonies/', blank=True, null=True)
+    image = CloudinaryField('image', blank=True, null=True)   # <-- CHANGED
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -73,12 +72,10 @@ class NewsletterSubscriber(models.Model):
         ordering = ['-subscribed_at']
 
 
-# =========================
-# EVENTS
-# =========================
+# Events – image changed to CloudinaryField
 class Event(models.Model):
     title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='events/', blank=True, null=True)
+    image = CloudinaryField('image', blank=True, null=True)   # <-- CHANGED
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     location = models.CharField(max_length=200)
@@ -93,9 +90,7 @@ class Event(models.Model):
         ordering = ['-start_date']
 
 
-# =========================
-# SERMONS
-# =========================
+# Sermons (no images, unchanged)
 class Sermon(models.Model):
     title = models.CharField(max_length=200)
     video_id = models.CharField(max_length=50, help_text="YouTube video ID (the part after v=)")
@@ -111,12 +106,10 @@ class Sermon(models.Model):
         ordering = ['-date']
 
 
-# =========================
-# BLOG POSTS (NO SLUG – use primary key in URLs)
-# =========================
+# Blog Posts – image changed to CloudinaryField
 class BlogPost(models.Model):
     title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='blogs/', blank=True, null=True)
+    image = CloudinaryField('image', blank=True, null=True)   # <-- CHANGED
     content = models.TextField()
     author = models.CharField(max_length=100, default="Pastor Henry Onyirioha")
     date = models.DateField(auto_now_add=True)
