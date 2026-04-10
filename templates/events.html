@@ -33,22 +33,28 @@
     background-position: center;
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
   }
 
   .gallery-section .gallery-slide.active {
     opacity: 1;
   }
 
-  .gallery-section .gallery-caption {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
+  /* Per‑slide text overlay */
+  .slide-caption {
+    background: rgba(0,0,0,0.7);
+    color: #ffefc0;
+    padding: 0.8rem 1.5rem;
+    border-radius: 2rem;
+    margin-bottom: 3rem;
+    font-size: 1.2rem;
+    font-weight: bold;
     text-align: center;
-    color: white;
-    background: rgba(0,0,0,0.6);
-    padding: 1rem;
+    backdrop-filter: blur(4px);
     z-index: 2;
+    pointer-events: none;
   }
 
   .gallery-controls {
@@ -71,6 +77,7 @@
     cursor: pointer;
     padding: 0.3rem 0.8rem;
     border-radius: 50%;
+    z-index: 3;
   }
 
   .gallery-arrow:hover {
@@ -80,6 +87,7 @@
   .gallery-dots {
     display: flex;
     gap: 0.5rem;
+    z-index: 3;
   }
 
   .gallery-dot {
@@ -154,47 +162,103 @@
     .gallery-controls {
       bottom: 60px;
     }
+    .slide-caption {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      margin-bottom: 1.5rem;
+    }
   }
 </style>
 {% endblock %}
 
 {% block content %}
 
-<!-- ================= PAST EVENTS GALLERY ================= -->
+<!-- ================= PAST EVENTS GALLERY WITH PER‑SLIDE CAPTIONS ================= -->
 <div class="gallery-section" id="pastGallery">
   <div class="gallery-slideshow-container" id="pastSlideshow">
-    <!-- Birmingham 2025 -->
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir1.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir2.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir3.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir4.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir5.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir6.jpeg' %}');"></div>
-    <!-- Edinburgh 2024 -->
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi1.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi2.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi3.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi4.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi5.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi6.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi7.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi8.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi9.jpeg' %}');"></div>
-    <!-- Northampton 2025 -->
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor1.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor2.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor3.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor4.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor5.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor6.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor7.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor8.jpeg' %}');"></div>
-    <!-- Add more slides as needed -->
+
+    <!-- Birmingham 2025 slides -->
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir1.jpeg' %}');">
+      <div class="slide-caption">PPN Annual Healing and Deliverance Conference – Birmingham 2025</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir2.jpeg' %}');">
+      <div class="slide-caption">PPN Annual Healing and Deliverance Conference – Birmingham 2025</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir3.jpeg' %}');">
+      <div class="slide-caption">PPN Annual Healing and Deliverance Conference – Birmingham 2025</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir4.jpeg' %}');">
+      <div class="slide-caption">PPN Annual Healing and Deliverance Conference – Birmingham 2025</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir5.jpeg' %}');">
+      <div class="slide-caption">PPN Annual Healing and Deliverance Conference – Birmingham 2025</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Birmingham/bir6.jpeg' %}');">
+      <div class="slide-caption">PPN Annual Healing and Deliverance Conference – Birmingham 2025</div>
+    </div>
+
+    <!-- Edinburgh 2024 slides -->
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi1.jpeg' %}');">
+      <div class="slide-caption">PPN Annual Healing and Deliverance Conference – Edinburgh 2024</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi2.jpeg' %}');">
+      <div class="slide-caption">PPN Annual Healing and Deliverance Conference – Edinburgh 2024</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi3.jpeg' %}');">
+      <div class="slide-caption">PPN Annual Healing and Deliverance Conference – Edinburgh 2024</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi4.jpeg' %}');">
+      <div class="slide-caption">PPN Annual Healing and Deliverance Conference – Edinburgh 2024</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi5.jpeg' %}');">
+      <div class="slide-caption">PPN Annual Healing and Deliverance Conference – Edinburgh 2024</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi6.jpeg' %}');">
+      <div class="slide-caption">PPN Annual Healing and Deliverance Conference – Edinburgh 2024</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi7.jpeg' %}');">
+      <div class="slide-caption">PPN Annual Healing and Deliverance Conference – Edinburgh 2024</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi8.jpeg' %}');">
+      <div class="slide-caption">PPN Annual Healing and Deliverance Conference – Edinburgh 2024</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Edinburgh/edi9.jpeg' %}');">
+      <div class="slide-caption">PPN Annual Healing and Deliverance Conference – Edinburgh 2024</div>
+    </div>
+
+    <!-- Northampton 2025 slides -->
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor7.jpeg' %}');">
+      <div class="slide-caption">Leaders and Ministers Retreat – Northampton 2025</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor2.jpeg' %}');">
+      <div class="slide-caption">Leaders and Ministers Retreat – Northampton 2025</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor3.jpeg' %}');">
+      <div class="slide-caption">Leaders and Ministers Retreat – Northampton 2025</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor4.jpeg' %}');">
+      <div class="slide-caption">Leaders and Ministers Retreat – Northampton 2025</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor5.jpeg' %}');">
+      <div class="slide-caption">Leaders and Ministers Retreat – Northampton 2025</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor6.jpeg' %}');">
+      <div class="slide-caption">Leaders and Ministers Retreat – Northampton 2025</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor1.jpeg' %}');">
+      <div class="slide-caption">Leaders and Ministers Retreat – Northampton 2026</div>
+    </div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor8.jpeg' %}');">
+      <div class="slide-caption">Leaders and Ministers Retreat – Northampton 2026</div>
+    </div>
+
+    <!-- Northampton 2026 slides (if any) – add with appropriate caption -->
+    <!-- <div class="gallery-slide" style="background-image: url('...');">
+      <div class="slide-caption">Leaders and Ministers Retreat – Northampton 2026</div>
+    </div> -->
+
   </div>
-  <div class="gallery-caption">
-    <h2>Past Events & Gatherings</h2>
-    <p>Moments of worship, prayer, and breakthrough</p>
-  </div>
+
   <div class="gallery-controls">
     <button class="gallery-arrow pastPrevBtn">&#10094;</button>
     <div class="gallery-dots" id="pastDots"></div>
