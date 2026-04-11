@@ -10,11 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <style>
-    /* Additional style for the new welcome banner (full width, overlay, centered text) */
+    /* Welcome banner - full viewport height */
     .welcome-banner {
       position: relative;
       width: 100%;
-      height: 100%;
+      height: 100vh;                    /* Full screen height */
       background: url('{% static 'images/henry1.jpeg' %}') center center / cover no-repeat;
       display: flex;
       align-items: center;
@@ -46,7 +46,7 @@
       margin: 0 auto;
     }
     @media (max-width: 768px) {
-      .welcome-banner { height: 40vh; }
+      .welcome-banner { height: 100vh; }  /* keep full screen on mobile */
       .welcome-banner h1 { font-size: 2rem; }
       .welcome-banner p { font-size: 1rem; }
     }
@@ -82,7 +82,7 @@
   </ul>
 </nav>
 
-<!-- NEW WELCOME BANNER (replaces the gallery slideshow) -->
+<!-- Welcome Banner (full screen) -->
 <div class="welcome-banner">
   <div class="overlay"></div>
   <div class="banner-content">
@@ -102,7 +102,7 @@
     <div class="hero-overlay"></div>
     <div class="hero-cross"></div>
     <div class="hero-content">
-      <!-- "WATCH LIVE NOW" button removed as requested -->
+      <!-- "WATCH LIVE NOW" button removed -->
     </div>
   </div>
 
