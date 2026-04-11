@@ -319,19 +319,20 @@ body {
   overflow: hidden;
 }
 /* 3. Sermon thumbnails – show full image without cropping */
+/* 3. Sermon thumbnails – show full image without cropping */
 .video-thumb {
-  height: auto !important;          /* override any fixed height */
-  aspect-ratio: 16 / 9;             /* maintain YouTube thumbnail ratio */
+  height: auto;           /* remove fixed height */
+  aspect-ratio: 16 / 9;   /* consistent aspect ratio */
   background: #2a1f3a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .thumb-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;              /* show the entire image, no crop */
+  object-fit: contain;    /* show whole image, no crop */
+  background: #000;
 }
+/* optional: if you want cover but ensure important parts visible */
+/* .thumb-img { object-fit: cover; object-position: top; } */
 
 .video-card:hover .thumb-img {
   transform: scale(1.05);
