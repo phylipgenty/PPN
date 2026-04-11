@@ -818,3 +818,65 @@ footer {
     height: 40vh;
   }
 }
+
+/* The update, those greedy people want  */
+/* 1. Testimonies "Read all →" link - golden style */
+.testimonies-box .gold-link,
+.testimonies-box a.read-all-link {
+  color: #ffcd5c;
+  background: transparent;
+  border: 1px solid #ffcd5c;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.2s;
+}
+.testimonies-box .gold-link:hover,
+.testimonies-box a.read-all-link:hover {
+  background: #ffcd5c;
+  color: #1a1a2a;
+}
+
+/* 2. Footer "Terms & Services" link - gold */
+.footer-content a {
+  color: #ffcd5c;
+  text-decoration: none;
+}
+.footer-content a:hover {
+  color: #ffefc0;
+  text-decoration: underline;
+}
+
+/* 3. Sermon thumbnails – show full image without cropping */
+.video-thumb {
+  height: auto;           /* remove fixed height */
+  aspect-ratio: 16 / 9;   /* consistent aspect ratio */
+  background: #2a1f3a;
+}
+.thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;    /* show whole image, no crop */
+  background: #000;
+}
+/* optional: if you want cover but ensure important parts visible */
+/* .thumb-img { object-fit: cover; object-position: top; } */
+
+/* 4. Blog cards – stronger "floating" effect */
+.info-card {
+  transition: transform 0.3s ease, box-shadow 0.3s;
+}
+.info-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 30px -12px rgba(0,0,0,0.4);
+}
+
+/* 5. Testimony carousel images – also float on hover */
+.testimony-carousel-img {
+  transition: transform 0.3s ease, box-shadow 0.3s;
+}
+.testimony-carousel-img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
