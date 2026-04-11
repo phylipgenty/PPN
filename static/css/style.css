@@ -318,21 +318,21 @@ body {
   padding: 0 0 1rem 0;
   overflow: hidden;
 }
+/* 3. Sermon thumbnails – show full image without cropping */
 .video-thumb {
+  height: auto !important;          /* override any fixed height */
+  aspect-ratio: 16 / 9;             /* maintain YouTube thumbnail ratio */
   background: #2a1f3a;
-  height: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 1.5rem 1.5rem 1rem 1rem;
-  overflow: hidden;
 }
 .thumb-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+  object-fit: contain;              /* show the entire image, no crop */
 }
+
 .video-card:hover .thumb-img {
   transform: scale(1.05);
 }

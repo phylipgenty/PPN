@@ -9,6 +9,48 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <style>
+    /* Additional style for the new welcome banner (full width, overlay, centered text) */
+    .welcome-banner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: url('{% static 'images/henry1.jpeg' %}') center center / cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .welcome-banner .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+    .welcome-banner .banner-content {
+      position: relative;
+      z-index: 2;
+      color: white;
+      padding: 2rem;
+    }
+    .welcome-banner h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    .welcome-banner p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .welcome-banner { height: 40vh; }
+      .welcome-banner h1 { font-size: 2rem; }
+      .welcome-banner p { font-size: 1rem; }
+    }
+  </style>
 </head>
 <body>
 
@@ -23,7 +65,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="#home">Home</a></li>
     <li><a href="{% url 'about' %}">About</a></li>
-    <li><a href="{% url 'events' %}">Gallery</a></li>  <!-- Changed from Events to Gallery -->
+    <li><a href="{% url 'events' %}">Gallery</a></li>
     <li><a href="{% url 'sermons' %}">Sermons</a></li>
     <li><a href="{% url 'testimonies' %}">Testimonies</a></li>
     <li><a href="{% url 'blog_list' %}">Blogs</a></li>
@@ -40,16 +82,12 @@
   </ul>
 </nav>
 
-<!-- Gallery Slideshow -->
-<div class="gallery-section">
-  <div class="gallery-slideshow-container">
-    <div class="gallery-slide fade" style="background-image: url('{% static 'images/henry1.jpeg' %}');"></div>
-    <div class="gallery-slide fade" style="background-image: url('{% static 'images/henry2.jpeg' %}');"></div>
-    <div class="gallery-slide fade" style="background-image: url('{% static 'images/henry3.jpeg' %}');"></div>
-  </div>
-  <div class="gallery-caption">
-    <h2>Moments of Worship & Revival</h2>
-    <p>Glimpses of God's move across our gatherings</p>
+<!-- NEW WELCOME BANNER (replaces the gallery slideshow) -->
+<div class="welcome-banner">
+  <div class="overlay"></div>
+  <div class="banner-content">
+    <h1>Welcome to Prayer Power Network</h1>
+    <p>Experience supernatural intervention through prayer, worship, and the Word. Join a global community of believers seeking God's presence.</p>
   </div>
 </div>
 
@@ -65,193 +103,187 @@
     <div class="hero-cross"></div>
     <div class="hero-content">
       <!-- "WATCH LIVE NOW" button removed as requested -->
-      <!-- <button class="btn-primary" id="watchLiveNowBtn">
-        <i class="fas fa-play-circle"></i>
-        <a href="https://www.youtube.com/@henryonyirioha_ppn" target="_blank">WATCH LIVE NOW</a>
-      </button> -->
     </div>
   </div>
 
   <!-- Manchester Banner -->
-<div class="manchester-banner" style="background: url('{% static 'images/manchester-flyer.jpeg' %}') center/cover no-repeat;">
-  {% comment %} <h2>MANCHESTER BIG EVENT</h2> {% endcomment %}
-  <p id="manchesterCountdown" class="countdown"></p>
-  <a href="{% url 'manchester' %}" class="gold-btn">Go to Manchester Page →</a>
-</div>
+  <div class="manchester-banner" style="background: url('{% static 'images/manchester-flyer.jpeg' %}') center/cover no-repeat;">
+    <p id="manchesterCountdown" class="countdown"></p>
+    <a href="{% url 'manchester' %}" class="gold-btn">Go to Manchester Page →</a>
+  </div>
 
-    <!-- Action Cards -->
-    <div class="cards-row">
-      <div class="feature-card-img" id="joinCard">
-        <div class="card-overlay"></div>
-        <div class="card-content">
-          <i class="fas fa-users"></i>
-          <h3>JOIN OUR PRAYER NETWORK</h3>
-          <p>Connect with a global community of believers</p>
-        </div>
-      </div>
-      <div class="feature-card-img" id="liveCard" onclick="window.open('https://www.youtube.com/@henryonyirioha_ppn/streams', '_blank')" style="cursor: pointer;">
-        <div class="card-overlay"></div>
-        <div class="card-content">
-          <i class="fas fa-video"></i>
-          <h3>WATCH LIVE STREAMS</h3>
-          <p>Experience worship and prophetic declarations</p>
-        </div>
-      </div>
-      <div class="feature-card-img" id="prayerCard">
-        <div class="card-overlay"></div>
-        <div class="card-content">
-          <i class="fas fa-envelope-open-text"></i>
-          <h3>SEND PRAYER REQUESTS</h3>
-          <p>Let our community intercede on your behalf</p>
-        </div>
+  <!-- Action Cards -->
+  <div class="cards-row">
+    <div class="feature-card-img" id="joinCard">
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <i class="fas fa-users"></i>
+        <h3>JOIN OUR PRAYER NETWORK</h3>
+        <p>Connect with a global community of believers</p>
       </div>
     </div>
-
-    <!-- Our Church Gallery (now each card links to gallery page) -->
-    <div>
-      <div class="section-title"><i class="fas fa-church"></i> Our Gatherings</div>
-      <div class="videos-grid">
-        <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
-          <div class="video-card glass-card-light">
-            <div class="video-thumb">
-              <img src="{% static 'images/Northampton/nor2.jpeg' %}" alt="Main Sanctuary" class="thumb-img">
-            </div>
-            <div class="video-info">
-              <h4>Northampton 2026</h4>
-              <p> Leaders and Ministers Retreat</p>
-            </div>
-          </div>
-        </a>
-        <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
-          <div class="video-card glass-card-light">
-            <div class="video-thumb">
-              <img src="{% static 'images/Edinburgh/edi2.jpeg' %}" alt="Worship Service" class="thumb-img">
-            </div>
-            <div class="video-info">
-              <h4>Edinburgh 2024</h4>
-              <p>The PPN Annual Healing and Deliverance Conference</p>
-            </div>
-          </div>
-        </a>
-        <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
-          <div class="video-card glass-card-light">
-            <div class="video-thumb">
-              <img src="{% static 'images/Birmingham/bir1.jpeg' %}" alt="Prayer Tower" class="thumb-img">
-            </div>
-            <div class="video-info">
-              <h4>Birmingham 2025</h4>
-              <p>The PPN Annual Healing and Deliverance Conference</p>
-            </div>
-          </div>
-        </a>
-        <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
-          <div class="video-card glass-card-light">
-            <div class="video-thumb">
-              <img src="{% static 'images/Northampton/nor8.jpeg' %}" alt="Children's Ministry" class="thumb-img">
-            </div>
-            <div class="video-info">
-              <h4>Northampton 2026</h4>
-              <p>Leaders and Ministers Retreat</p>
-            </div>
-          </div>
-        </a>
+    <div class="feature-card-img" id="liveCard" onclick="window.open('https://www.youtube.com/@henryonyirioha_ppn/streams', '_blank')" style="cursor: pointer;">
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <i class="fas fa-video"></i>
+        <h3>WATCH LIVE STREAMS</h3>
+        <p>Experience worship and prophetic declarations</p>
       </div>
     </div>
-
-    <!-- Regular Events & Testimonies -->
-<div class="double-column">
-  <div class="upcoming-box glass-card-light">
-    <h3><i class="fas fa-calendar-alt"></i> Regular Events</h3>
-    <img src="{% static 'images/Photoshop.png' %}" alt="Regular Events" style="width:100%; border-radius:1rem;">
-    <div style="text-align: center; margin-top: 1rem;">
-      <a href="{% url 'regular' %}" class="reminder-btn">View All Regular Events →</a>
+    <div class="feature-card-img" id="prayerCard">
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <i class="fas fa-envelope-open-text"></i>
+        <h3>SEND PRAYER REQUESTS</h3>
+        <p>Let our community intercede on your behalf</p>
+      </div>
     </div>
   </div>
-  <div class="testimonies-box glass-card-light">
-    <h3><i class="fas fa-comment-dots"></i> Testimonies</h3>
-    <div class="testimony-carousel">
-      <button class="carousel-btn prev-btn" id="testiPrevBtn">&#10094;</button>
-      <div class="carousel-container">
-        <div class="carousel-track" id="testiCarouselTrack">
-          <img src="{% static 'images/testimonies/tes1.jpeg' %}" alt="Testimony 1" class="testimony-carousel-img">
-          <img src="{% static 'images/testimonies/tes2.jpeg' %}" alt="Testimony 2" class="testimony-carousel-img">
-          <img src="{% static 'images/testimonies/tes3.jpeg' %}" alt="Testimony 3" class="testimony-carousel-img">
-          <img src="{% static 'images/testimonies/tes4.jpeg' %}" alt="Testimony 4" class="testimony-carousel-img">
-        </div>
-      </div>
-      <button class="carousel-btn next-btn" id="testiNextBtn">&#10095;</button>
-    </div>
-    <div class="carousel-dots" id="testiDots"></div>
-    <a href="{% url 'testimonies' %}" class="read-all-link">Read all →</a>
-  </div>
-</div>
 
-    <!-- Recent Sermons -->
-    <div class="sermons-preview">
-      <div class="section-title"><i class="fas fa-bible"></i> Recent Sermons</div>
-      <div class="videos-grid">
-        {% for sermon in latest_sermons %}
-        <div class="video-card glass-card-light" onclick="window.open('https://www.youtube.com/watch?v={{ sermon.video_id }}', '_blank')" style="cursor: pointer;">
+  <!-- Our Church Gallery -->
+  <div>
+    <div class="section-title"><i class="fas fa-church"></i> Our Gatherings</div>
+    <div class="videos-grid">
+      <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
+        <div class="video-card glass-card-light">
           <div class="video-thumb">
-            <img src="https://img.youtube.com/vi/{{ sermon.video_id }}/maxresdefault.jpg" alt="{{ sermon.title }}">
+            <img src="{% static 'images/Northampton/nor2.jpeg' %}" alt="Main Sanctuary" class="thumb-img">
           </div>
           <div class="video-info">
-            <h4>{{ sermon.title }}</h4>
-            <div class="video-meta">{{ sermon.preacher }} | {{ sermon.date }}</div>
+            <h4>Northampton 2026</h4>
+            <p>Leaders and Ministers Retreat</p>
           </div>
         </div>
-        {% empty %}
-        <p>No sermons yet. Check back soon.</p>
-        {% endfor %}
+      </a>
+      <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
+        <div class="video-card glass-card-light">
+          <div class="video-thumb">
+            <img src="{% static 'images/Edinburgh/edi2.jpeg' %}" alt="Worship Service" class="thumb-img">
+          </div>
+          <div class="video-info">
+            <h4>Edinburgh 2024</h4>
+            <p>The PPN Annual Healing and Deliverance Conference</p>
+          </div>
+        </div>
+      </a>
+      <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
+        <div class="video-card glass-card-light">
+          <div class="video-thumb">
+            <img src="{% static 'images/Birmingham/bir1.jpeg' %}" alt="Prayer Tower" class="thumb-img">
+          </div>
+          <div class="video-info">
+            <h4>Birmingham 2025</h4>
+            <p>The PPN Annual Healing and Deliverance Conference</p>
+          </div>
+        </div>
+      </a>
+      <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
+        <div class="video-card glass-card-light">
+          <div class="video-thumb">
+            <img src="{% static 'images/Northampton/nor8.jpeg' %}" alt="Children's Ministry" class="thumb-img">
+          </div>
+          <div class="video-info">
+            <h4>Northampton 2026</h4>
+            <p>Leaders and Ministers Retreat</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Regular Events & Testimonies -->
+  <div class="double-column">
+    <div class="upcoming-box glass-card-light">
+      <h3><i class="fas fa-calendar-alt"></i> Regular Events</h3>
+      <img src="{% static 'images/Photoshop.png' %}" alt="Regular Events" style="width:100%; border-radius:1rem;">
+      <div style="text-align: center; margin-top: 1rem;">
+        <a href="{% url 'regular' %}" class="reminder-btn">View All Regular Events →</a>
       </div>
     </div>
-
-    <!-- Newsletter -->
-    <div class="newsletter glass-card-light">
-      <h3>Get Daily Prayer Notifications</h3>
-      <form action="{% url 'newsletter_signup' %}" method="POST" class="news-form">
-        {% csrf_token %}
-        <input type="email" name="email" placeholder="Your email" required>
-        <button type="submit">Subscribe</button>
-      </form>
+    <div class="testimonies-box glass-card-light">
+      <h3><i class="fas fa-comment-dots"></i> Testimonies</h3>
+      <div class="testimony-carousel">
+        <button class="carousel-btn prev-btn" id="testiPrevBtn">&#10094;</button>
+        <div class="carousel-container">
+          <div class="carousel-track" id="testiCarouselTrack">
+            <img src="{% static 'images/testimonies/tes1.jpeg' %}" alt="Testimony 1" class="testimony-carousel-img">
+            <img src="{% static 'images/testimonies/tes2.jpeg' %}" alt="Testimony 2" class="testimony-carousel-img">
+            <img src="{% static 'images/testimonies/tes3.jpeg' %}" alt="Testimony 3" class="testimony-carousel-img">
+            <img src="{% static 'images/testimonies/tes4.jpeg' %}" alt="Testimony 4" class="testimony-carousel-img">
+          </div>
+        </div>
+        <button class="carousel-btn next-btn" id="testiNextBtn">&#10095;</button>
+      </div>
+      <div class="carousel-dots" id="testiDots"></div>
+      <a href="{% url 'testimonies' %}" class="read-all-link">Read all →</a>
     </div>
+  </div>
 
-    <!-- Latest Blogs - Title changed to "Pastor Henry's Blog" -->
-    <div class="info-grid">
-      <div class="section-title"><i class="fas fa-blog"></i> Pastor Henry's Blog</div>
-      {% for post in latest_posts %}
-      <div class="info-card glass-card-light">
-        {% if post.image %}
-          <img src="{{ post.image.url }}" alt="{{ post.title }}" class="blog-img">
-        {% else %}
-          <img src="{% static 'images/blog-placeholder.jpg' %}" alt="Blog image" class="blog-img">
-        {% endif %}
-        <h3>{{ post.title }}</h3>
-        <p>{{ post.content|striptags|truncatechars:80 }}</p>
-        <a href="{% url 'blog_detail' post.id %}" class="reminder-btn">Read More</a>
+  <!-- Recent Sermons -->
+  <div class="sermons-preview">
+    <div class="section-title"><i class="fas fa-bible"></i> Recent Sermons</div>
+    <div class="videos-grid">
+      {% for sermon in latest_sermons %}
+      <div class="video-card glass-card-light" onclick="window.open('https://www.youtube.com/watch?v={{ sermon.video_id }}', '_blank')" style="cursor: pointer;">
+        <div class="video-thumb">
+          <img src="https://img.youtube.com/vi/{{ sermon.video_id }}/maxresdefault.jpg" alt="{{ sermon.title }}">
+        </div>
+        <div class="video-info">
+          <h4>{{ sermon.title }}</h4>
+          <div class="video-meta">{{ sermon.preacher }} | {{ sermon.date }}</div>
+        </div>
       </div>
       {% empty %}
-      <p>No blog posts yet. Check back soon.</p>
+      <p>No sermons yet. Check back soon.</p>
       {% endfor %}
     </div>
-
-    <!-- PayPal Donate -->
-    <div class="paypal-donate">
-      <h3>Support the Ministry</h3>
-      <a href="{% url 'donate' %}" class="gold-btn">Donate via PayPal or Bank →</a>
-    </div>
-
-    <footer>
-      <div class="footer-content">
-        <div class="footer-social">
-          <a href="https://www.facebook.com/prayerpowernetwork" target="_blank"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://www.youtube.com/channel/UCS1lJ8S-1KBpQavhqSiwehQ" target="_blank"><i class="fab fa-youtube"></i></a>
-          <a href="https://instagram.com/prayerpower_network" target="_blank"><i class="fab fa-instagram"></i></a>
-        </div>
-        <p>© 2026 Prayer Power Network (A Non-Denominational Church) <br> Registered charity number: 1192591 | <a href="#">Terms & Services</a> | Faith, Hope, Love</p>
-      </div>
-    </footer>
   </div>
+
+  <!-- Newsletter -->
+  <div class="newsletter glass-card-light">
+    <h3>Get Daily Prayer Notifications</h3>
+    <form action="{% url 'newsletter_signup' %}" method="POST" class="news-form">
+      {% csrf_token %}
+      <input type="email" name="email" placeholder="Your email" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+
+  <!-- Latest Blogs -->
+  <div class="info-grid">
+    <div class="section-title"><i class="fas fa-blog"></i> Pastor Henry's Blog</div>
+    {% for post in latest_posts %}
+    <div class="info-card glass-card-light">
+      {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="blog-img">
+      {% else %}
+        <img src="{% static 'images/blog-placeholder.jpg' %}" alt="Blog image" class="blog-img">
+      {% endif %}
+      <h3>{{ post.title }}</h3>
+      <p>{{ post.content|striptags|truncatechars:80 }}</p>
+      <a href="{% url 'blog_detail' post.id %}" class="reminder-btn">Read More</a>
+    </div>
+    {% empty %}
+    <p>No blog posts yet. Check back soon.</p>
+    {% endfor %}
+  </div>
+
+  <!-- PayPal Donate -->
+  <div class="paypal-donate">
+    <h3>Support the Ministry</h3>
+    <a href="{% url 'donate' %}" class="gold-btn">Donate via PayPal or Bank →</a>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-social">
+        <a href="https://www.facebook.com/prayerpowernetwork" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.youtube.com/channel/UCS1lJ8S-1KBpQavhqSiwehQ" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://instagram.com/prayerpower_network" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p>© 2026 Prayer Power Network (A Non-Denominational Church) <br> Registered charity number: 1192591 | <a href="#">Terms & Services</a> | Faith, Hope, Love</p>
+    </div>
+  </footer>
 </main>
 
 <script src="{% static 'js/script.js' %}"></script>
