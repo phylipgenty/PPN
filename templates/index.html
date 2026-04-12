@@ -112,24 +112,6 @@
       width: 100%;
     }
 
-    /* ================= VIDEO CARDS (our gatherings) ================= */
-    .video-card {
-      position: relative;
-      overflow: hidden;
-    }
-    .video-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.15), transparent);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    .video-card:hover::after {
-      opacity: 1;
-    }
-
     /* ================= EXPLORE CARDS (new section) ================= */
     .explore-grid {
       display: flex;
@@ -145,6 +127,18 @@
       padding: 2rem;
       cursor: pointer;
       transition: all 0.3s ease;
+      background: rgba(30, 20, 50, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 1.8rem;
+      box-shadow: 0 15px 25px -10px rgba(0,0,0,0.5);
+      animation: subtleFloat 5s ease-in-out infinite;
+    }
+    .explore-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 35px -12px rgba(0,0,0,0.6);
+      border-color: rgba(255, 205, 92, 0.5);
+      animation: none;
     }
     .explore-card i {
       font-size: 3rem;
@@ -322,52 +316,44 @@
     </div>
   </div>
 
-  <!-- Our Church Gallery -->
+  <!-- NEW EXPLORE SECTION (includes Our Gatherings as a card) -->
   <div class="fade-up">
-    <div class="section-title"><i class="fas fa-church"></i> Our Gatherings</div>
-    <div class="videos-grid">
-      <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
-        <div class="video-card glass-card-light">
-          <div class="video-thumb">
-            <img src="{% static 'images/Northampton/nor2.jpeg' %}" alt="Main Sanctuary" class="thumb-img">
-          </div>
-          <div class="video-info">
-            <h4>Northampton 2026</h4>
-            <p>Leaders and Ministers Retreat</p>
-          </div>
+    <div class="section-title"><i class="fas fa-compass"></i> Explore More</div>
+    <div class="explore-grid">
+      <!-- Our Gatherings Card (moved from separate section) -->
+      <a href="{% url 'events' %}" style="text-decoration: none;">
+        <div class="explore-card">
+          <i class="fas fa-church"></i>
+          <h3>Our Gatherings</h3>
+          <p>View photos from conferences, retreats, and worship services.</p>
+          <span class="explore-btn">Explore →</span>
         </div>
       </a>
-      <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
-        <div class="video-card glass-card-light">
-          <div class="video-thumb">
-            <img src="{% static 'images/Edinburgh/edi2.jpeg' %}" alt="Worship Service" class="thumb-img">
-          </div>
-          <div class="video-info">
-            <h4>Edinburgh 2024</h4>
-            <p>The PPN Annual Healing and Deliverance Conference</p>
-          </div>
+      <!-- Testimonies Card -->
+      <a href="{% url 'testimonies' %}" style="text-decoration: none;">
+        <div class="explore-card">
+          <i class="fas fa-comment-dots"></i>
+          <h3>Testimonies</h3>
+          <p>Read real stories of breakthrough and healing from our community.</p>
+          <span class="explore-btn">Explore →</span>
         </div>
       </a>
-      <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
-        <div class="video-card glass-card-light">
-          <div class="video-thumb">
-            <img src="{% static 'images/Birmingham/bir1.jpeg' %}" alt="Prayer Tower" class="thumb-img">
-          </div>
-          <div class="video-info">
-            <h4>Birmingham 2025</h4>
-            <p>The PPN Annual Healing and Deliverance Conference</p>
-          </div>
+      <!-- Sermons Card -->
+      <a href="{% url 'sermons' %}" style="text-decoration: none;">
+        <div class="explore-card">
+          <i class="fas fa-bible"></i>
+          <h3>Sermons</h3>
+          <p>Watch powerful messages from our pastoral team.</p>
+          <span class="explore-btn">Explore →</span>
         </div>
       </a>
-      <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
-        <div class="video-card glass-card-light">
-          <div class="video-thumb">
-            <img src="{% static 'images/Northampton/nor8.jpeg' %}" alt="Children's Ministry" class="thumb-img">
-          </div>
-          <div class="video-info">
-            <h4>Northampton 2026</h4>
-            <p>Leaders and Ministers Retreat</p>
-          </div>
+      <!-- Pastor Henry's Blog Card -->
+      <a href="{% url 'blog_list' %}" style="text-decoration: none;">
+        <div class="explore-card">
+          <i class="fas fa-blog"></i>
+          <h3>Pastor Henry's Blog</h3>
+          <p>Prophetic insights, teaching, and encouragement.</p>
+          <span class="explore-btn">Explore →</span>
         </div>
       </a>
     </div>
@@ -381,37 +367,6 @@
       <div style="text-align: center; margin-top: 1rem;">
         <a href="{% url 'regular' %}" class="reminder-btn">View All Regular Events →</a>
       </div>
-    </div>
-  </div>
-
-  <!-- NEW EXPLORE SECTION (mirror / floating panels) -->
-  <div class="fade-up">
-    <div class="section-title"><i class="fas fa-compass"></i> Explore More</div>
-    <div class="explore-grid">
-      <a href="{% url 'testimonies' %}" style="text-decoration: none;">
-        <div class="explore-card glass-card-light">
-          <i class="fas fa-comment-dots"></i>
-          <h3>Testimonies</h3>
-          <p>Read real stories of breakthrough and healing from our community.</p>
-          <span class="explore-btn">Explore →</span>
-        </div>
-      </a>
-      <a href="{% url 'sermons' %}" style="text-decoration: none;">
-        <div class="explore-card glass-card-light">
-          <i class="fas fa-bible"></i>
-          <h3>Sermons</h3>
-          <p>Watch powerful messages from our pastoral team.</p>
-          <span class="explore-btn">Explore →</span>
-        </div>
-      </a>
-      <a href="{% url 'blog_list' %}" style="text-decoration: none;">
-        <div class="explore-card glass-card-light">
-          <i class="fas fa-blog"></i>
-          <h3>Pastor Henry's Blog</h3>
-          <p>Prophetic insights, teaching, and encouragement.</p>
-          <span class="explore-btn">Explore →</span>
-        </div>
-      </a>
     </div>
   </div>
 
