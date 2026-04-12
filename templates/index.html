@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <style>
+    <style>
     /* ================= HERO (using img tag for better crop control) ================= */
     .hero {
       position: relative;
@@ -74,10 +74,10 @@
       transform: translateY(0);
     }
 
-    /* ================= LEVITATING ANIMATION (higher lift) ================= */
+    /* ================= LEVITATING ANIMATION ================= */
     @keyframes levitate {
       0%   { transform: translateY(0); }
-      50%  { transform: translateY(-18px); }   /* increased from -10px to -18px */
+      50%  { transform: translateY(-18px); }
       100% { transform: translateY(0); }
     }
     .glass-card-light {
@@ -128,7 +128,7 @@
       width: 100%;
     }
 
-    /* ================= EXPLORE CARDS (higher lift + stronger shadow) ================= */
+    /* ================= EXPLORE CARDS – OVAL SHAPE + VERY DARK SHADOW ================= */
     .explore-grid {
       display: flex;
       flex-wrap: wrap;
@@ -146,13 +146,13 @@
       background: rgba(30, 20, 50, 0.8);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 1.8rem;
-      box-shadow: 0 20px 30px -8px rgba(0,0,0,0.7);  /* stronger, more visible shadow */
+      border-radius: 999px;          /* pill shape / oval */
+      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.9);  /* much darker, obvious shadow */
       animation: levitate 5s ease-in-out infinite;
     }
     .explore-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 30px 40px -10px rgba(0,0,0,0.8);  /* even deeper on hover */
+      box-shadow: 0 35px 50px -15px rgba(0,0,0,1);   /* even darker on hover */
       border-color: rgba(255, 205, 92, 0.5);
       animation: none;
     }
@@ -242,6 +242,7 @@
       .explore-card {
         width: 100%;
         max-width: 320px;
+        border-radius: 999px;   /* keep pill shape on mobile */
       }
     }
   </style>
