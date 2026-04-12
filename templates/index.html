@@ -10,12 +10,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <style>
-    /* ================= HERO (replaces old hero slideshow) ================= */
+    /* ================= HERO (static banner, improved for laptop) ================= */
     .hero {
       position: relative;
       width: 100%;
-      min-height: 85vh;
-      background: url('{% static 'images/henry3.jpeg' %}') center 25% / cover no-repeat;
+      height: 85vh;                    /* fixed height instead of min-height for consistency */
+      background: url('{% static 'images/henry1.jpeg' %}') center 35% / cover no-repeat;  /* adjusted position to show face better */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -27,13 +27,14 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.6);
+      background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)); /* stronger gradient */
     }
     .hero-content {
       position: relative;
       z-index: 2;
       color: white;
       padding: 2rem;
+      max-width: 800px;
     }
     .hero h1 {
       font-size: 3rem;
@@ -42,10 +43,10 @@
     }
     .hero p {
       font-size: 1.2rem;
-      max-width: 700px;
-      margin: 0 auto;
+      line-height: 1.5;
     }
     @media (max-width: 768px) {
+      .hero { height: 70vh; }
       .hero h1 { font-size: 2rem; }
       .hero p { font-size: 1rem; }
     }
@@ -62,10 +63,10 @@
       transform: translateY(0);
     }
 
-    /* ================= FLOATING PANELS (enhanced levitation) ================= */
+    /* ================= LEVITATING ANIMATION (more obvious) ================= */
     @keyframes levitate {
       0%   { transform: translateY(0); }
-      50%  { transform: translateY(-6px); }
+      50%  { transform: translateY(-10px); }   /* increased from -6px to -10px */
       100% { transform: translateY(0); }
     }
     .glass-card-light {
@@ -264,7 +265,7 @@
   </ul>
 </nav>
 
-<!-- Hero Section (static banner, no slideshow) -->
+<!-- Hero Section (static banner, improved for laptop) -->
 <div class="hero" id="home">
   <div class="overlay"></div>
   <div class="hero-content">
@@ -308,7 +309,7 @@
     </div>
   </div>
 
-  <!-- NEW EXPLORE SECTION (includes Our Gatherings) -->
+  <!-- Explore Section -->
   <div class="fade-up">
     <div class="section-title"><i class="fas fa-compass"></i> Explore More</div>
     <div class="explore-grid">
@@ -347,7 +348,7 @@
     </div>
   </div>
 
-  <!-- Regular Events (kept as a separate card) -->
+  <!-- Regular Events -->
   <div class="fade-up" style="margin: 2rem 0;">
     <div class="upcoming-box glass-card-light" style="max-width: 400px; margin: 0 auto; text-align: center;">
       <h3><i class="fas fa-calendar-alt"></i> Regular Events</h3>
