@@ -14,8 +14,8 @@
     .welcome-banner {
       position: relative;
       width: 100%;
-      height: 100vh;                    /* Full screen height */
-      background: url('{% static 'images/henry1.jpeg' %}') center center / cover no-repeat;
+      height: 100vh;
+      background: url('{% static 'images/henry1.jpeg' %}') center 25% / cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -46,9 +46,140 @@
       margin: 0 auto;
     }
     @media (max-width: 768px) {
-      .welcome-banner { height: 100vh; }  /* keep full screen on mobile */
+      .welcome-banner { height: 100vh; }
       .welcome-banner h1 { font-size: 2rem; }
       .welcome-banner p { font-size: 1rem; }
+    }
+
+    /* ========== MODERN ADDITIONS (HOME PAGE ONLY) ========== */
+
+    /* 1. Smooth scroll reveal (fade-up) */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 2. Enhanced glassmorphism for cards */
+    .glass-card-light {
+      background: rgba(30, 20, 50, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: all 0.4s ease;
+    }
+    .glass-card-light:hover {
+      background: rgba(40, 28, 65, 0.85);
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.4);
+      border-color: rgba(255, 205, 92, 0.5);
+    }
+
+    /* 3. Action cards – modern lift and glow */
+    .feature-card-img {
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .feature-card-img:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 35px -12px rgba(0,0,0,0.5);
+    }
+    .feature-card-img:hover .card-overlay {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+    }
+
+    /* 4. Section titles with subtle underline animation */
+    .section-title {
+      position: relative;
+      display: inline-flex;
+      font-size: 2rem;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: #ffcd5c;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    .section-title:hover::after {
+      width: 100%;
+    }
+
+    /* 5. Button hover enhancements */
+    .gold-btn, .reminder-btn, .donate-btn {
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .gold-btn:hover, .reminder-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 5px 15px rgba(255, 205, 92, 0.3);
+    }
+    .donate-btn {
+      background: linear-gradient(105deg, #f5b042, #e07c2c);
+    }
+    .donate-btn:hover {
+      background: linear-gradient(105deg, #ffaa44, #ff6a1a);
+      box-shadow: 0 5px 15px rgba(255, 170, 68, 0.4);
+    }
+
+    /* 6. Newsletter form – modern input focus */
+    .news-form input:focus {
+      box-shadow: 0 0 0 3px rgba(255, 205, 92, 0.3);
+      transform: scale(1.02);
+    }
+
+    /* 7. Blog cards – subtle image zoom on hover */
+    .blog-img {
+      transition: transform 0.4s ease, filter 0.3s;
+    }
+    .info-card:hover .blog-img {
+      transform: scale(1.05);
+      filter: brightness(1.05);
+    }
+
+    /* 8. Testimony carousel images – smoother transition */
+    .testimony-carousel-img {
+      transition: all 0.4s ease;
+    }
+    .testimony-carousel-img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 25px -10px rgba(0,0,0,0.4);
+    }
+
+    /* 9. Footer links – animated underline */
+    .footer-content a {
+      position: relative;
+      text-decoration: none;
+    }
+    .footer-content a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #ffcd5c;
+      transition: width 0.3s;
+    }
+    .footer-content a:hover::after {
+      width: 100%;
+    }
+
+    /* 10. Mobile adjustments – keep everything fluid */
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 1.5rem;
+      }
+      .section-title::after {
+        width: 40px;
+      }
     }
   </style>
 </head>
@@ -113,7 +244,7 @@
   </div>
 
   <!-- Action Cards -->
-  <div class="cards-row">
+  <div class="cards-row fade-up">
     <div class="feature-card-img" id="joinCard">
       <div class="card-overlay"></div>
       <div class="card-content">
@@ -141,7 +272,7 @@
   </div>
 
   <!-- Our Church Gallery -->
-  <div>
+  <div class="fade-up">
     <div class="section-title"><i class="fas fa-church"></i> Our Gatherings</div>
     <div class="videos-grid">
       <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
@@ -192,7 +323,7 @@
   </div>
 
   <!-- Regular Events & Testimonies -->
-  <div class="double-column">
+  <div class="double-column fade-up">
     <div class="upcoming-box glass-card-light">
       <h3><i class="fas fa-calendar-alt"></i> Regular Events</h3>
       <img src="{% static 'images/Photoshop.png' %}" alt="Regular Events" style="width:100%; border-radius:1rem;">
@@ -220,7 +351,7 @@
   </div>
 
   <!-- Recent Sermons -->
-  <div class="sermons-preview">
+  <div class="sermons-preview fade-up">
     <div class="section-title"><i class="fas fa-bible"></i> Recent Sermons</div>
     <div class="videos-grid">
       {% for sermon in latest_sermons %}
@@ -240,7 +371,7 @@
   </div>
 
   <!-- Newsletter -->
-  <div class="newsletter glass-card-light">
+  <div class="newsletter glass-card-light fade-up">
     <h3>Get Daily Prayer Notifications</h3>
     <form action="{% url 'newsletter_signup' %}" method="POST" class="news-form">
       {% csrf_token %}
@@ -250,7 +381,7 @@
   </div>
 
   <!-- Latest Blogs -->
-  <div class="info-grid">
+  <div class="info-grid fade-up">
     <div class="section-title"><i class="fas fa-blog"></i> Pastor Henry's Blog</div>
     {% for post in latest_posts %}
     <div class="info-card glass-card-light">
@@ -269,7 +400,7 @@
   </div>
 
   <!-- PayPal Donate -->
-  <div class="paypal-donate">
+  <div class="paypal-donate fade-up">
     <h3>Support the Ministry</h3>
     <a href="{% url 'donate' %}" class="gold-btn">Donate via PayPal or Bank →</a>
   </div>
@@ -288,6 +419,7 @@
 
 <script src="{% static 'js/script.js' %}"></script>
 <script>
+  // Manchester countdown (unchanged)
   function startManchesterCountdown() {
     const countdownEl = document.getElementById('manchesterCountdown');
     if (!countdownEl) return;
@@ -308,6 +440,28 @@
     }, 1000);
   }
   startManchesterCountdown();
+
+  // ========== SCROLL REVEAL ANIMATION ==========
+  const fadeElements = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target); // only animate once
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  fadeElements.forEach(el => observer.observe(el));
+
+  // Mobile menu toggle (preserve existing functionality)
+  const toggleBtn = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  if (toggleBtn && navLinks) {
+    toggleBtn.addEventListener('click', () => navLinks.classList.toggle('show'));
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('show'));
+    });
+  }
 </script>
 </body>
 </html>
