@@ -10,223 +10,224 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <style>
-    /* Welcome banner - full viewport height */
-    .welcome-banner {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      background: url('{% static 'images/henry1.jpeg' %}') center 25% / cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-    .welcome-banner .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-    }
-    .welcome-banner .banner-content {
-      position: relative;
-      z-index: 2;
-      color: white;
-      padding: 2rem;
-    }
-    .welcome-banner h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    }
-    .welcome-banner p {
-      font-size: 1.2rem;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    @media (max-width: 768px) {
-      .welcome-banner { height: 100vh; }
-      .welcome-banner h1 { font-size: 2rem; }
-      .welcome-banner p { font-size: 1rem; }
-    }
+    <style>
+/* ================= WELCOME BANNER ================= */
+.welcome-banner {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url('{% static 'images/henry1.jpeg' %}') center 25% / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 
-    /* ========== FLOATING PANELS (MODERN ADDITION) ========== */
-    @keyframes float {
-      0% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-5px);
-      }
-      100% {
-        transform: translateY(0px);
-      }
-    }
+.welcome-banner .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
 
-    /* Apply floating to main card containers (subtle and continuous) */
-    .feature-card-img,
-    .video-card,
-    .info-card,
-    .testimonies-box,
-    .upcoming-box,
-    .newsletter {
-      animation: float 5s ease-in-out infinite;
-    }
+.welcome-banner .banner-content {
+  position: relative;
+  z-index: 2;
+  color: white;
+  padding: 2rem;
+}
 
-    /* Slightly different delays for variety */
-    .video-card:nth-child(odd) {
-      animation-delay: 0.5s;
-    }
-    .info-card:nth-child(2) {
-      animation-delay: 1s;
-    }
-    .info-card:nth-child(3) {
-      animation-delay: 1.5s;
-    }
-    .testimonies-box {
-      animation-delay: 0.2s;
-    }
-    .upcoming-box {
-      animation-delay: 0.7s;
-    }
+.welcome-banner h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
 
-    /* ========== REST OF YOUR MODERN STYLES (keep existing) ========== */
-    /* 1. Smooth scroll reveal (fade-up) */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+.welcome-banner p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
 
-    /* 2. Enhanced glassmorphism for cards */
-    .glass-card-light {
-      background: rgba(30, 20, 50, 0.75);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      transition: all 0.4s ease;
-    }
-    .glass-card-light:hover {
-      background: rgba(40, 28, 65, 0.85);
-      transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.4);
-      border-color: rgba(255, 205, 92, 0.5);
-      animation: none; /* stop floating on hover for a more responsive feel */
-    }
+@media (max-width: 768px) {
+  .welcome-banner h1 { font-size: 2rem; }
+  .welcome-banner p { font-size: 1rem; }
+}
 
-    /* 3. Action cards – modern lift and glow (keep float but override hover) */
-    .feature-card-img {
-      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    }
-    .feature-card-img:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 25px 35px -12px rgba(0,0,0,0.5);
-      animation: none;
-    }
-    .feature-card-img:hover .card-overlay {
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
-    }
+/* ================= SCROLL REVEAL ================= */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1),
+              transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1);
+}
 
-    /* 4. Section titles with subtle underline animation */
-    .section-title {
-      position: relative;
-      display: inline-flex;
-      font-size: 2rem;
-    }
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 0;
-      width: 60px;
-      height: 3px;
-      background: #ffcd5c;
-      border-radius: 2px;
-      transition: width 0.3s ease;
-    }
-    .section-title:hover::after {
-      width: 100%;
-    }
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-    /* 5. Button hover enhancements */
-    .gold-btn, .reminder-btn, .donate-btn {
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .gold-btn:hover, .reminder-btn:hover {
-      transform: scale(1.02);
-      box-shadow: 0 5px 15px rgba(255, 205, 92, 0.3);
-    }
-    .donate-btn {
-      background: linear-gradient(105deg, #f5b042, #e07c2c);
-    }
-    .donate-btn:hover {
-      background: linear-gradient(105deg, #ffaa44, #ff6a1a);
-      box-shadow: 0 5px 15px rgba(255, 170, 68, 0.4);
-    }
+/* ================= FLOATING PANELS (CORRECT WAY) ================= */
+/* Subtle idle motion (optional, very light) */
+@media (min-width: 768px) {
+  .glass-card-light {
+    animation: subtleFloat 6s ease-in-out infinite;
+  }
 
-    /* 6. Newsletter form – modern input focus */
-    .news-form input:focus {
-      box-shadow: 0 0 0 3px rgba(255, 205, 92, 0.3);
-      transform: scale(1.02);
-    }
+  @keyframes subtleFloat {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-2px); }
+    100% { transform: translateY(0); }
+  }
 
-    /* 7. Blog cards – subtle image zoom on hover */
-    .blog-img {
-      transition: transform 0.4s ease, filter 0.3s;
-    }
-    .info-card:hover .blog-img {
-      transform: scale(1.05);
-      filter: brightness(1.05);
-    }
+  /* Stop animation when interacting */
+  .glass-card-light:hover {
+    animation: none;
+  }
+}
 
-    /* 8. Testimony carousel images – smoother transition */
-    .testimony-carousel-img {
-      transition: all 0.4s ease;
-    }
-    .testimony-carousel-img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 15px 25px -10px rgba(0,0,0,0.4);
-    }
+/* ================= ACTION CARDS ================= */
+.feature-card-img {
+  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+}
 
-    /* 9. Footer links – animated underline */
-    .footer-content a {
-      position: relative;
-      text-decoration: none;
-    }
-    .footer-content a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: #ffcd5c;
-      transition: width 0.3s;
-    }
-    .footer-content a:hover::after {
-      width: 100%;
-    }
+.feature-card-img:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 35px -12px rgba(0,0,0,0.5);
+}
 
-    /* 10. Mobile adjustments – keep everything fluid */
-    @media (max-width: 768px) {
-      .section-title {
-        font-size: 1.5rem;
-      }
-      .section-title::after {
-        width: 40px;
-      }
-    }
+.feature-card-img:hover .card-overlay {
+  background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+}
 
-    /* Prevent floating on cards that are already hovered to avoid conflict */
-    .video-card:hover, .info-card:hover, .testimonies-box:hover, .upcoming-box:hover, .newsletter:hover {
-      animation: none;
-    }
+/* ================= SECTION TITLE ================= */
+.section-title {
+  position: relative;
+  display: inline-flex;
+  font-size: 2rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: #ffcd5c;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.section-title:hover::after {
+  width: 100%;
+}
+
+/* ================= VIDEO CARDS ================= */
+.video-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shine effect */
+.video-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.15),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.video-card:hover::after {
+  opacity: 1;
+}
+
+/* ================= BLOG CARDS ================= */
+.blog-img {
+  transition: transform 0.5s ease, filter 0.3s;
+}
+
+.info-card:hover .blog-img {
+  transform: scale(1.08);
+  filter: brightness(1.05);
+}
+
+/* ================= TESTIMONIES ================= */
+.testimony-carousel-img {
+  transition: transform 0.4s ease;
+}
+
+/* Trigger from container (cleaner UX) */
+.testimonies-box:hover .testimony-carousel-img {
+  transform: scale(1.03);
+}
+
+/* ================= BUTTONS ================= */
+.gold-btn,
+.reminder-btn,
+.donate-btn {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.gold-btn:hover,
+.reminder-btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 18px rgba(255,205,92,0.35);
+}
+
+.donate-btn {
+  background: linear-gradient(105deg, #f5b042, #e07c2c);
+}
+
+.donate-btn:hover {
+  background: linear-gradient(105deg, #ffaa44, #ff6a1a);
+  box-shadow: 0 6px 18px rgba(255,170,68,0.4);
+}
+
+/* ================= INPUT FOCUS ================= */
+.news-form input:focus {
+  box-shadow: 0 0 0 3px rgba(255,205,92,0.3);
+  transform: scale(1.02);
+}
+
+/* ================= FOOTER LINKS ================= */
+.footer-content a {
+  position: relative;
+  text-decoration: none;
+}
+
+.footer-content a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #ffcd5c;
+  transition: width 0.3s;
+}
+
+.footer-content a:hover::after {
+  width: 100%;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .section-title::after {
+    width: 40px;
+  }
+}
+</style>
   </style>
 </head>
 <body>
