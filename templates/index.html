@@ -10,224 +10,230 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <style>
-    <style>
-/* ================= WELCOME BANNER ================= */
-.welcome-banner {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  background: url('{% static 'images/henry1.jpeg' %}') center 25% / cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+    /* ================= WELCOME BANNER ================= */
+    .welcome-banner {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: url('{% static 'images/henry1.jpeg' %}') center 25% / cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .welcome-banner .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    .welcome-banner .banner-content {
+      position: relative;
+      z-index: 2;
+      color: white;
+      padding: 2rem;
+    }
+    .welcome-banner h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .welcome-banner p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .welcome-banner h1 { font-size: 2rem; }
+      .welcome-banner p { font-size: 1rem; }
+    }
 
-.welcome-banner .overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-}
+    /* ================= SCROLL REVEAL ================= */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1),
+                  transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1);
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-.welcome-banner .banner-content {
-  position: relative;
-  z-index: 2;
-  color: white;
-  padding: 2rem;
-}
+    /* ================= FLOATING PANELS ================= */
+    @keyframes subtleFloat {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-3px); }
+      100% { transform: translateY(0); }
+    }
+    .glass-card-light {
+      background: rgba(30, 20, 50, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: all 0.4s ease;
+      animation: subtleFloat 5s ease-in-out infinite;
+    }
+    .glass-card-light:hover {
+      background: rgba(40, 28, 65, 0.85);
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.4);
+      border-color: rgba(255, 205, 92, 0.5);
+      animation: none;
+    }
 
-.welcome-banner h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
+    /* ================= ACTION CARDS ================= */
+    .feature-card-img {
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+    }
+    .feature-card-img:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 35px -12px rgba(0,0,0,0.5);
+    }
+    .feature-card-img:hover .card-overlay {
+      background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+    }
 
-.welcome-banner p {
-  font-size: 1.2rem;
-  max-width: 700px;
-  margin: 0 auto;
-}
+    /* ================= SECTION TITLE ================= */
+    .section-title {
+      position: relative;
+      display: inline-flex;
+      font-size: 2rem;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: #ffcd5c;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    .section-title:hover::after {
+      width: 100%;
+    }
 
-@media (max-width: 768px) {
-  .welcome-banner h1 { font-size: 2rem; }
-  .welcome-banner p { font-size: 1rem; }
-}
+    /* ================= VIDEO CARDS (our gatherings) ================= */
+    .video-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .video-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.15), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .video-card:hover::after {
+      opacity: 1;
+    }
 
-/* ================= SCROLL REVEAL ================= */
-.fade-up {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1),
-              transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1);
-}
+    /* ================= EXPLORE CARDS (new section) ================= */
+    .explore-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin: 3rem 0;
+    }
+    .explore-card {
+      flex: 1;
+      min-width: 250px;
+      text-align: center;
+      padding: 2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .explore-card i {
+      font-size: 3rem;
+      color: #ffcd5c;
+      margin-bottom: 1rem;
+    }
+    .explore-card h3 {
+      font-size: 1.6rem;
+      color: #ffefc0;
+      margin-bottom: 0.5rem;
+    }
+    .explore-card p {
+      color: #e0d6f5;
+      margin-bottom: 1.2rem;
+    }
+    .explore-btn {
+      background: transparent;
+      border: 1px solid #ffcd5c;
+      color: #ffcd5c;
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.2s;
+    }
+    .explore-btn:hover {
+      background: #ffcd5c;
+      color: #1a1a2a;
+    }
 
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+    /* ================= BUTTONS ================= */
+    .gold-btn, .reminder-btn, .donate-btn {
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .gold-btn:hover, .reminder-btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 18px rgba(255,205,92,0.35);
+    }
+    .donate-btn {
+      background: linear-gradient(105deg, #f5b042, #e07c2c);
+    }
+    .donate-btn:hover {
+      background: linear-gradient(105deg, #ffaa44, #ff6a1a);
+      box-shadow: 0 6px 18px rgba(255,170,68,0.4);
+    }
 
-/* ================= FLOATING PANELS (CORRECT WAY) ================= */
-/* Subtle idle motion (optional, very light) */
-@media (min-width: 768px) {
-  .glass-card-light {
-    animation: subtleFloat 6s ease-in-out infinite;
-  }
+    /* ================= INPUT FOCUS ================= */
+    .news-form input:focus {
+      box-shadow: 0 0 0 3px rgba(255,205,92,0.3);
+      transform: scale(1.02);
+    }
 
-  @keyframes subtleFloat {
-    0%   { transform: translateY(0); }
-    50%  { transform: translateY(-2px); }
-    100% { transform: translateY(0); }
-  }
+    /* ================= FOOTER LINKS ================= */
+    .footer-content a {
+      position: relative;
+      text-decoration: none;
+    }
+    .footer-content a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #ffcd5c;
+      transition: width 0.3s;
+    }
+    .footer-content a:hover::after {
+      width: 100%;
+    }
 
-  /* Stop animation when interacting */
-  .glass-card-light:hover {
-    animation: none;
-  }
-}
-
-/* ================= ACTION CARDS ================= */
-.feature-card-img {
-  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
-}
-
-.feature-card-img:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 25px 35px -12px rgba(0,0,0,0.5);
-}
-
-.feature-card-img:hover .card-overlay {
-  background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
-}
-
-/* ================= SECTION TITLE ================= */
-.section-title {
-  position: relative;
-  display: inline-flex;
-  font-size: 2rem;
-}
-
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  width: 60px;
-  height: 3px;
-  background: #ffcd5c;
-  border-radius: 2px;
-  transition: width 0.3s ease;
-}
-
-.section-title:hover::after {
-  width: 100%;
-}
-
-/* ================= VIDEO CARDS ================= */
-.video-card {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Shine effect */
-.video-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,0.15),
-    transparent
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.video-card:hover::after {
-  opacity: 1;
-}
-
-/* ================= BLOG CARDS ================= */
-.blog-img {
-  transition: transform 0.5s ease, filter 0.3s;
-}
-
-.info-card:hover .blog-img {
-  transform: scale(1.08);
-  filter: brightness(1.05);
-}
-
-/* ================= TESTIMONIES ================= */
-.testimony-carousel-img {
-  transition: transform 0.4s ease;
-}
-
-/* Trigger from container (cleaner UX) */
-.testimonies-box:hover .testimony-carousel-img {
-  transform: scale(1.03);
-}
-
-/* ================= BUTTONS ================= */
-.gold-btn,
-.reminder-btn,
-.donate-btn {
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.gold-btn:hover,
-.reminder-btn:hover {
-  transform: scale(1.03);
-  box-shadow: 0 6px 18px rgba(255,205,92,0.35);
-}
-
-.donate-btn {
-  background: linear-gradient(105deg, #f5b042, #e07c2c);
-}
-
-.donate-btn:hover {
-  background: linear-gradient(105deg, #ffaa44, #ff6a1a);
-  box-shadow: 0 6px 18px rgba(255,170,68,0.4);
-}
-
-/* ================= INPUT FOCUS ================= */
-.news-form input:focus {
-  box-shadow: 0 0 0 3px rgba(255,205,92,0.3);
-  transform: scale(1.02);
-}
-
-/* ================= FOOTER LINKS ================= */
-.footer-content a {
-  position: relative;
-  text-decoration: none;
-}
-
-.footer-content a::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: #ffcd5c;
-  transition: width 0.3s;
-}
-
-.footer-content a:hover::after {
-  width: 100%;
-}
-
-/* ================= MOBILE ================= */
-@media (max-width: 768px) {
-  .section-title {
-    font-size: 1.5rem;
-  }
-
-  .section-title::after {
-    width: 40px;
-  }
-}
-</style>
+    /* ================= MOBILE ================= */
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 1.5rem;
+      }
+      .section-title::after {
+        width: 40px;
+      }
+      .explore-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+      .explore-card {
+        width: 100%;
+        max-width: 320px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -260,7 +266,7 @@
   </ul>
 </nav>
 
-<!-- Welcome Banner (full screen) -->
+<!-- Welcome Banner -->
 <div class="welcome-banner">
   <div class="overlay"></div>
   <div class="banner-content">
@@ -279,9 +285,7 @@
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-cross"></div>
-    <div class="hero-content">
-      <!-- "WATCH LIVE NOW" button removed -->
-    </div>
+    <div class="hero-content"></div>
   </div>
 
   <!-- Manchester Banner -->
@@ -369,51 +373,45 @@
     </div>
   </div>
 
-  <!-- Regular Events & Testimonies -->
-  <div class="double-column fade-up">
-    <div class="upcoming-box glass-card-light">
+  <!-- Regular Events (kept as a separate card) -->
+  <div class="fade-up" style="margin: 2rem 0;">
+    <div class="upcoming-box glass-card-light" style="max-width: 400px; margin: 0 auto; text-align: center;">
       <h3><i class="fas fa-calendar-alt"></i> Regular Events</h3>
       <img src="{% static 'images/Photoshop.png' %}" alt="Regular Events" style="width:100%; border-radius:1rem;">
       <div style="text-align: center; margin-top: 1rem;">
         <a href="{% url 'regular' %}" class="reminder-btn">View All Regular Events →</a>
       </div>
     </div>
-    <div class="testimonies-box glass-card-light">
-      <h3><i class="fas fa-comment-dots"></i> Testimonies</h3>
-      <div class="testimony-carousel">
-        <button class="carousel-btn prev-btn" id="testiPrevBtn">&#10094;</button>
-        <div class="carousel-container">
-          <div class="carousel-track" id="testiCarouselTrack">
-            <img src="{% static 'images/testimonies/tes1.jpeg' %}" alt="Testimony 1" class="testimony-carousel-img">
-            <img src="{% static 'images/testimonies/tes2.jpeg' %}" alt="Testimony 2" class="testimony-carousel-img">
-            <img src="{% static 'images/testimonies/tes3.jpeg' %}" alt="Testimony 3" class="testimony-carousel-img">
-            <img src="{% static 'images/testimonies/tes4.jpeg' %}" alt="Testimony 4" class="testimony-carousel-img">
-          </div>
-        </div>
-        <button class="carousel-btn next-btn" id="testiNextBtn">&#10095;</button>
-      </div>
-      <div class="carousel-dots" id="testiDots"></div>
-      <a href="{% url 'testimonies' %}" class="read-all-link">Read all →</a>
-    </div>
   </div>
 
-  <!-- Recent Sermons -->
-  <div class="sermons-preview fade-up">
-    <div class="section-title"><i class="fas fa-bible"></i> Recent Sermons</div>
-    <div class="videos-grid">
-      {% for sermon in latest_sermons %}
-      <div class="video-card glass-card-light" onclick="window.open('https://www.youtube.com/watch?v={{ sermon.video_id }}', '_blank')" style="cursor: pointer;">
-        <div class="video-thumb">
-          <img src="https://img.youtube.com/vi/{{ sermon.video_id }}/maxresdefault.jpg" alt="{{ sermon.title }}">
+  <!-- NEW EXPLORE SECTION (mirror / floating panels) -->
+  <div class="fade-up">
+    <div class="section-title"><i class="fas fa-compass"></i> Explore More</div>
+    <div class="explore-grid">
+      <a href="{% url 'testimonies' %}" style="text-decoration: none;">
+        <div class="explore-card glass-card-light">
+          <i class="fas fa-comment-dots"></i>
+          <h3>Testimonies</h3>
+          <p>Read real stories of breakthrough and healing from our community.</p>
+          <span class="explore-btn">Explore →</span>
         </div>
-        <div class="video-info">
-          <h4>{{ sermon.title }}</h4>
-          <div class="video-meta">{{ sermon.preacher }} | {{ sermon.date }}</div>
+      </a>
+      <a href="{% url 'sermons' %}" style="text-decoration: none;">
+        <div class="explore-card glass-card-light">
+          <i class="fas fa-bible"></i>
+          <h3>Sermons</h3>
+          <p>Watch powerful messages from our pastoral team.</p>
+          <span class="explore-btn">Explore →</span>
         </div>
-      </div>
-      {% empty %}
-      <p>No sermons yet. Check back soon.</p>
-      {% endfor %}
+      </a>
+      <a href="{% url 'blog_list' %}" style="text-decoration: none;">
+        <div class="explore-card glass-card-light">
+          <i class="fas fa-blog"></i>
+          <h3>Pastor Henry's Blog</h3>
+          <p>Prophetic insights, teaching, and encouragement.</p>
+          <span class="explore-btn">Explore →</span>
+        </div>
+      </a>
     </div>
   </div>
 
@@ -425,25 +423,6 @@
       <input type="email" name="email" placeholder="Your email" required>
       <button type="submit">Subscribe</button>
     </form>
-  </div>
-
-  <!-- Latest Blogs -->
-  <div class="info-grid fade-up">
-    <div class="section-title"><i class="fas fa-blog"></i> Pastor Henry's Blog</div>
-    {% for post in latest_posts %}
-    <div class="info-card glass-card-light">
-      {% if post.image %}
-        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="blog-img">
-      {% else %}
-        <img src="{% static 'images/blog-placeholder.jpg' %}" alt="Blog image" class="blog-img">
-      {% endif %}
-      <h3>{{ post.title }}</h3>
-      <p>{{ post.content|striptags|truncatechars:80 }}</p>
-      <a href="{% url 'blog_detail' post.id %}" class="reminder-btn">Read More</a>
-    </div>
-    {% empty %}
-    <p>No blog posts yet. Check back soon.</p>
-    {% endfor %}
   </div>
 
   <!-- PayPal Donate -->
@@ -466,7 +445,7 @@
 
 <script src="{% static 'js/script.js' %}"></script>
 <script>
-  // Manchester countdown (unchanged)
+  // Manchester countdown
   function startManchesterCountdown() {
     const countdownEl = document.getElementById('manchesterCountdown');
     if (!countdownEl) return;
@@ -488,7 +467,7 @@
   }
   startManchesterCountdown();
 
-  // ========== SCROLL REVEAL ANIMATION ==========
+  // Scroll reveal
   const fadeElements = document.querySelectorAll('.fade-up');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -500,7 +479,7 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
   fadeElements.forEach(el => observer.observe(el));
 
-  // Mobile menu toggle (preserve existing functionality)
+  // Mobile menu toggle
   const toggleBtn = document.getElementById('menuToggle');
   const navLinks = document.getElementById('navLinks');
   if (toggleBtn && navLinks) {
