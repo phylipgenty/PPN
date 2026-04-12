@@ -2,121 +2,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home | Prayer Power Network</title>
-
-<link rel="icon" type="image/png" href="{% static 'images/PPN logo1.png' %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-<style>
-
-/* ===== FIXED STYLE TAG ISSUE ===== */
-
-/* ===== WELCOME ===== */
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | Prayer Power Network</title>
+  <link rel="icon" type="image/png" href="{% static 'images/PPN logo1.png' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <style>
+    <style>
+/* ================= WELCOME BANNER ================= */
 .welcome-banner {
+  position: relative;
+  width: 100%;
   height: 100vh;
-  background: url('{% static 'images/henry1.jpeg' %}') center/cover no-repeat;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  position:relative;
+  background: url('{% static 'images/henry1.jpeg' %}') center 25% / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-.overlay {
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.5);
+.welcome-banner .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
 }
 
-.banner-content {
-  position:relative;
-  z-index:2;
-  color:white;
+.welcome-banner .banner-content {
+  position: relative;
+  z-index: 2;
+  color: white;
+  padding: 2rem;
 }
 
-/* ===== SCROLL ANIMATION ===== */
+.welcome-banner h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.welcome-banner p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .welcome-banner h1 { font-size: 2rem; }
+  .welcome-banner p { font-size: 1rem; }
+}
+
+/* ================= SCROLL REVEAL ================= */
 .fade-up {
-  opacity:0;
-  transform:translateY(30px);
-  transition:0.7s ease;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1),
+              transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1);
 }
+
 .fade-up.visible {
-  opacity:1;
-  transform:translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* ===== FLOATING CARDS SECTION ===== */
-.quick-links {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:2rem;
-  margin:3rem 0;
+/* ================= FLOATING PANELS (CORRECT WAY) ================= */
+/* Subtle idle motion (optional, very light) */
+@media (min-width: 768px) {
+  .glass-card-light {
+    animation: subtleFloat 6s ease-in-out infinite;
+  }
+
+  @keyframes subtleFloat {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-2px); }
+    100% { transform: translateY(0); }
+  }
+
+  /* Stop animation when interacting */
+  .glass-card-light:hover {
+    animation: none;
+  }
 }
 
-.quick-card {
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(12px);
-  border-radius:1.5rem;
-  padding:2rem;
-  text-align:center;
-  color:white;
-  transition:0.3s;
-  cursor:pointer;
+/* ================= ACTION CARDS ================= */
+.feature-card-img {
+  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
 }
 
-.quick-card:hover {
-  transform:translateY(-10px) scale(1.02);
-  box-shadow:0 15px 30px rgba(0,0,0,0.4);
+.feature-card-img:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 35px -12px rgba(0,0,0,0.5);
 }
 
-.quick-card i {
-  font-size:2rem;
-  color:#ffcd5c;
-  margin-bottom:1rem;
+.feature-card-img:hover .card-overlay {
+  background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
 }
 
-/* ===== CLEAN REMOVE FLOATING ANIMATION CHAOS ===== */
-.glass-card-light {
-  animation:none !important;
+/* ================= SECTION TITLE ================= */
+.section-title {
+  position: relative;
+  display: inline-flex;
+  font-size: 2rem;
 }
 
-/* ===== BUTTON ===== */
-.gold-btn {
-  background:#ffcd5c;
-  padding:0.6rem 1.4rem;
-  border-radius:2rem;
-  text-decoration:none;
-  color:black;
-  font-weight:600;
-  display:inline-block;
-  margin-top:1rem;
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: #ffcd5c;
+  border-radius: 2px;
+  transition: width 0.3s ease;
 }
 
-/* ===== MOBILE ===== */
-@media(max-width:768px){
-  .welcome-banner h1 { font-size:2rem; }
+.section-title:hover::after {
+  width: 100%;
 }
 
+/* ================= VIDEO CARDS ================= */
+.video-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shine effect */
+.video-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.15),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.video-card:hover::after {
+  opacity: 1;
+}
+
+/* ================= BLOG CARDS ================= */
+.blog-img {
+  transition: transform 0.5s ease, filter 0.3s;
+}
+
+.info-card:hover .blog-img {
+  transform: scale(1.08);
+  filter: brightness(1.05);
+}
+
+/* ================= TESTIMONIES ================= */
+.testimony-carousel-img {
+  transition: transform 0.4s ease;
+}
+
+/* Trigger from container (cleaner UX) */
+.testimonies-box:hover .testimony-carousel-img {
+  transform: scale(1.03);
+}
+
+/* ================= BUTTONS ================= */
+.gold-btn,
+.reminder-btn,
+.donate-btn {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.gold-btn:hover,
+.reminder-btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 18px rgba(255,205,92,0.35);
+}
+
+.donate-btn {
+  background: linear-gradient(105deg, #f5b042, #e07c2c);
+}
+
+.donate-btn:hover {
+  background: linear-gradient(105deg, #ffaa44, #ff6a1a);
+  box-shadow: 0 6px 18px rgba(255,170,68,0.4);
+}
+
+/* ================= INPUT FOCUS ================= */
+.news-form input:focus {
+  box-shadow: 0 0 0 3px rgba(255,205,92,0.3);
+  transform: scale(1.02);
+}
+
+/* ================= FOOTER LINKS ================= */
+.footer-content a {
+  position: relative;
+  text-decoration: none;
+}
+
+.footer-content a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #ffcd5c;
+  transition: width 0.3s;
+}
+
+.footer-content a:hover::after {
+  width: 100%;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .section-title::after {
+    width: 40px;
+  }
+}
 </style>
+  </style>
 </head>
-
 <body>
 
-<!-- NAV -->
 <nav class="navbar">
   <div class="logo">
-    <img src="{% static 'images/PPN logo1.png' %}" class="logo-img">
+    <img src="{% static 'images/PPN logo1.png' %}" alt="Logo" class="logo-img">
     PRAYER POWER NETWORK
   </div>
-
   <div class="menu-icon" id="menuToggle">
     <i class="fas fa-bars"></i>
   </div>
-
   <ul class="nav-links" id="navLinks">
     <li><a href="#home">Home</a></li>
     <li><a href="{% url 'about' %}">About</a></li>
@@ -124,86 +247,268 @@
     <li><a href="{% url 'sermons' %}">Sermons</a></li>
     <li><a href="{% url 'testimonies' %}">Testimonies</a></li>
     <li><a href="{% url 'blog_list' %}">Blogs</a></li>
+    <li><a href="{% url 'donate' %}" class="donate-btn">Donate</a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">More <i class="fas fa-caret-down"></i></a>
+      <div class="dropdown-content">
+        <a href="{% url 'contact' %}">Contact Us</a>
+        <a href="{% url 'appointment' %}">Book Appointment</a>
+        <a href="{% url 'newsletter_signup' %}">Newsletter</a>
+        <a href="{% url 'test' %}">Share Your Testimony</a>
+      </div>
+    </li>
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- Welcome Banner (full screen) -->
 <div class="welcome-banner">
   <div class="overlay"></div>
   <div class="banner-content">
     <h1>Welcome to Prayer Power Network</h1>
-    <p>Experience supernatural intervention through prayer and the Word</p>
+    <p>Experience supernatural intervention through prayer, worship, and the Word. Join a global community of believers seeking God's presence.</p>
   </div>
 </div>
 
-<main class="container">
-
-<!-- ACTION CARDS -->
-<div class="cards-row fade-up">
-  <div class="feature-card-img" id="joinCard"></div>
-  <div class="feature-card-img" id="liveCard"></div>
-  <div class="feature-card-img" id="prayerCard"></div>
-</div>
-
-<!-- 🔥 NEW FLOATING PANELS (THIS IS THE BIG UPGRADE) -->
-<div class="quick-links fade-up">
-
-  <div class="quick-card" onclick="window.location.href='{% url 'testimonies' %}'">
-    <i class="fas fa-comment-dots"></i>
-    <h3>Testimonies</h3>
-    <p>See how lives are being transformed</p>
-    <span class="gold-btn">View More →</span>
+<main>
+  <!-- Hero Slideshow -->
+  <div class="hero" id="home">
+    <div class="slideshow-container">
+      <div class="slide fade" style="background-image: url('{% static 'images/img1.jpeg' %}');"></div>
+      <div class="slide fade" style="background-image: url('{% static 'images/img2.jpeg' %}');"></div>
+      <div class="slide fade" style="background-image: url('{% static 'images/img3_1.jpeg' %}');"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-cross"></div>
+    <div class="hero-content">
+      <!-- "WATCH LIVE NOW" button removed -->
+    </div>
   </div>
 
-  <div class="quick-card" onclick="window.location.href='{% url 'sermons' %}'">
-    <i class="fas fa-bible"></i>
-    <h3>Sermons</h3>
-    <p>Watch powerful teachings</p>
-    <span class="gold-btn">Watch Now →</span>
+  <!-- Manchester Banner -->
+  <div class="manchester-banner" style="background: url('{% static 'images/manchester-flyer.jpeg' %}') center/cover no-repeat;">
+    <p id="manchesterCountdown" class="countdown"></p>
+    <a href="{% url 'manchester' %}" class="gold-btn">Go to Manchester Page →</a>
   </div>
 
-  <div class="quick-card" onclick="window.location.href='{% url 'blog_list' %}'">
-    <i class="fas fa-blog"></i>
-    <h3>Blog</h3>
-    <p>Read spiritual insights</p>
-    <span class="gold-btn">Read More →</span>
+  <!-- Action Cards -->
+  <div class="cards-row fade-up">
+    <div class="feature-card-img" id="joinCard">
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <i class="fas fa-users"></i>
+        <h3>JOIN OUR PRAYER NETWORK</h3>
+        <p>Connect with a global community of believers</p>
+      </div>
+    </div>
+    <div class="feature-card-img" id="liveCard" onclick="window.open('https://www.youtube.com/@henryonyirioha_ppn/streams', '_blank')" style="cursor: pointer;">
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <i class="fas fa-video"></i>
+        <h3>WATCH LIVE STREAMS</h3>
+        <p>Experience worship and prophetic declarations</p>
+      </div>
+    </div>
+    <div class="feature-card-img" id="prayerCard">
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <i class="fas fa-envelope-open-text"></i>
+        <h3>SEND PRAYER REQUESTS</h3>
+        <p>Let our community intercede on your behalf</p>
+      </div>
+    </div>
   </div>
 
-</div>
-
-<!-- KEEP ONLY LIGHT SECTIONS -->
-<div class="paypal-donate fade-up">
-  <h3>Support the Ministry</h3>
-  <a href="{% url 'donate' %}" class="gold-btn">Donate →</a>
-</div>
-
-<footer>
-  <div class="footer-content">
-    <p>© 2026 Prayer Power Network</p>
+  <!-- Our Church Gallery -->
+  <div class="fade-up">
+    <div class="section-title"><i class="fas fa-church"></i> Our Gatherings</div>
+    <div class="videos-grid">
+      <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
+        <div class="video-card glass-card-light">
+          <div class="video-thumb">
+            <img src="{% static 'images/Northampton/nor2.jpeg' %}" alt="Main Sanctuary" class="thumb-img">
+          </div>
+          <div class="video-info">
+            <h4>Northampton 2026</h4>
+            <p>Leaders and Ministers Retreat</p>
+          </div>
+        </div>
+      </a>
+      <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
+        <div class="video-card glass-card-light">
+          <div class="video-thumb">
+            <img src="{% static 'images/Edinburgh/edi2.jpeg' %}" alt="Worship Service" class="thumb-img">
+          </div>
+          <div class="video-info">
+            <h4>Edinburgh 2024</h4>
+            <p>The PPN Annual Healing and Deliverance Conference</p>
+          </div>
+        </div>
+      </a>
+      <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
+        <div class="video-card glass-card-light">
+          <div class="video-thumb">
+            <img src="{% static 'images/Birmingham/bir1.jpeg' %}" alt="Prayer Tower" class="thumb-img">
+          </div>
+          <div class="video-info">
+            <h4>Birmingham 2025</h4>
+            <p>The PPN Annual Healing and Deliverance Conference</p>
+          </div>
+        </div>
+      </a>
+      <a href="{% url 'events' %}" style="text-decoration: none; display: block;">
+        <div class="video-card glass-card-light">
+          <div class="video-thumb">
+            <img src="{% static 'images/Northampton/nor8.jpeg' %}" alt="Children's Ministry" class="thumb-img">
+          </div>
+          <div class="video-info">
+            <h4>Northampton 2026</h4>
+            <p>Leaders and Ministers Retreat</p>
+          </div>
+        </div>
+      </a>
+    </div>
   </div>
-</footer>
 
+  <!-- Regular Events & Testimonies -->
+  <div class="double-column fade-up">
+    <div class="upcoming-box glass-card-light">
+      <h3><i class="fas fa-calendar-alt"></i> Regular Events</h3>
+      <img src="{% static 'images/Photoshop.png' %}" alt="Regular Events" style="width:100%; border-radius:1rem;">
+      <div style="text-align: center; margin-top: 1rem;">
+        <a href="{% url 'regular' %}" class="reminder-btn">View All Regular Events →</a>
+      </div>
+    </div>
+    <div class="testimonies-box glass-card-light">
+      <h3><i class="fas fa-comment-dots"></i> Testimonies</h3>
+      <div class="testimony-carousel">
+        <button class="carousel-btn prev-btn" id="testiPrevBtn">&#10094;</button>
+        <div class="carousel-container">
+          <div class="carousel-track" id="testiCarouselTrack">
+            <img src="{% static 'images/testimonies/tes1.jpeg' %}" alt="Testimony 1" class="testimony-carousel-img">
+            <img src="{% static 'images/testimonies/tes2.jpeg' %}" alt="Testimony 2" class="testimony-carousel-img">
+            <img src="{% static 'images/testimonies/tes3.jpeg' %}" alt="Testimony 3" class="testimony-carousel-img">
+            <img src="{% static 'images/testimonies/tes4.jpeg' %}" alt="Testimony 4" class="testimony-carousel-img">
+          </div>
+        </div>
+        <button class="carousel-btn next-btn" id="testiNextBtn">&#10095;</button>
+      </div>
+      <div class="carousel-dots" id="testiDots"></div>
+      <a href="{% url 'testimonies' %}" class="read-all-link">Read all →</a>
+    </div>
+  </div>
+
+  <!-- Recent Sermons -->
+  <div class="sermons-preview fade-up">
+    <div class="section-title"><i class="fas fa-bible"></i> Recent Sermons</div>
+    <div class="videos-grid">
+      {% for sermon in latest_sermons %}
+      <div class="video-card glass-card-light" onclick="window.open('https://www.youtube.com/watch?v={{ sermon.video_id }}', '_blank')" style="cursor: pointer;">
+        <div class="video-thumb">
+          <img src="https://img.youtube.com/vi/{{ sermon.video_id }}/maxresdefault.jpg" alt="{{ sermon.title }}">
+        </div>
+        <div class="video-info">
+          <h4>{{ sermon.title }}</h4>
+          <div class="video-meta">{{ sermon.preacher }} | {{ sermon.date }}</div>
+        </div>
+      </div>
+      {% empty %}
+      <p>No sermons yet. Check back soon.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Newsletter -->
+  <div class="newsletter glass-card-light fade-up">
+    <h3>Get Daily Prayer Notifications</h3>
+    <form action="{% url 'newsletter_signup' %}" method="POST" class="news-form">
+      {% csrf_token %}
+      <input type="email" name="email" placeholder="Your email" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+
+  <!-- Latest Blogs -->
+  <div class="info-grid fade-up">
+    <div class="section-title"><i class="fas fa-blog"></i> Pastor Henry's Blog</div>
+    {% for post in latest_posts %}
+    <div class="info-card glass-card-light">
+      {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="blog-img">
+      {% else %}
+        <img src="{% static 'images/blog-placeholder.jpg' %}" alt="Blog image" class="blog-img">
+      {% endif %}
+      <h3>{{ post.title }}</h3>
+      <p>{{ post.content|striptags|truncatechars:80 }}</p>
+      <a href="{% url 'blog_detail' post.id %}" class="reminder-btn">Read More</a>
+    </div>
+    {% empty %}
+    <p>No blog posts yet. Check back soon.</p>
+    {% endfor %}
+  </div>
+
+  <!-- PayPal Donate -->
+  <div class="paypal-donate fade-up">
+    <h3>Support the Ministry</h3>
+    <a href="{% url 'donate' %}" class="gold-btn">Donate via PayPal or Bank →</a>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-social">
+        <a href="https://www.facebook.com/prayerpowernetwork" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.youtube.com/channel/UCS1lJ8S-1KBpQavhqSiwehQ" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://instagram.com/prayerpower_network" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p>© 2026 Prayer Power Network (A Non-Denominational Church) <br> Registered charity number: 1192591 | <a href="#">Terms & Services</a> | Faith, Hope, Love</p>
+    </div>
+  </footer>
 </main>
 
+<script src="{% static 'js/script.js' %}"></script>
 <script>
+  // Manchester countdown (unchanged)
+  function startManchesterCountdown() {
+    const countdownEl = document.getElementById('manchesterCountdown');
+    if (!countdownEl) return;
+    const eventDate = new Date(2026, 7, 13, 9, 0, 0);
+    const timer = setInterval(() => {
+      const now = new Date();
+      const distance = eventDate - now;
+      if (distance < 0) {
+        clearInterval(timer);
+        countdownEl.innerHTML = "🔥 EVENT STARTED! 🔥";
+        return;
+      }
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % 86400000) / 3600000);
+      const mins = Math.floor((distance % 3600000) / 60000);
+      const secs = Math.floor((distance % 60000) / 1000);
+      countdownEl.innerHTML = `${days}d ${hours}h ${mins}m ${secs}s`;
+    }, 1000);
+  }
+  startManchesterCountdown();
 
-/* SCROLL REVEAL */
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-    }
-  });
-});
+  // ========== SCROLL REVEAL ANIMATION ==========
+  const fadeElements = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  fadeElements.forEach(el => observer.observe(el));
 
-document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
-
-/* MOBILE NAV */
-document.getElementById('menuToggle').onclick=()=>{
-  document.getElementById('navLinks').classList.toggle('show');
-};
-
+  // Mobile menu toggle (preserve existing functionality)
+  const toggleBtn = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  if (toggleBtn && navLinks) {
+    toggleBtn.addEventListener('click', () => navLinks.classList.toggle('show'));
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('show'));
+    });
+  }
 </script>
-
 </body>
 </html>
