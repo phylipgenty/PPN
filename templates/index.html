@@ -51,8 +51,47 @@
       .welcome-banner p { font-size: 1rem; }
     }
 
-    /* ========== MODERN ADDITIONS (HOME PAGE ONLY) ========== */
+    /* ========== FLOATING PANELS (MODERN ADDITION) ========== */
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
 
+    /* Apply floating to main card containers (subtle and continuous) */
+    .feature-card-img,
+    .video-card,
+    .info-card,
+    .testimonies-box,
+    .upcoming-box,
+    .newsletter {
+      animation: float 5s ease-in-out infinite;
+    }
+
+    /* Slightly different delays for variety */
+    .video-card:nth-child(odd) {
+      animation-delay: 0.5s;
+    }
+    .info-card:nth-child(2) {
+      animation-delay: 1s;
+    }
+    .info-card:nth-child(3) {
+      animation-delay: 1.5s;
+    }
+    .testimonies-box {
+      animation-delay: 0.2s;
+    }
+    .upcoming-box {
+      animation-delay: 0.7s;
+    }
+
+    /* ========== REST OF YOUR MODERN STYLES (keep existing) ========== */
     /* 1. Smooth scroll reveal (fade-up) */
     .fade-up {
       opacity: 0;
@@ -76,15 +115,17 @@
       transform: translateY(-6px) scale(1.01);
       box-shadow: 0 20px 30px -12px rgba(0,0,0,0.4);
       border-color: rgba(255, 205, 92, 0.5);
+      animation: none; /* stop floating on hover for a more responsive feel */
     }
 
-    /* 3. Action cards – modern lift and glow */
+    /* 3. Action cards – modern lift and glow (keep float but override hover) */
     .feature-card-img {
       transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     }
     .feature-card-img:hover {
       transform: translateY(-10px);
       box-shadow: 0 25px 35px -12px rgba(0,0,0,0.5);
+      animation: none;
     }
     .feature-card-img:hover .card-overlay {
       background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
@@ -180,6 +221,11 @@
       .section-title::after {
         width: 40px;
       }
+    }
+
+    /* Prevent floating on cards that are already hovered to avoid conflict */
+    .video-card:hover, .info-card:hover, .testimonies-box:hover, .upcoming-box:hover, .newsletter:hover {
+      animation: none;
     }
   </style>
 </head>
@@ -447,7 +493,7 @@
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        observer.unobserve(entry.target); // only animate once
+        observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
