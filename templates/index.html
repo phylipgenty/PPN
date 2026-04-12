@@ -10,40 +10,44 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <style>
-    /* ================= WELCOME BANNER ================= */
-    .welcome-banner {
+    /* ================= HERO (replaces old hero slideshow) ================= */
+    .hero {
       position: relative;
       width: 100%;
-      height: 100vh;
+      min-height: 85vh;
       background: url('{% static 'images/henry1.jpeg' %}') center 25% / cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
     }
-    .welcome-banner .overlay {
+    .hero .overlay {
       position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
     }
-    .welcome-banner .banner-content {
+    .hero-content {
       position: relative;
       z-index: 2;
       color: white;
       padding: 2rem;
     }
-    .welcome-banner h1 {
+    .hero h1 {
       font-size: 3rem;
       margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
-    .welcome-banner p {
+    .hero p {
       font-size: 1.2rem;
       max-width: 700px;
       margin: 0 auto;
     }
     @media (max-width: 768px) {
-      .welcome-banner h1 { font-size: 2rem; }
-      .welcome-banner p { font-size: 1rem; }
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1rem; }
     }
 
     /* ================= SCROLL REVEAL ================= */
@@ -58,10 +62,10 @@
       transform: translateY(0);
     }
 
-    /* ================= FLOATING PANELS ================= */
-    @keyframes subtleFloat {
+    /* ================= FLOATING PANELS (enhanced levitation) ================= */
+    @keyframes levitate {
       0%   { transform: translateY(0); }
-      50%  { transform: translateY(-3px); }
+      50%  { transform: translateY(-6px); }
       100% { transform: translateY(0); }
     }
     .glass-card-light {
@@ -69,11 +73,11 @@
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.15);
       transition: all 0.4s ease;
-      animation: subtleFloat 5s ease-in-out infinite;
+      animation: levitate 5s ease-in-out infinite;
     }
     .glass-card-light:hover {
       background: rgba(40, 28, 65, 0.85);
-      transform: translateY(-6px) scale(1.01);
+      transform: translateY(-8px) scale(1.01);
       box-shadow: 0 20px 30px -12px rgba(0,0,0,0.4);
       border-color: rgba(255, 205, 92, 0.5);
       animation: none;
@@ -112,7 +116,7 @@
       width: 100%;
     }
 
-    /* ================= EXPLORE CARDS (new section) ================= */
+    /* ================= EXPLORE CARDS ================= */
     .explore-grid {
       display: flex;
       flex-wrap: wrap;
@@ -132,7 +136,7 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 1.8rem;
       box-shadow: 0 15px 25px -10px rgba(0,0,0,0.5);
-      animation: subtleFloat 5s ease-in-out infinite;
+      animation: levitate 5s ease-in-out infinite;
     }
     .explore-card:hover {
       transform: translateY(-8px);
@@ -260,28 +264,16 @@
   </ul>
 </nav>
 
-<!-- Welcome Banner -->
-<div class="welcome-banner">
+<!-- Hero Section (static banner, no slideshow) -->
+<div class="hero" id="home">
   <div class="overlay"></div>
-  <div class="banner-content">
+  <div class="hero-content">
     <h1>Welcome to Prayer Power Network</h1>
     <p>Experience supernatural intervention through prayer, worship, and the Word. Join a global community of believers seeking God's presence.</p>
   </div>
 </div>
 
 <main>
-  <!-- Hero Slideshow -->
-  <div class="hero" id="home">
-    <div class="slideshow-container">
-      <div class="slide fade" style="background-image: url('{% static 'images/img1.jpeg' %}');"></div>
-      <div class="slide fade" style="background-image: url('{% static 'images/img2.jpeg' %}');"></div>
-      <div class="slide fade" style="background-image: url('{% static 'images/img3_1.jpeg' %}');"></div>
-    </div>
-    <div class="hero-overlay"></div>
-    <div class="hero-cross"></div>
-    <div class="hero-content"></div>
-  </div>
-
   <!-- Manchester Banner -->
   <div class="manchester-banner" style="background: url('{% static 'images/manchester-flyer.jpeg' %}') center/cover no-repeat;">
     <p id="manchesterCountdown" class="countdown"></p>
@@ -316,11 +308,10 @@
     </div>
   </div>
 
-  <!-- NEW EXPLORE SECTION (includes Our Gatherings as a card) -->
+  <!-- NEW EXPLORE SECTION (includes Our Gatherings) -->
   <div class="fade-up">
     <div class="section-title"><i class="fas fa-compass"></i> Explore More</div>
     <div class="explore-grid">
-      <!-- Our Gatherings Card (moved from separate section) -->
       <a href="{% url 'events' %}" style="text-decoration: none;">
         <div class="explore-card">
           <i class="fas fa-church"></i>
@@ -329,7 +320,6 @@
           <span class="explore-btn">Explore →</span>
         </div>
       </a>
-      <!-- Testimonies Card -->
       <a href="{% url 'testimonies' %}" style="text-decoration: none;">
         <div class="explore-card">
           <i class="fas fa-comment-dots"></i>
@@ -338,7 +328,6 @@
           <span class="explore-btn">Explore →</span>
         </div>
       </a>
-      <!-- Sermons Card -->
       <a href="{% url 'sermons' %}" style="text-decoration: none;">
         <div class="explore-card">
           <i class="fas fa-bible"></i>
@@ -347,7 +336,6 @@
           <span class="explore-btn">Explore →</span>
         </div>
       </a>
-      <!-- Pastor Henry's Blog Card -->
       <a href="{% url 'blog_list' %}" style="text-decoration: none;">
         <div class="explore-card">
           <i class="fas fa-blog"></i>
