@@ -888,19 +888,12 @@ footer {
 /* Lower the Manchester button, keep countdown unchanged */
 .manchester-banner {
   position: relative;
+  min-height: 280px;
 }
 
 .manchester-banner .gold-btn {
   position: absolute;
-  bottom: 30px;  /* move up/down */
+  bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
-}
-
-.manchester-banner .gold-btn {
-  position: absolute !important;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
 }
