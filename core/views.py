@@ -215,6 +215,7 @@ def process_donation(request):
         name = request.POST.get('name')
         email = request.POST.get('email')
         amount = request.POST.get('amount')
+        currency = request.POST.get('currency', 'GBP')  # Get currency from form, default GBP
 
         if name and email and amount:
             donation = Donation.objects.create(
@@ -230,7 +231,7 @@ def process_donation(request):
             return redirect(
                 f"{paypal_url}?cmd=_donations"
                 f"&business=payments@prayerpowernetwork.org.uk"
-                f"&currency_code=GBP"
+                f"&currency_code={currency}"
                 f"&amount={amount}"
                 f"&item_name=Donation+to+Prayer+Power+Network"
                 f"&invoice={invoice}"
@@ -257,6 +258,7 @@ def donation_cancel(request):
 def regular(request):
     return render(request, 'regular.html')
 
+
 # =========================
 # CREATE ADMIN (TEMPORARY)
 # =========================
@@ -270,7 +272,10 @@ def create_admin(request):
         return HttpResponse("Admin created: username=prayer, password=PrayerPowerNetwork_2026")
     return HttpResponse("Admin already exists")
 
-# Testing the cloudinary kini
+
+# =========================
+# CLOUDINARY DEBUG (TEMPORARY)
+# =========================
 from django.http import HttpResponse
 from django.core.files.storage import default_storage
 import os
