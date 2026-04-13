@@ -42,7 +42,8 @@ body {
 }
 
 .logo-img {
-  height: 48px; /* increase from 32px */
+  height: 64px;   /* increased from 48px to make logo bigger */
+  width: auto;
 }
 
 .nav-links {
@@ -464,9 +465,9 @@ body {
 /* ---------- MANCHESTER BANNER ---------- */
 .manchester-banner {
   position: relative;
-  max-width: 900px;           /* limits width */
+  max-width: 900px;
   margin-left: auto;
-  margin-right: auto;         /* centers it */
+  margin-right: auto;
   border-radius: 2rem;
   padding: 3rem 1.5rem;
   text-align: center;
