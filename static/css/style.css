@@ -882,3 +882,15 @@ footer {
   transform: scale(1.02);
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
+
+/* Lemme just add these */
+
+/* Push hero banner down */
+.hero {
+  margin-top: 2rem;  /* adjust value as desired */
+}
+
+/* Lower the Manchester button, keep countdown unchanged */
+.manchester-banner .gold-btn {
+  margin-top: 1.5rem;  /* adjust as needed */
+}
