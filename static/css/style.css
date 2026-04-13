@@ -886,6 +886,13 @@ footer {
 /* Lemme just add these */
 
 /* Lower the Manchester button, keep countdown unchanged */
+.manchester-banner {
+  position: relative;
+}
+
 .manchester-banner .gold-btn {
-  margin-top: 1.5rem;  /* adjust as needed */
+  position: absolute;
+  bottom: 30px;  /* move up/down */
+  left: 50%;
+  transform: translateX(-50%);
 }
