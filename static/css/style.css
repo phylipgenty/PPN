@@ -896,3 +896,11 @@ footer {
   left: 50%;
   transform: translateX(-50%);
 }
+
+.manchester-banner .gold-btn {
+  position: absolute !important;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+}
