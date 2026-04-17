@@ -249,6 +249,15 @@
         border-radius: 999px;   /* keep pill shape on mobile */
       }
     }
+
+    /* Move countdown timer up inside Manchester banner */
+    .manchester-banner {
+      padding-top: 1rem;   /* reduce top padding */
+    }
+    .manchester-banner .countdown {
+      margin-top: -1rem;   /* pull countdown upward */
+      margin-bottom: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -342,7 +351,8 @@
         <p>Experience worship and prophetic declarations</p>
       </div>
     </div>
-    <div class="feature-card-img" id="prayerCard">
+    <!-- Prayer card now opens modal -->
+    <div class="feature-card-img" id="prayerCard" onclick="document.getElementById('prayerModal').style.display='flex'">
       <div class="card-overlay"></div>
       <div class="card-content">
         <i class="fas fa-envelope-open-text"></i>
@@ -432,6 +442,21 @@
   </footer>
 </main>
 
+<!-- Modal for Prayer Requests -->
+<div id="prayerModal" class="modal">
+  <div class="modal-content glass-card-dark">
+    <span class="close-modal" onclick="document.getElementById('prayerModal').style.display='none'">&times;</span>
+    <h3><i class="fas fa-envelope-open-text"></i> Send Prayer Request</h3>
+    <form action="{% url 'prayer_request' %}" method="POST" class="prayer-form">
+      {% csrf_token %}
+      <input type="text" name="name" placeholder="Your name" required>
+      <input type="email" name="email" placeholder="Your email" required>
+      <textarea name="message" rows="4" placeholder="Share your prayer request..." required></textarea>
+      <button type="submit">Submit Request</button>
+    </form>
+  </div>
+</div>
+
 <script src="{% static 'js/script.js' %}"></script>
 <script>
   // Manchester countdown
@@ -475,6 +500,14 @@
     toggleBtn.addEventListener('click', () => navLinks.classList.toggle('show'));
     document.querySelectorAll('.nav-links a').forEach(link => {
       link.addEventListener('click', () => navLinks.classList.remove('show'));
+    });
+  }
+
+  // Modal close on outside click
+  const modal = document.getElementById('prayerModal');
+  if (modal) {
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) modal.style.display = 'none';
     });
   }
 </script>
