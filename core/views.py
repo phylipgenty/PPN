@@ -12,7 +12,8 @@ from .models import (
     Sermon,
     BlogPost,
     NewsletterSubscriber,
-    Donation
+    Donation,
+    PrayerRequest   # already imported here
 )
 
 # =========================
@@ -129,9 +130,20 @@ def about(request):
 def manchester(request):
     return render(request, 'manchester.html')
 
+# No duplicate import here – PrayerRequest already imported at top
 def prayer_request(request):
-    return render(request, 'prayer_request.html')
-
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+        if name and email and message:
+            PrayerRequest.objects.create(name=name, email=email, message=message)
+            messages.success(request, "Your prayer request has been submitted. We will pray for you.")
+        else:
+            messages.error(request, "Please fill in all fields.")
+        return redirect('index')
+    # If someone visits the URL directly (GET), redirect to home
+    return redirect('index')
 
 # =========================
 # EVENTS
