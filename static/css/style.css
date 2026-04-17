@@ -6,8 +6,8 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: #87CEEB;  /* Sky Blue */
-  color: #1a1a2e;       /* Dark text for contrast */
+  background: #2e1a47;  /* Royal Purple – change to #1e3a8a for Royal Blue */
+  color: #f5f3ff;
   line-height: 1.5;
   scroll-behavior: smooth;
 }
@@ -42,7 +42,7 @@ body {
 }
 
 .logo-img {
-  height: 70px;   /* larger logo */
+  height: 70px;   /* increased from 48px to make logo bigger */
   width: auto;
 }
 
@@ -209,20 +209,20 @@ body {
   transform: scale(1.02);
 }
 
-/* ---------- GLASS CARDS (adjusted for sky blue) ---------- */
+/* ---------- GLASS CARDS ---------- */
 .glass-card-light {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(12px);
+  background: rgba(30, 20, 50, 0.85);
+  backdrop-filter: blur(10px);
   border-radius: 1.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   transition: transform 0.25s ease, box-shadow 0.3s;
-  color: #1a1a2e;
+  color: #f0eef7;
 }
 .glass-card-light:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 28px -8px rgba(0, 0, 0, 0.2);
-  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 16px 28px -8px rgba(0, 0, 0, 0.3);
+  background: rgba(40, 28, 65, 0.9);
 }
 
 .container {
@@ -302,11 +302,11 @@ body {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1.8rem;
-  color: #1a1a2e;
+  color: #ffefc0;
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  text-shadow: none;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
 /* ---------- GRIDS ---------- */
@@ -334,6 +334,7 @@ body {
   object-fit: cover;
   transition: transform 0.3s ease;
 }
+
 .video-card:hover .thumb-img {
   transform: scale(1.05);
 }
@@ -343,13 +344,13 @@ body {
 .video-info h4 {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #1a1a2e;
+  color: #ffefc0;
 }
 .video-meta {
   display: flex;
   justify-content: space-between;
   font-size: 0.75rem;
-  color: #3b4a66;
+  color: #cdc4e8;
   margin-top: 0.5rem;
 }
 
@@ -369,12 +370,12 @@ body {
   border-left: 3px solid #ffcd5c;
   padding-left: 1rem;
   margin: 1rem 0;
-  color: #1a1a2e;
+  color: #f0eef7;
 }
 .testimonial-author {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #b9722a;
+  color: #ffcd5c;
   margin-top: 0.3rem;
 }
 
@@ -386,7 +387,7 @@ body {
 }
 .newsletter h3 {
   font-size: 1.8rem;
-  color: #1a1a2e;
+  color: #ffefc0;
 }
 .news-form {
   display: flex;
@@ -439,17 +440,17 @@ body {
 .blog-title {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #1a1a2e;
+  color: #ffefc0;
 }
 .blog-excerpt {
-  color: #3b4a66;
+  color: #e0d6f5;
   margin-bottom: 1rem;
   line-height: 1.4;
 }
 .reminder-btn {
   background: transparent;
-  border: 1px solid #b9722a;
-  color: #b9722a;
+  border: 1px solid #ffcd5c;
+  color: #ffcd5c;
   padding: 0.4rem 1rem;
   border-radius: 2rem;
   text-decoration: none;
@@ -457,8 +458,8 @@ body {
   transition: 0.2s;
 }
 .reminder-btn:hover {
-  background: #b9722a;
-  color: white;
+  background: #ffcd5c;
+  color: #1a1a2a;
 }
 
 /* ---------- MANCHESTER BANNER ---------- */
@@ -506,7 +507,6 @@ body {
   font-weight: bold;
   display: inline-block;
   transition: 0.3s;
-  margin-top: 1.5rem;   /* pushes button lower */
 }
 .gold-btn:hover {
   background: #ffcc00;
@@ -518,7 +518,7 @@ body {
   text-align: center;
   margin: 3rem 0;
   padding: 1.5rem;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.3);
   border-radius: 2rem;
   color: white;
 }
@@ -689,6 +689,7 @@ footer {
   gap: 1rem;
   margin-top: 1rem;
 }
+
 .testimony-img-card {
   width: 100%;
   border-radius: 1rem;
@@ -696,6 +697,7 @@ footer {
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
+
 .testimony-img-card:hover {
   transform: scale(1.02);
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
@@ -709,15 +711,18 @@ footer {
   justify-content: center;
   margin: 1rem 0;
 }
+
 .carousel-container {
   width: 100%;
   overflow: hidden;
   border-radius: 1rem;
 }
+
 .carousel-track {
   display: flex;
   transition: transform 0.4s ease-in-out;
 }
+
 .testimony-carousel-img {
   width: 100%;
   flex-shrink: 0;
@@ -725,6 +730,7 @@ footer {
   object-fit: cover;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
+
 .carousel-btn {
   background: rgba(0,0,0,0.5);
   border: none;
@@ -740,6 +746,7 @@ footer {
 .carousel-btn:hover {
   background: rgba(0,0,0,0.8);
 }
+
 .carousel-dots {
   text-align: center;
   margin-top: 0.8rem;
@@ -818,9 +825,9 @@ footer {
 /* 1. Testimonies "Read all →" link - golden style */
 .testimonies-box .gold-link,
 .testimonies-box a.read-all-link {
-  color: #b9722a;
+  color: #ffcd5c;
   background: transparent;
-  border: 1px solid #b9722a;
+  border: 1px solid #ffcd5c;
   padding: 0.4rem 1rem;
   border-radius: 2rem;
   text-decoration: none;
@@ -829,8 +836,8 @@ footer {
 }
 .testimonies-box .gold-link:hover,
 .testimonies-box a.read-all-link:hover {
-  background: #b9722a;
-  color: white;
+  background: #ffcd5c;
+  color: #1a1a2a;
 }
 
 /* 2. Footer "Terms & Services" link - gold */
@@ -845,16 +852,18 @@ footer {
 
 /* 3. Sermon thumbnails – show full image without cropping */
 .video-thumb {
-  height: auto;
-  aspect-ratio: 16 / 9;
+  height: auto;           /* remove fixed height */
+  aspect-ratio: 16 / 9;   /* consistent aspect ratio */
   background: #2a1f3a;
 }
 .thumb-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: contain;    /* show whole image, no crop */
   background: #000;
 }
+/* optional: if you want cover but ensure important parts visible */
+/* .thumb-img { object-fit: cover; object-position: top; } */
 
 /* 4. Blog cards – stronger "floating" effect */
 .info-card {
@@ -872,4 +881,19 @@ footer {
 .testimony-carousel-img:hover {
   transform: scale(1.02);
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* Lemme just add these */
+
+/* Lower the Manchester button, keep countdown unchanged */
+.manchester-banner {
+  position: relative;
+  min-height: 280px;
+}
+
+.manchester-banner .gold-btn {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
 }
