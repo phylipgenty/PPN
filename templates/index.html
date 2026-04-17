@@ -312,8 +312,7 @@
   <img src="{% static 'images/henry2.jpeg' %}" alt="Welcome to Prayer Power Network" class="hero-img">
   <div class="overlay"></div>
   <div class="hero-content">
-    <h1>Welcome to </h1>
-    <h1> Prayer Power Network</h1>
+    <h1>Welcome to Prayer Power Network</h1>
     <p>Experience supernatural intervention through prayer, worship, and the Word. Join a global community of believers seeking God's presence.</p>
   </div>
 </div>
@@ -327,7 +326,7 @@
 
   <!-- Action Cards -->
   <div class="cards-row fade-up">
-    <div class="feature-card-img" id="joinCard">
+    <div class="feature-card-img" id="joinCard" onclick="window.open('https://whatsapp.com/channel/0029Vb8hsdO3wtb9qB1ETO0D', '_blank')">
       <div class="card-overlay"></div>
       <div class="card-content">
         <i class="fas fa-users"></i>
@@ -405,7 +404,7 @@
 
   <!-- Newsletter -->
   <div class="newsletter glass-card-light fade-up">
-    <h3>Get Daily Prayer Notifications</h3>
+    <h3>Monthly Newsletter</h3>
     <form action="{% url 'newsletter_signup' %}" method="POST" class="news-form">
       {% csrf_token %}
       <input type="email" name="email" placeholder="Your email" required>
@@ -424,7 +423,9 @@
       <div class="footer-social">
         <a href="https://www.facebook.com/prayerpowernetwork" target="_blank"><i class="fab fa-facebook-f"></i></a>
         <a href="https://www.youtube.com/channel/UCS1lJ8S-1KBpQavhqSiwehQ" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="https://instagram.com/prayerpower_network" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.instagram.com/henry_onyirioha?igsh=MWcydHZ6N2lyNXBvOA%3D%3D&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@prayerpowernetwork?_r=1&_t=ZN-95YJobAoWoA" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://whatsapp.com/channel/0029Vb8hsdO3wtb9qB1ETO0D" target="_blank"><i class="fab fa-whatsapp"></i></a>
       </div>
       <p>© 2026 Prayer Power Network (A Non-Denominational Church) <br> Registered charity number: 1192591 | <a href="#">Terms & Services</a> | Faith, Hope, Love</p>
     </div>
