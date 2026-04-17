@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ testimony.title }} | Prayer Power Network{% endblock %}
+
+{% block extra_css %}
+<style>
+  .testimony-detail-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(30,20,50,0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .testimony-detail-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .testimony-detail-title {
+    font-size: 2rem;
+    color: #ffefc0;
+    margin-bottom: 0.5rem;
+  }
+  .testimony-detail-meta {
+    color: #cdc4e8;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .testimony-detail-content {
+    color: #e0d6f5;
+    line-height: 1.7;
+    font-size: 1.05rem;
+  }
+  .testimony-detail-content p {
+    margin-bottom: 1.2rem;
+  }
+  .back-link {
+    display: inline-block;
+    margin-top: 2rem;
+    color: #ffcd5c;
+    text-decoration: none;
+    border-bottom: 1px solid #ffcd5c;
+  }
+  .back-link:hover {
+    color: white;
+    border-bottom-color: white;
+  }
+  @media (max-width: 768px) {
+    .testimony-detail-title {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="testimony-detail-container">
+    {% if testimony.image %}
+      <img src="{{ testimony.image.url }}" alt="{{ testimony.title }}" class="testimony-detail-image">
+    {% endif %}
+    <h1 class="testimony-detail-title">{{ testimony.title }}</h1>
+    <div class="testimony-detail-meta">
+      <span><i class="fas fa-user-circle"></i> {{ testimony.name }}{% if testimony.location %}, {{ testimony.location }}{% endif %}</span>
+      <span><i class="far fa-calendar-alt"></i> {{ testimony.created_at|date:"M d, Y" }}</span>
+    </div>
+    <div class="testimony-detail-content">
+      {{ testimony.content|linebreaks|safe }}
+    </div>
+    <a href="{% url 'testimonies' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to all testimonies</a>
+  </div>
+</div>
+{% endblock %}

@@ -36,12 +36,12 @@ class AppointmentAdmin(admin.ModelAdmin):
     search_fields = ('name', 'email', 'phone')
 
 
-# TESTIMONIES
+# TESTIMONIES (UPDATED ✅)
 @admin.register(Testimony)
 class TestimonyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'location', 'is_approved', 'created_at')
+    list_display = ('title', 'name', 'location', 'is_approved', 'created_at')
     list_filter = ('is_approved', 'created_at')
-    search_fields = ('name', 'location', 'content')
+    search_fields = ('title', 'name', 'location', 'content')
     actions = ['approve_testimonies']
 
     def approve_testimonies(self, request, queryset):
@@ -79,4 +79,4 @@ class BlogPostAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'date', 'is_published')
     list_filter = ('is_published', 'date')
     search_fields = ('title', 'content')
-    fields = ('title', 'image', 'content', 'author', 'is_published')   # removed 'date'
+    fields = ('title', 'image', 'content', 'author', 'is_published')  # removed 'date'

@@ -270,7 +270,9 @@ def donation_cancel(request):
 def regular(request):
     return render(request, 'regular.html')
 
-
+def testimony_detail(request, pk):
+    testimony = get_object_or_404(Testimony, pk=pk, is_approved=True)
+    return render(request, 'testimony_detail.html', {'testimony': testimony})
 # =========================
 # CREATE ADMIN (TEMPORARY)
 # =========================

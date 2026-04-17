@@ -46,6 +46,7 @@ class Appointment(models.Model):
 
 # Testimonies – image changed to CloudinaryField
 class Testimony(models.Model):
+    title = models.CharField(max_length=200, default="My Testimony")   # new
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100, blank=True)
     content = models.TextField()
