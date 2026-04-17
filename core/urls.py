@@ -31,6 +31,7 @@ urlpatterns = [
     path('donation/cancel/', views.donation_cancel, name='donation_cancel'),
 
     path('regular/', views.regular, name='regular'),
+    path('testimony/<int:pk>/', views.testimony_detail, name='testimony_detail'),
     # DEBUG
     path('debug-images/', views.debug_images, name='debug_images'),
 
