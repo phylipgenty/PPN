@@ -6,15 +6,16 @@
 {% block extra_css %}
 <style>
   .newsletter-container {
-    max-width: 1200px;
+    max-width: 1400px;   /* wider to fit 5 columns */
     margin: 2rem auto;
+    padding: 0 1rem;
   }
 
-  /* Newsletter grid – exactly 3 columns on large screens */
+  /* Newsletter grid – exactly 5 columns on large screens */
   .newsletter-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
     margin: 2rem 0;
   }
   .newsletter-item {
@@ -33,37 +34,38 @@
   }
   .newsletter-cover {
     width: 100%;
-    height: 180px;
+    height: 160px;        /* slightly smaller to fit more */
     object-fit: cover;
   }
   .newsletter-info {
-    padding: 1.2rem;
+    padding: 1rem;
     text-align: center;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
   }
   .newsletter-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #ffefc0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
   }
   .newsletter-date {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: #cdc4e8;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
   }
   .read-newsletter {
     background: transparent;
     border: 1px solid #ffcd5c;
     color: #ffcd5c;
-    padding: 0.4rem 1rem;
+    padding: 0.3rem 0.8rem;
     border-radius: 2rem;
     text-decoration: none;
     display: inline-block;
     transition: 0.2s;
     align-self: center;
+    font-size: 0.8rem;
   }
   .read-newsletter:hover {
     background: #ffcd5c;
@@ -173,12 +175,23 @@
     color: #aaccff;
   }
 
-  @media (max-width: 900px) {
+  /* Responsive breakpoints */
+  @media (max-width: 1200px) {
+    .newsletter-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media (max-width: 992px) {
+    .newsletter-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 768px) {
     .newsletter-grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
-  @media (max-width: 600px) {
+  @media (max-width: 576px) {
     .newsletter-grid {
       grid-template-columns: 1fr;
     }
@@ -188,7 +201,7 @@
 
 {% block content %}
 <div class="container newsletter-container">
-  <!-- Newsletters from admin (displayed first) -->
+  <!-- Newsletters from admin -->
   <div class="newsletter-grid">
     {% for nl in newsletters %}
     <div class="newsletter-item">
@@ -200,7 +213,7 @@
       <div class="newsletter-info">
         <h3 class="newsletter-title">{{ nl.title }}</h3>
         <div class="newsletter-date">{{ nl.created_at|date:"F Y" }}</div>
-        <a href="{{ nl.pdf_file.url }}" target="_blank" class="read-newsletter">Read Newsletter →</a>
+        <a href="{{ nl.pdf_file.url }}" target="_blank" class="read-newsletter">Read →</a>
       </div>
     </div>
     {% empty %}
