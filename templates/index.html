@@ -18,11 +18,11 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;   /* push content to top */
-      align-items: flex-start;       /* left alignment */
+      justify-content: flex-start;
+      align-items: flex-start;
       text-align: left;
       padding: 0 5%;
-      padding-top: 12vh;            /* move content higher */
+      padding-top: 12vh;
     }
     .hero-img {
       position: absolute;
@@ -44,36 +44,31 @@
       z-index: 1;
     }
     .hero-content {
-  position: relative;
-  z-index: 2;
-  color: white;
-  max-width: 500px;           /* reduced from 600px to make text narrower */
-}
-
-.hero h1 {
-  font-size: 3rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-  white-space: nowrap;        /* keep heading on one line */
-}
-
-/* fix spacing between the two h1 tags (Welcome to and Prayer Power Network) */
-.hero h1:first-child {
-  margin-bottom: -0.3rem;
-}
-.hero h1:last-child {
-  margin-top: -0.3rem;
-}
-
-.hero p {
-  font-size: 1.2rem;
-  line-height: 1.5;
-  text-align: left;
-  word-break: normal;         /* ensure natural wrapping */
-}
-
+      position: relative;
+      z-index: 2;
+      color: white;
+      max-width: 500px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      white-space: nowrap;
+    }
+    .hero h1:first-child {
+      margin-bottom: -0.3rem;
+    }
+    .hero h1:last-child {
+      margin-top: -0.3rem;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      text-align: left;
+      word-break: normal;
+    }
     @media (max-width: 768px) {
       .hero { height: 70vh; padding-top: 8vh; }
-      .hero h1 { font-size: 2rem; white-space: normal; } /* allow wrap on mobile */
+      .hero h1 { font-size: 2rem; white-space: normal; }
       .hero p { font-size: 1rem; }
       .hero-content { max-width: 90%; }
     }
@@ -144,57 +139,59 @@
       width: 100%;
     }
 
-    /* ================= EXPLORE CARDS – OVAL SHAPE + VERY DARK SHADOW ================= */
+    /* ================= EXPLORE CARDS – OVAL SHAPE + DARK SHADOW (SHRUNK) ================= */
     .explore-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 2rem;
+      gap: 1.5rem;
       justify-content: center;
       margin: 3rem 0;
     }
     .explore-card {
       flex: 1;
-      min-width: 250px;
+      min-width: 200px;
       text-align: center;
-      padding: 2rem;
+      padding: 1.2rem 1rem;
       cursor: pointer;
       transition: all 0.3s ease;
       background: rgba(30, 20, 50, 0.8);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 999px;          /* pill shape / oval */
-      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.9);  /* much darker, obvious shadow */
+      border-radius: 999px;
+      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.9);
       animation: levitate 5s ease-in-out infinite;
     }
     .explore-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 35px 50px -15px rgba(0,0,0,1);   /* even darker on hover */
+      box-shadow: 0 35px 50px -15px rgba(0,0,0,1);
       border-color: rgba(255, 205, 92, 0.5);
       animation: none;
     }
     .explore-card i {
-      font-size: 3rem;
+      font-size: 2.2rem;
       color: #ffcd5c;
-      margin-bottom: 1rem;
-    }
-    .explore-card h3 {
-      font-size: 1.6rem;
-      color: #ffefc0;
       margin-bottom: 0.5rem;
     }
+    .explore-card h3 {
+      font-size: 1.3rem;
+      color: #ffefc0;
+      margin-bottom: 0.3rem;
+    }
     .explore-card p {
+      font-size: 0.85rem;
       color: #e0d6f5;
-      margin-bottom: 1.2rem;
+      margin-bottom: 0.8rem;
     }
     .explore-btn {
       background: transparent;
       border: 1px solid #ffcd5c;
       color: #ffcd5c;
-      padding: 0.4rem 1rem;
+      padding: 0.3rem 0.8rem;
       border-radius: 2rem;
       text-decoration: none;
       display: inline-block;
       transition: 0.2s;
+      font-size: 0.8rem;
     }
     .explore-btn:hover {
       background: #ffcd5c;
@@ -254,20 +251,28 @@
       .explore-grid {
         flex-direction: column;
         align-items: center;
+        gap: 1rem;
       }
       .explore-card {
         width: 100%;
-        max-width: 320px;
-        border-radius: 999px;   /* keep pill shape on mobile */
+        max-width: 280px;
+        border-radius: 999px;
+        padding: 1rem;
+      }
+      .explore-card i {
+        font-size: 2rem;
+      }
+      .explore-card h3 {
+        font-size: 1.2rem;
       }
     }
 
     /* Move countdown timer up inside Manchester banner */
     .manchester-banner {
-      padding-top: 1rem;   /* reduce top padding */
+      padding-top: 1rem;
     }
     .manchester-banner .countdown {
-      margin-top: -1rem;   /* pull countdown upward */
+      margin-top: -1rem;
       margin-bottom: 0.5rem;
     }
   </style>
@@ -279,62 +284,46 @@
     <img src="{% static 'images/PPN logo1.png' %}" alt="Logo" class="logo-img">
     PRAYER POWER NETWORK
   </div>
-
   <div class="menu-icon" id="menuToggle">
     <i class="fas fa-bars"></i>
   </div>
-
   <ul class="nav-links" id="navLinks">
     <li><a href="#home">Home</a></li>
     <li><a href="{% url 'about' %}">About</a></li>
-
-    <!-- MEDIA DROPDOWN -->
     <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">
-        Media <i class="fas fa-caret-down"></i>
-      </a>
+      <a href="javascript:void(0)" class="dropbtn">Media <i class="fas fa-caret-down"></i></a>
       <div class="dropdown-content">
         <a href="{% url 'sermons' %}">Sermons</a>
         <a href="{% url 'blog_list' %}">Blogs</a>
         <a href="{% url 'events' %}">Gallery</a>
       </div>
     </li>
-
-    <!-- COMMUNITY DROPDOWN -->
     <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">
-        Community <i class="fas fa-caret-down"></i>
-      </a>
+      <a href="javascript:void(0)" class="dropbtn">Community <i class="fas fa-caret-down"></i></a>
       <div class="dropdown-content">
         <a href="{% url 'testimonies' %}">Testimonies</a>
         <a href="{% url 'test' %}">Share Testimony</a>
         <a href="{% url 'newsletter_signup' %}">Newsletter</a>
       </div>
     </li>
-
-    <!-- MORE (SECONDARY ACTIONS) -->
     <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">
-        More <i class="fas fa-caret-down"></i>
-      </a>
+      <a href="javascript:void(0)" class="dropbtn">More <i class="fas fa-caret-down"></i></a>
       <div class="dropdown-content">
         <a href="{% url 'contact' %}">Contact</a>
         <a href="{% url 'appointment' %}">Book Appointment</a>
       </div>
     </li>
-
-    <!-- KEEP DONATE VISIBLE (IMPORTANT CTA) -->
     <li><a href="{% url 'donate' %}" class="donate-btn">Donate</a></li>
   </ul>
 </nav>
 
-<!-- Hero Section with img tag for better crop control -->
+<!-- Hero Section -->
 <div class="hero" id="home">
   <img src="{% static 'images/henry2.jpeg' %}" alt="Welcome to Prayer Power Network" class="hero-img">
   <div class="overlay"></div>
   <div class="hero-content">
-    <h1>Welcome to </h1> 
-    <h1>Prayer Power </h1>
+    <h1>Welcome to</h1>
+    <h1>Prayer Power</h1>
     <h1>Network</h1>
     <p>Experience supernatural intervention through prayer, worship, and the Word. Join a global community of believers seeking God's presence.</p>
   </div>
@@ -365,7 +354,6 @@
         <p>Experience worship and prophetic declarations</p>
       </div>
     </div>
-    <!-- Prayer card now opens modal -->
     <div class="feature-card-img" id="prayerCard" onclick="document.getElementById('prayerModal').style.display='flex'">
       <div class="card-overlay"></div>
       <div class="card-content">
@@ -409,6 +397,15 @@
           <i class="fas fa-blog"></i>
           <h3>Pastor Henry's Blog</h3>
           <p>Prophetic insights, teaching, and encouragement.</p>
+          <span class="explore-btn">Explore →</span>
+        </div>
+      </a>
+      <!-- NEW CARD: Strategic Prayer Points -->
+      <a href="#" style="text-decoration: none;"> <!-- Replace # with actual URL later -->
+        <div class="explore-card">
+          <i class="fas fa-praying-hands"></i>
+          <h3>Strategic Prayer Points</h3>
+          <p>Monthly prophetic prayer directives and warfare strategies.</p>
           <span class="explore-btn">Explore →</span>
         </div>
       </a>
@@ -473,7 +470,6 @@
 
 <script src="{% static 'js/script.js' %}"></script>
 <script>
-  // Manchester countdown
   function startManchesterCountdown() {
     const countdownEl = document.getElementById('manchesterCountdown');
     if (!countdownEl) return;
@@ -495,7 +491,6 @@
   }
   startManchesterCountdown();
 
-  // Scroll reveal
   const fadeElements = document.querySelectorAll('.fade-up');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -507,7 +502,6 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
   fadeElements.forEach(el => observer.observe(el));
 
-  // Mobile menu toggle
   const toggleBtn = document.getElementById('menuToggle');
   const navLinks = document.getElementById('navLinks');
   if (toggleBtn && navLinks) {
@@ -517,7 +511,6 @@
     });
   }
 
-  // Modal close on outside click
   const modal = document.getElementById('prayerModal');
   if (modal) {
     window.addEventListener('click', (e) => {
