@@ -25,11 +25,16 @@
 
   <ul class="nav-links" id="navLinks">
     
+    <!-- Home -->
     <li><a href="#home">Home</a></li>
 
+    <!-- About -->
     <li><a href="{% url 'about' %}">About</a></li>
 
-    <!-- MEDIA -->
+    <!-- Testimonies (standalone, before dropdowns) -->
+    <li><a href="{% url 'testimonies' %}">Testimonies</a></li>
+
+    <!-- MEDIA DROPDOWN -->
     <li class="dropdown">
       <a href="javascript:void(0)" class="dropbtn">
         Media <i class="fas fa-caret-down"></i>
@@ -41,7 +46,7 @@
       </div>
     </li>
 
-    <!-- COMMUNITY (UPDATED - removed testimonies) -->
+    <!-- COMMUNITY DROPDOWN (only Share Testimony & Newsletter) -->
     <li class="dropdown">
       <a href="javascript:void(0)" class="dropbtn">
         Community <i class="fas fa-caret-down"></i>
@@ -52,12 +57,7 @@
       </div>
     </li>
 
-    <!-- 🆕 TESTIMONIES (NOW STANDALONE) -->
-    <li>
-      <a href="{% url 'testimonies' %}">Testimonies</a>
-    </li>
-
-    <!-- MORE -->
+    <!-- MORE DROPDOWN -->
     <li class="dropdown">
       <a href="javascript:void(0)" class="dropbtn">
         More <i class="fas fa-caret-down"></i>
@@ -68,6 +68,7 @@
       </div>
     </li>
 
+    <!-- DONATE (standalone button) -->
     <li><a href="{% url 'donate' %}" class="donate-btn">Donate</a></li>
 
   </ul>
