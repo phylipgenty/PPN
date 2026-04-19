@@ -180,6 +180,8 @@ def blog_detail(request, pk):
 # =========================
 # NEWSLETTER
 # =========================
+from .models import NewsletterSubscriber, Newsletter  # make sure Newsletter is included
+
 def newsletter_signup(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -195,9 +197,11 @@ def newsletter_signup(request):
 
         messages.error(request, "Enter a valid email.")
 
-    return render(request, 'newsletter_signup.html')
+    newsletters = Newsletter.objects.filter(is_published=True).order_by('-created_at')
 
-
+    return render(request, 'newsletter_signup.html', {
+        'newsletters': newsletters
+    })
 # =========================
 # DEBUG IMAGES
 # =========================

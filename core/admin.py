@@ -4,6 +4,7 @@ from .models import (
     Appointment,
     Testimony,
     NewsletterSubscriber,
+    Newsletter,   # ✅ ADD THIS
     Event,
     Sermon,
     BlogPost
@@ -36,7 +37,7 @@ class AppointmentAdmin(admin.ModelAdmin):
     search_fields = ('name', 'email', 'phone')
 
 
-# TESTIMONIES (UPDATED ✅)
+# TESTIMONIES
 @admin.register(Testimony)
 class TestimonyAdmin(admin.ModelAdmin):
     list_display = ('title', 'name', 'location', 'is_approved', 'created_at')
@@ -57,6 +58,14 @@ class NewsletterSubscriberAdmin(admin.ModelAdmin):
     search_fields = ('email',)
 
 
+# 🆕 NEWSLETTER (NEWLY ADDED)
+@admin.register(Newsletter)
+class NewsletterAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_at', 'is_published')
+    list_filter = ('is_published', 'created_at')
+    search_fields = ('title',)
+
+
 # EVENTS
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
@@ -73,10 +82,10 @@ class SermonAdmin(admin.ModelAdmin):
     search_fields = ('title', 'preacher')
 
 
-# BLOG POSTS – No slug, no image_url, only file upload
+# BLOG POSTS
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'date', 'is_published')
     list_filter = ('is_published', 'date')
     search_fields = ('title', 'content')
-    fields = ('title', 'image', 'content', 'author', 'is_published')  # removed 'date'
+    fields = ('title', 'image', 'content', 'author', 'is_published')
