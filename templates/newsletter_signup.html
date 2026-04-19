@@ -6,88 +6,21 @@
 {% block extra_css %}
 <style>
   .newsletter-container {
-    max-width: 1400px;   /* wider to fit 5 columns */
+    max-width: 900px;
     margin: 2rem auto;
-    padding: 0 1rem;
   }
-
-  /* Newsletter grid – exactly 5 columns on large screens */
-  .newsletter-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1.5rem;
-    margin: 2rem 0;
-  }
-  .newsletter-item {
-    background: rgba(30,20,50,0.85);
-    backdrop-filter: blur(8px);
-    border-radius: 1.5rem;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s;
-    border: 1px solid rgba(255,255,255,0.1);
-    display: flex;
-    flex-direction: column;
-  }
-  .newsletter-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 20px rgba(0,0,0,0.3);
-  }
-  .newsletter-cover {
-    width: 100%;
-    height: 160px;        /* slightly smaller to fit more */
-    object-fit: cover;
-  }
-  .newsletter-info {
-    padding: 1rem;
-    text-align: center;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  .newsletter-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #ffefc0;
-    margin-bottom: 0.3rem;
-  }
-  .newsletter-date {
-    font-size: 0.7rem;
-    color: #cdc4e8;
-    margin-bottom: 0.8rem;
-  }
-  .read-newsletter {
-    background: transparent;
-    border: 1px solid #ffcd5c;
-    color: #ffcd5c;
-    padding: 0.3rem 0.8rem;
-    border-radius: 2rem;
-    text-decoration: none;
-    display: inline-block;
-    transition: 0.2s;
-    align-self: center;
-    font-size: 0.8rem;
-  }
-  .read-newsletter:hover {
-    background: #ffcd5c;
-    color: #1a1a2a;
-  }
-
-  /* Subscription section (at the bottom) */
-  .subscription-section {
-    background: rgba(30,20,50,0.85);
-    backdrop-filter: blur(12px);
-    border-radius: 1.5rem;
+  .newsletter-card {
     padding: 2rem;
     text-align: center;
-    margin-top: 3rem;
   }
-  .subscription-section h2 {
+  .newsletter-card h1 {
     color: #ffefc0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
-  .subscription-section p {
+  .newsletter-description {
     color: #e0d6f5;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
   }
   .newsletter-form {
     display: flex;
@@ -119,13 +52,46 @@
     padding: 0.8rem;
     border-radius: 2rem;
     font-weight: 700;
+    font-size: 1rem;
     cursor: pointer;
+    transition: 0.2s;
   }
   .newsletter-form button:hover {
     background: #ffc43a;
     transform: scale(1.02);
   }
-
+  .resources-section {
+    margin: 2rem 0;
+    text-align: left;
+    background: rgba(30,20,50,0.5);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+  }
+  .resources-section h3 {
+    color: #ffefc0;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .resources-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .resource-link {
+    background: rgba(255,255,255,0.1);
+    padding: 0.6rem 1.2rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    color: #ffefc0;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: 0.2s;
+  }
+  .resource-link:hover {
+    background: #ffcd5c;
+    color: #1a1a2a;
+  }
   .benefits-list {
     display: flex;
     flex-wrap: wrap;
@@ -174,57 +140,17 @@
     border: 1px solid #4488ff;
     color: #aaccff;
   }
-
-  /* Responsive breakpoints */
-  @media (max-width: 1200px) {
-    .newsletter-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-  @media (max-width: 992px) {
-    .newsletter-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-  @media (max-width: 768px) {
-    .newsletter-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (max-width: 576px) {
-    .newsletter-grid {
-      grid-template-columns: 1fr;
-    }
-  }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="container newsletter-container">
-  <!-- Newsletters from admin -->
-  <div class="newsletter-grid">
-    {% for nl in newsletters %}
-    <div class="newsletter-item">
-      {% if nl.cover_image %}
-        <img src="{{ nl.cover_image.url }}" alt="{{ nl.title }}" class="newsletter-cover">
-      {% else %}
-        <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      {% endif %}
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">{{ nl.title }}</h3>
-        <div class="newsletter-date">{{ nl.created_at|date:"F Y" }}</div>
-        <a href="{{ nl.pdf_file.url }}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
+  <div class="glass-card-light newsletter-card">
+    <h1><i class="fas fa-envelope-open-text"></i> Stay Connected</h1>
+    <div class="newsletter-description">
+      <p>Join our prayer community and receive daily devotionals, prophetic alerts, event updates, and encouragement straight to your inbox.</p>
     </div>
-    {% empty %}
-    <p style="text-align:center; color:#e0d6f5;">No newsletters available yet. Check back soon.</p>
-    {% endfor %}
-  </div>
 
-  <!-- Subscription form at the bottom -->
-  <div class="subscription-section">
-    <h2><i class="fas fa-envelope-open-text"></i> Stay Connected</h2>
-    <p>Subscribe to receive future newsletters and prayer alerts directly in your inbox.</p>
     {% if messages %}
       {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">
@@ -232,28 +158,84 @@
         </div>
       {% endfor %}
     {% endif %}
+
     <form method="POST" class="newsletter-form">
       {% csrf_token %}
       <input type="email" name="email" placeholder="Enter your email address" required>
       <button type="submit">Subscribe Now</button>
     </form>
-  </div>
 
-  <div class="benefits-list">
-    <div class="benefit-item">
-      <i class="fas fa-praying-hands"></i>
-      <h4>Daily Prayer Alerts</h4>
-      <p>Start your day with focused prayer points</p>
+    <!-- Read-only newsletter archive (latest to oldest) -->
+    <div class="resources-section">
+      <h3><i class="fas fa-book-open"></i> Read Our Newsletters</h3>
+      <div class="resources-list">
+        <a href="{% static 'images/newsletters/n1.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> April 2026
+        </a>
+        <a href="{% static 'images/newsletters/n5.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> March 2026
+        </a>
+        <a href="{% static 'images/newsletters/n2.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> February 2026
+        </a>
+        <a href="{% static 'images/newsletters/n3.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> January 2026
+        </a>
+        <a href="{% static 'images/newsletters/n6.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> December 2025
+        </a>
+        <a href="{% static 'images/newsletters/n4.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> November 2025
+        </a>
+        <a href="{% static 'images/newsletters/n7.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> October 2025
+        </a>
+        <a href="{% static 'images/newsletters/n8.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> September 2025
+        </a>
+        <a href="{% static 'images/newsletters/n11.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> August 2025
+        </a>
+        <a href="{% static 'images/newsletters/n12.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> July 2025
+        </a>
+        <a href="{% static 'images/newsletters/n9.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> June 2025
+        </a>
+        <a href="{% static 'images/newsletters/n13.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> May 2025
+        </a>
+        <a href="{% static 'images/newsletters/n10.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> April 2025
+        </a>
+        <a href="{% static 'images/newsletters/n14.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> March 2025
+        </a>
+        <a href="{% static 'images/newsletters/n15.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> February 2025
+        </a>
+        <a href="{% static 'images/newsletters/n16.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> January 2025
+        </a>
+      </div>
     </div>
-    <div class="benefit-item">
-      <i class="fas fa-church"></i>
-      <h4>Event Notifications</h4>
-      <p>Be first to know about conferences and gatherings</p>
-    </div>
-    <div class="benefit-item">
-      <i class="fas fa-bible"></i>
-      <h4>Exclusive Teachings</h4>
-      <p>Receive prophetic insights and sermon notes</p>
+
+    <div class="benefits-list">
+      <div class="benefit-item">
+        <i class="fas fa-praying-hands"></i>
+        <h4>Daily Prayer Alerts</h4>
+        <p>Start your day with focused prayer points</p>
+      </div>
+      <div class="benefit-item">
+        <i class="fas fa-church"></i>
+        <h4>Event Notifications</h4>
+        <p>Be first to know about conferences and gatherings</p>
+      </div>
+      <div class="benefit-item">
+        <i class="fas fa-bible"></i>
+        <h4>Exclusive Teachings</h4>
+        <p>Receive prophetic insights and sermon notes</p>
+      </div>
     </div>
   </div>
 </div>
