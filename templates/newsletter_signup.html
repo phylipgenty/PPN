@@ -76,6 +76,21 @@
     cursor: not-allowed;
   }
 
+  /* Section title styles */
+  .section-heading {
+    font-size: 1.8rem;
+    color: #ffefc0;
+    margin: 1.5rem 0 0.5rem;
+    text-align: center;
+    border-bottom: 2px solid #ffcd5c;
+    display: inline-block;
+    padding-bottom: 0.3rem;
+  }
+  .heading-wrapper {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
   /* Original list style for hardcoded newsletters */
   .resources-section {
     margin: 2rem 0;
@@ -230,6 +245,9 @@
 <div class="container newsletter-container">
   <!-- ========== DYNAMIC NEWSLETTERS FROM ADMIN (4‑COLUMN GRID) ========== -->
   {% if newsletters %}
+  <div class="heading-wrapper">
+    <h2 class="section-heading">📬 Read Current Newsletters</h2>
+  </div>
   <div class="newsletter-grid">
     {% for nl in newsletters %}
     <div class="newsletter-item">
@@ -242,7 +260,7 @@
         <h3 class="newsletter-title">{{ nl.title }}</h3>
         <div class="newsletter-date">{{ nl.created_at|date:"F Y" }}</div>
         
-        <!-- ✅ FIXED: Conditional link – use pdf_url if available, otherwise pdf_file.url -->
+        <!-- Conditional link: use pdf_url if available, otherwise pdf_file.url -->
         {% if nl.pdf_url %}
           <a href="{{ nl.pdf_url }}" target="_blank" class="read-newsletter">Read →</a>
         {% elif nl.pdf_file %}
@@ -258,20 +276,8 @@
 
   <!-- ========== HARDCODED NEWSLETTERS (ORIGINAL LIST STYLE) ========== -->
   <div class="resources-section">
-    <h3><i class="fas fa-book-open"></i> Read Our Newsletters</h3>
+    <h3><i class="fas fa-archive"></i> Read Past Newsletters</h3>
     <div class="resources-list">
-      {% comment %} <a href="{% static 'images/newsletters/n1.pdf' %}" class="resource-link" target="_blank">
-        <i class="fas fa-file-pdf"></i> April 2026
-      </a>
-      <a href="{% static 'images/newsletters/n5.pdf' %}" class="resource-link" target="_blank">
-        <i class="fas fa-file-pdf"></i> March 2026
-      </a>
-      <a href="{% static 'images/newsletters/n2.pdf' %}" class="resource-link" target="_blank">
-        <i class="fas fa-file-pdf"></i> February 2026
-      </a>
-      <a href="{% static 'images/newsletters/n3.pdf' %}" class="resource-link" target="_blank">
-        <i class="fas fa-file-pdf"></i> January 2026
-      </a> {% endcomment %}
       <a href="{% static 'images/newsletters/n6.pdf' %}" class="resource-link" target="_blank">
         <i class="fas fa-file-pdf"></i> December 2025
       </a>
