@@ -237,7 +237,7 @@
       <div class="newsletter-info">
         <h3 class="newsletter-title">{{ nl.title }}</h3>
         <div class="newsletter-date">{{ nl.created_at|date:"F Y" }}</div>
-        <a href="{{ nl.pdf_file.url }}" target="_blank" class="read-newsletter">Read →</a>
+        <a href="{{ nl.pdf_file.url }}" target="_blank<a href="{{ nl.pdf_url|default:nl.pdf_file.url }}" target="_blank" class="read-newsletter">Read →</a>" class="read-newsletter">Read →</a>
       </div>
     </div>
     {% endfor %}

@@ -1,5 +1,6 @@
 from django.db import models
-from cloudinary.models import CloudinaryField   # <-- ADD THIS
+from cloudinary.models import CloudinaryField
+
 
 # Contact form messages
 class ContactMessage(models.Model):
@@ -44,7 +45,7 @@ class Appointment(models.Model):
         ordering = ['-created_at']
 
 
-# Testimonies – image changed to CloudinaryField
+# Testimonies
 class Testimony(models.Model):
     title = models.CharField(max_length=200, default="My Testimony")
     name = models.CharField(max_length=100)
@@ -61,6 +62,7 @@ class Testimony(models.Model):
         ordering = ['-created_at']
 
 
+# Newsletter Subscribers
 class NewsletterSubscriber(models.Model):
     email = models.EmailField(unique=True)
     subscribed_at = models.DateTimeField(auto_now_add=True)
@@ -74,12 +76,22 @@ class NewsletterSubscriber(models.Model):
 
 
 # =========================
-# NEW NEWSLETTER MODEL
+# UPDATED NEWSLETTER MODEL
 # =========================
 class Newsletter(models.Model):
     title = models.CharField(max_length=200)
-    cover_image = CloudinaryField('image', blank=True, null=True)   # optional cover image
-    pdf_file = CloudinaryField('file', blank=True, null=True)       # PDF file
+    cover_image = CloudinaryField('image', blank=True, null=True)
+    
+    # OPTION 1: Upload PDF to Cloudinary
+    pdf_file = CloudinaryField('file', blank=True, null=True)
+    
+    # OPTION 2: Use external link (Google Drive, Dropbox, etc.)
+    pdf_url = models.URLField(
+        blank=True,
+        null=True,
+        help_text="Direct link to PDF (e.g., Google Drive share link)"
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
     is_published = models.BooleanField(default=True)
 
@@ -90,7 +102,7 @@ class Newsletter(models.Model):
         ordering = ['-created_at']
 
 
-# Events – image changed to CloudinaryField
+# Events
 class Event(models.Model):
     title = models.CharField(max_length=200)
     image = CloudinaryField('image', blank=True, null=True)
@@ -124,7 +136,7 @@ class Sermon(models.Model):
         ordering = ['-date']
 
 
-# Blog Posts – image changed to CloudinaryField
+# Blog Posts
 class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     image = CloudinaryField('image', blank=True, null=True)
@@ -141,6 +153,7 @@ class BlogPost(models.Model):
         ordering = ['-date']
 
 
+# Donations
 class Donation(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
@@ -153,6 +166,7 @@ class Donation(models.Model):
         return f"{self.name} - £{self.amount} - {self.status}"
 
 
+# Prayer Requests
 class PrayerRequest(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()

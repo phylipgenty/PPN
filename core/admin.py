@@ -4,7 +4,7 @@ from .models import (
     Appointment,
     Testimony,
     NewsletterSubscriber,
-    Newsletter,   # ✅ ADD THIS
+    Newsletter,
     Event,
     Sermon,
     BlogPost
@@ -58,12 +58,13 @@ class NewsletterSubscriberAdmin(admin.ModelAdmin):
     search_fields = ('email',)
 
 
-# 🆕 NEWSLETTER (NEWLY ADDED)
+# 🆕 UPDATED NEWSLETTER ADMIN
 @admin.register(Newsletter)
 class NewsletterAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at', 'is_published')
     list_filter = ('is_published', 'created_at')
     search_fields = ('title',)
+    fields = ('title', 'cover_image', 'pdf_file', 'pdf_url', 'is_published')
 
 
 # EVENTS
