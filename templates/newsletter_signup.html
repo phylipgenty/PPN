@@ -6,12 +6,12 @@
 {% block extra_css %}
 <style>
   .newsletter-container {
-    max-width: 1200px;   /* slightly reduced for 4 columns */
+    max-width: 1200px;
     margin: 2rem auto;
     padding: 0 1rem;
   }
 
-  /* Grid for dynamic newsletters – 4 columns on large screens */
+  /* Grid for dynamic newsletters – 4 columns */
   .newsletter-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -70,6 +70,10 @@
   .read-newsletter:hover {
     background: #ffcd5c;
     color: #1a1a2a;
+  }
+  .read-newsletter.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
   /* Original list style for hardcoded newsletters */
@@ -209,7 +213,7 @@
     color: #aaccff;
   }
 
-  /* Responsive breakpoints for 4‑column grid */
+  /* Responsive breakpoints */
   @media (max-width: 992px) {
     .newsletter-grid { grid-template-columns: repeat(3, 1fr); }
   }
@@ -237,7 +241,15 @@
       <div class="newsletter-info">
         <h3 class="newsletter-title">{{ nl.title }}</h3>
         <div class="newsletter-date">{{ nl.created_at|date:"F Y" }}</div>
-        <a href="{{ nl.pdf_file.url }}" target="_blank<a href="{{ nl.pdf_url|default:nl.pdf_file.url }}" target="_blank" class="read-newsletter">Read →</a>" class="read-newsletter">Read →</a>
+        
+        <!-- ✅ FIXED: Conditional link – use pdf_url if available, otherwise pdf_file.url -->
+        {% if nl.pdf_url %}
+          <a href="{{ nl.pdf_url }}" target="_blank" class="read-newsletter">Read →</a>
+        {% elif nl.pdf_file %}
+          <a href="{{ nl.pdf_file.url }}" target="_blank" class="read-newsletter">Read →</a>
+        {% else %}
+          <span class="read-newsletter disabled">No PDF</span>
+        {% endif %}
       </div>
     </div>
     {% endfor %}
@@ -248,7 +260,7 @@
   <div class="resources-section">
     <h3><i class="fas fa-book-open"></i> Read Our Newsletters</h3>
     <div class="resources-list">
-      {% comment %} <a href="{% static 'images/newsletters/n1.pdf' %}" class="resource-link" target="_blank">
+      <a href="{% static 'images/newsletters/n1.pdf' %}" class="resource-link" target="_blank">
         <i class="fas fa-file-pdf"></i> April 2026
       </a>
       <a href="{% static 'images/newsletters/n5.pdf' %}" class="resource-link" target="_blank">
@@ -259,7 +271,7 @@
       </a>
       <a href="{% static 'images/newsletters/n3.pdf' %}" class="resource-link" target="_blank">
         <i class="fas fa-file-pdf"></i> January 2026
-      </a> {% endcomment %}
+      </a>
       <a href="{% static 'images/newsletters/n6.pdf' %}" class="resource-link" target="_blank">
         <i class="fas fa-file-pdf"></i> December 2025
       </a>
