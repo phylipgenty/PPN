@@ -11,7 +11,7 @@
     padding: 0 1rem;
   }
 
-  /* Newsletter grid – exactly 5 columns on large screens */
+  /* Grid for dynamic newsletters (5 columns) */
   .newsletter-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -72,7 +72,41 @@
     color: #1a1a2a;
   }
 
-  /* Subscription section */
+  /* Original list style for hardcoded newsletters */
+  .resources-section {
+    margin: 2rem 0;
+    text-align: left;
+    background: rgba(30,20,50,0.5);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+  }
+  .resources-section h3 {
+    color: #ffefc0;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .resources-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .resource-link {
+    background: rgba(255,255,255,0.1);
+    padding: 0.6rem 1.2rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    color: #ffefc0;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: 0.2s;
+  }
+  .resource-link:hover {
+    background: #ffcd5c;
+    color: #1a1a2a;
+  }
+
+  /* Subscription form (original style) */
   .subscription-section {
     background: rgba(30,20,50,0.85);
     backdrop-filter: blur(12px);
@@ -192,7 +226,7 @@
 
 {% block content %}
 <div class="container newsletter-container">
-  <!-- ========== DYNAMIC NEWSLETTERS FROM ADMIN ========== -->
+  <!-- ========== DYNAMIC NEWSLETTERS FROM ADMIN (GRID) ========== -->
   {% if newsletters %}
   <div class="newsletter-grid">
     {% for nl in newsletters %}
@@ -212,7 +246,62 @@
   </div>
   {% endif %}
 
-  <!-- ========== SUBSCRIPTION FORM ========== -->
+  <!-- ========== HARDCODED NEWSLETTERS (ORIGINAL LIST STYLE) ========== -->
+  <div class="resources-section">
+    <h3><i class="fas fa-book-open"></i> Read Our Newsletters</h3>
+    <div class="resources-list">
+      <a href="{% static 'images/newsletters/n1.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> April 2026
+      </a>
+      <a href="{% static 'images/newsletters/n5.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> March 2026
+      </a>
+      <a href="{% static 'images/newsletters/n2.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> February 2026
+      </a>
+      <a href="{% static 'images/newsletters/n3.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> January 2026
+      </a>
+      <a href="{% static 'images/newsletters/n6.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> December 2025
+      </a>
+      <a href="{% static 'images/newsletters/n4.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> November 2025
+      </a>
+      <a href="{% static 'images/newsletters/n7.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> October 2025
+      </a>
+      <a href="{% static 'images/newsletters/n8.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> September 2025
+      </a>
+      <a href="{% static 'images/newsletters/n11.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> August 2025
+      </a>
+      <a href="{% static 'images/newsletters/n12.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> July 2025
+      </a>
+      <a href="{% static 'images/newsletters/n9.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> June 2025
+      </a>
+      <a href="{% static 'images/newsletters/n13.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> May 2025
+      </a>
+      <a href="{% static 'images/newsletters/n10.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> April 2025
+      </a>
+      <a href="{% static 'images/newsletters/n14.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> March 2025
+      </a>
+      <a href="{% static 'images/newsletters/n15.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> February 2025
+      </a>
+      <a href="{% static 'images/newsletters/n16.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> January 2025
+      </a>
+    </div>
+  </div>
+
+  <!-- ========== SUBSCRIPTION FORM (BOTTOM) ========== -->
   <div class="subscription-section">
     <h2><i class="fas fa-envelope-open-text"></i> Stay Connected</h2>
     <p>Subscribe to receive future newsletters and prayer alerts directly in your inbox.</p>
@@ -228,138 +317,6 @@
       <input type="email" name="email" placeholder="Enter your email address" required>
       <button type="submit">Subscribe Now</button>
     </form>
-  </div>
-
-  <!-- ========== HARDCODED NEWSLETTERS (oldest archive) ========== -->
-  <div class="newsletter-grid">
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">April 2026</h3>
-        <div class="newsletter-date">April 2026</div>
-        <a href="{% static 'images/newsletters/n1.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">March 2026</h3>
-        <div class="newsletter-date">March 2026</div>
-        <a href="{% static 'images/newsletters/n5.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">February 2026</h3>
-        <div class="newsletter-date">February 2026</div>
-        <a href="{% static 'images/newsletters/n2.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">January 2026</h3>
-        <div class="newsletter-date">January 2026</div>
-        <a href="{% static 'images/newsletters/n3.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">December 2025</h3>
-        <div class="newsletter-date">December 2025</div>
-        <a href="{% static 'images/newsletters/n6.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">November 2025</h3>
-        <div class="newsletter-date">November 2025</div>
-        <a href="{% static 'images/newsletters/n4.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">October 2025</h3>
-        <div class="newsletter-date">October 2025</div>
-        <a href="{% static 'images/newsletters/n7.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">September 2025</h3>
-        <div class="newsletter-date">September 2025</div>
-        <a href="{% static 'images/newsletters/n8.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">August 2025</h3>
-        <div class="newsletter-date">August 2025</div>
-        <a href="{% static 'images/newsletters/n11.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">July 2025</h3>
-        <div class="newsletter-date">July 2025</div>
-        <a href="{% static 'images/newsletters/n12.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">June 2025</h3>
-        <div class="newsletter-date">June 2025</div>
-        <a href="{% static 'images/newsletters/n9.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">May 2025</h3>
-        <div class="newsletter-date">May 2025</div>
-        <a href="{% static 'images/newsletters/n13.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">April 2025</h3>
-        <div class="newsletter-date">April 2025</div>
-        <a href="{% static 'images/newsletters/n10.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">March 2025</h3>
-        <div class="newsletter-date">March 2025</div>
-        <a href="{% static 'images/newsletters/n14.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">February 2025</h3>
-        <div class="newsletter-date">February 2025</div>
-        <a href="{% static 'images/newsletters/n15.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
-    <div class="newsletter-item">
-      <img src="{% static 'images/newsletter-placeholder.jpg' %}" alt="Newsletter" class="newsletter-cover">
-      <div class="newsletter-info">
-        <h3 class="newsletter-title">January 2025</h3>
-        <div class="newsletter-date">January 2025</div>
-        <a href="{% static 'images/newsletters/n16.pdf' %}" target="_blank" class="read-newsletter">Read →</a>
-      </div>
-    </div>
   </div>
 
   <div class="benefits-list">
