@@ -275,6 +275,45 @@
       margin-top: -1rem;
       margin-bottom: 0.5rem;
     }
+
+    /* ========== MOBILE HAMBURGER MENU FIX ========== */
+@media (max-width: 920px) {
+  .menu-icon {
+    display: block;
+  }
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 10, 20, 0.98);
+    backdrop-filter: blur(16px);
+    padding: 1rem;
+    gap: 0.8rem;
+    z-index: 9999;
+  }
+  .nav-links.show {
+    display: flex;
+  }
+  .dropdown {
+    width: 100%;
+    position: relative;
+  }
+  .dropdown-content {
+    position: static;
+    background: rgba(20, 15, 35, 0.95);
+    margin-top: 0.5rem;
+    padding-left: 1rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    display: none;
+  }
+  .dropdown.open .dropdown-content {
+    display: block;
+  }
+}
   </style>
 </head>
 <body>
@@ -540,6 +579,31 @@
       if (e.target === modal) modal.style.display = 'none';
     });
   }
+
+  (function() {
+    // Hamburger menu toggle
+    const toggleBtn = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (toggleBtn && navLinks) {
+      toggleBtn.addEventListener('click', function(e) {
+        navLinks.classList.toggle('show');
+      });
+    }
+    // Mobile dropdown submenu toggle
+    function isMobile() {
+      return window.innerWidth <= 920;
+    }
+    const dropbtns = document.querySelectorAll('.dropdown > .dropbtn');
+    dropbtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        if (isMobile()) {
+          e.preventDefault();
+          const parent = this.closest('.dropdown');
+          parent.classList.toggle('open');
+        }
+      });
+    });
+  })();
 </script>
 </body>
 </html>
