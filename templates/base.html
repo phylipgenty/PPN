@@ -24,54 +24,52 @@
   </div>
 
   <ul class="nav-links" id="navLinks">
-    
-    <!-- Home -->
-    <li><a href="{% url 'index' %}">Home</a></li>
+  <!-- Home -->
+  <li><a href="{% url 'index' %}">Home</a></li>
 
-    <!-- About -->
-    <li><a href="{% url 'about' %}">About</a></li>
+  <!-- About -->
+  <li><a href="{% url 'about' %}">About</a></li>
 
-    <!-- Testimonies (standalone, before dropdowns) -->
-    <li><a href="{% url 'testimonies' %}">Testimonies</a></li>
+  <!-- TESTIMONIES DROPDOWN (combines read + share) -->
+  <li class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn">
+      Testimonies <i class="fas fa-caret-down"></i>
+    </a>
+    <div class="dropdown-content">
+      <a href="{% url 'testimonies' %}">Read Testimonies</a>
+      <a href="{% url 'test' %}">Share Your Testimony</a>
+    </div>
+  </li>
 
-    <!-- MEDIA DROPDOWN -->
-    <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">
-        Media <i class="fas fa-caret-down"></i>
-      </a>
-      <div class="dropdown-content">
-        <a href="{% url 'sermons' %}">Sermons</a>
-        <a href="{% url 'blog_list' %}">Blogs</a>
-        <a href="{% url 'events' %}">Gallery</a>
-      </div>
-    </li>
+  <!-- MEDIA DROPDOWN -->
+  <li class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn">
+      Media <i class="fas fa-caret-down"></i>
+    </a>
+    <div class="dropdown-content">
+      <a href="{% url 'sermons' %}">Sermons</a>
+      <a href="{% url 'blog_list' %}">Blogs</a>
+      <a href="{% url 'events' %}">Gallery</a>
+    </div>
+  </li>
 
-    <!-- COMMUNITY DROPDOWN (only Share Testimony & Newsletter) -->
-    <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">
-        Community <i class="fas fa-caret-down"></i>
-      </a>
-      <div class="dropdown-content">
-        <a href="{% url 'test' %}">Share Testimony</a>
-        <a href="{% url 'newsletter_signup' %}">Newsletter</a>
-      </div>
-    </li>
+  <!-- NEWSLETTER (standalone link) -->
+  <li><a href="{% url 'newsletter_signup' %}">Newsletter</a></li>
 
-    <!-- MORE DROPDOWN -->
-    <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">
-        More <i class="fas fa-caret-down"></i>
-      </a>
-      <div class="dropdown-content">
-        <a href="{% url 'contact' %}">Contact</a>
-        <a href="{% url 'appointment' %}">Book Appointment</a>
-      </div>
-    </li>
+  <!-- MORE DROPDOWN -->
+  <li class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn">
+      More <i class="fas fa-caret-down"></i>
+    </a>
+    <div class="dropdown-content">
+      <a href="{% url 'contact' %}">Contact</a>
+      <a href="{% url 'appointment' %}">Book Appointment</a>
+    </div>
+  </li>
 
-    <!-- DONATE (standalone button) -->
-    <li><a href="{% url 'donate' %}" class="donate-btn">Donate</a></li>
-
-  </ul>
+  <!-- DONATE (standalone button) -->
+  <li><a href="{% url 'donate' %}" class="donate-btn">Donate</a></li>
+</ul>
 </nav>
 <main>
   {% block content %}{% endblock %}
