@@ -314,6 +314,23 @@
     display: block;
   }
 }
+
+{% comment %} testing? {% endcomment %}
+/* Make the overlay lighter so the image shows through */
+.hero .overlay {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2));
+}
+
+/* Remove text shadow for sharper text edges */
+.hero h1, .hero p {
+  text-shadow: none;
+}
+
+/* Optional: if you want to remove the overlay entirely (more image visibility, but text may become harder to read), you can set:
+.hero .overlay {
+  display: none;
+}
+*/
   </style>
 </head>
 <body>
