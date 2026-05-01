@@ -12,7 +12,7 @@
     height: 100vh;
     overflow: hidden;
     margin-bottom: 3rem;
-    background: #000;   /* prevents blank flash during transitions */
+    background: #000;
   }
 
   .gallery-section .gallery-slideshow-container {
@@ -101,7 +101,6 @@
     height: 14px;
   }
 
-  /* Gallery title (event name) */
   .gallery-title {
     text-align: center;
     color: #ffefc0;
@@ -110,7 +109,6 @@
     font-weight: bold;
   }
 
-  /* Events grid (same as before) */
   .events-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -269,16 +267,8 @@
       {% endif %}
       <div class="event-info">
         <h3 class="event-title">{{ event.title }}</h3>
-        <div class="event-date">
-          <i class="far fa-calendar-alt"></i>
-          {{ event.start_date|date:"M d, Y" }}
-          {% if event.end_date and event.end_date != event.start_date %}
-            – {{ event.end_date|date:"M d, Y" }}
-          {% endif %}
-        </div>
-        <div class="event-location">
-          <i class="fas fa-map-marker-alt"></i> {{ event.location }}
-        </div>
+        <div class="event-date">{{ event.start_date|date:"M d, Y" }}</div>
+        <div class="event-location">{{ event.location }}</div>
         <p class="event-description">{{ event.description|truncatechars:120 }}</p>
       </div>
     </div>
@@ -291,77 +281,99 @@
 
 {% block extra_js %}
 <script>
-  // Helper to initialize a gallery
-  function initGallery(containerId, slideshowId, prevBtnClass, nextBtnClass, dotsId) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    const slideshow = document.getElementById(slideshowId);
-    if (!slideshow) return;
-    const slides = Array.from(slideshow.querySelectorAll('.gallery-slide'));
-    if (!slides.length) return;
+  document.addEventListener('DOMContentLoaded', function() {
+    // Helper to initialize a single gallery
+    function initGallery(containerId, slideshowId, prevBtnClass, nextBtnClass, dotsId) {
+      const container = document.getElementById(containerId);
+      if (!container) {
+        console.warn(`Container ${containerId} not found`);
+        return false;
+      }
+      const slideshow = document.getElementById(slideshowId);
+      if (!slideshow) {
+        console.warn(`Slideshow ${slideshowId} not found`);
+        return false;
+      }
+      const slides = Array.from(slideshow.querySelectorAll('.gallery-slide'));
+      if (slides.length === 0) {
+        console.warn(`No slides in ${containerId}`);
+        return false;
+      }
 
-    let current = 0;
-    let timer;
+      let current = 0;
+      let timer = null;
 
-    // Create dots
-    const dotsContainer = document.getElementById(dotsId);
-    if (dotsContainer) {
-      slides.forEach((_, i) => {
-        const dot = document.createElement('div');
-        dot.classList.add('gallery-dot');
-        if (i === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goTo(i));
-        dotsContainer.appendChild(dot);
-      });
-    }
-    const dots = document.querySelectorAll(`#${containerId} .gallery-dot`);
+      // Create dots
+      const dotsContainer = document.getElementById(dotsId);
+      if (dotsContainer) {
+        dotsContainer.innerHTML = ''; // clear in case of re‑init
+        slides.forEach((_, idx) => {
+          const dot = document.createElement('div');
+          dot.classList.add('gallery-dot');
+          if (idx === 0) dot.classList.add('active');
+          dot.addEventListener('click', () => goTo(idx));
+          dotsContainer.appendChild(dot);
+        });
+      }
+      const dots = document.querySelectorAll(`#${containerId} .gallery-dot`);
 
-    function update() {
-      slides.forEach((s, i) => s.classList.toggle('active', i === current));
-      dots.forEach((d, i) => d.classList.toggle('active', i === current));
-    }
+      function update() {
+        slides.forEach((slide, idx) => {
+          slide.classList.toggle('active', idx === current);
+        });
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === current);
+        });
+      }
 
-    function goTo(i) {
-      current = (i + slides.length) % slides.length;
+      function goTo(i) {
+        current = (i + slides.length) % slides.length;
+        update();
+        resetTimer();
+      }
+
+      function next() { goTo(current + 1); }
+      function prev() { goTo(current - 1); }
+
+      function resetTimer() {
+        if (timer) clearInterval(timer);
+        timer = setInterval(next, 6000);
+      }
+
+      const prevBtn = container.querySelector(prevBtnClass);
+      const nextBtn = container.querySelector(nextBtnClass);
+      if (prevBtn) prevBtn.onclick = prev;
+      if (nextBtn) nextBtn.onclick = next;
+
+      // Force initial active slide
       update();
       resetTimer();
+
+      return true;
     }
 
-    function next() { goTo(current + 1); }
-    function prev() { goTo(current - 1); }
+    // Initialize all galleries
+    initGallery('galleryBirmingham', 'slideshowBirmingham', '.prevBtnBham', '.nextBtnBham', 'dotsBham');
+    initGallery('galleryEdinburgh', 'slideshowEdinburgh', '.prevBtnEdin', '.nextBtnEdin', 'dotsEdin');
+    initGallery('galleryNorthampton2025', 'slideshowNorthampton2025', '.prevBtnNor2025', '.nextBtnNor2025', 'dotsNor2025');
+    initGallery('galleryNorthampton2026', 'slideshowNorthampton2026', '.prevBtnNor2026', '.nextBtnNor2026', 'dotsNor2026');
 
-    function resetTimer() {
-      if (timer) clearInterval(timer);
-      timer = setInterval(next, 6000);
+    // Preload all background images for all galleries
+    function preloadAllBackgrounds() {
+      const slides = document.querySelectorAll('.gallery-slide');
+      slides.forEach(slide => {
+        const bg = window.getComputedStyle(slide).backgroundImage;
+        if (bg && bg !== 'none') {
+          const url = bg.slice(4, -1).replace(/"/g, '');
+          const img = new Image();
+          img.src = url;
+        }
+      });
     }
+    preloadAllBackgrounds();
 
-    // Attach button events
-    const prevBtn = container.querySelector(prevBtnClass);
-    const nextBtn = container.querySelector(nextBtnClass);
-    if (prevBtn) prevBtn.onclick = prev;
-    if (nextBtn) nextBtn.onclick = next;
-
-    update();
-    resetTimer();
-  }
-
-  // Initialize all four galleries
-  initGallery('galleryBirmingham', 'slideshowBirmingham', '.prevBtnBham', '.nextBtnBham', 'dotsBham');
-  initGallery('galleryEdinburgh', 'slideshowEdinburgh', '.prevBtnEdin', '.nextBtnEdin', 'dotsEdin');
-  initGallery('galleryNorthampton2025', 'slideshowNorthampton2025', '.prevBtnNor2025', '.nextBtnNor2025', 'dotsNor2025');
-  initGallery('galleryNorthampton2026', 'slideshowNorthampton2026', '.prevBtnNor2026', '.nextBtnNor2026', 'dotsNor2026');
-
-  // Preload all background images to avoid blank slides
-  (function preloadGalleryImages() {
-    const slides = document.querySelectorAll('.gallery-slide');
-    slides.forEach(slide => {
-      const bgImage = window.getComputedStyle(slide).backgroundImage;
-      if (bgImage && bgImage !== 'none') {
-        const url = bgImage.slice(4, -1).replace(/"/g, '');
-        const img = new Image();
-        img.src = url;
-      }
-    });
-  })();
+    // Optional: if you still see blank slides, force a resize event to wake up any lazy loaded images
+    window.dispatchEvent(new Event('resize'));
+  });
 </script>
 {% endblock %}
