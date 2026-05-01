@@ -168,7 +168,7 @@ body {
   z-index: 2;
   pointer-events: none;
   opacity: 0.25;
-  filter: blur(3px);
+  /* filter: blur(3px);  REMOVED */
 }
 .hero-cross::before {
   content: "✝";
