@@ -206,3 +206,27 @@ class PrayerRequest(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.created_at.strftime('%Y-%m-%d')}"
+
+# =========================
+# SLIDESHOW GALLERY (for events page)
+# =========================
+class SlideshowImage(models.Model):
+    slideshow = models.ForeignKey('Slideshow', on_delete=models.CASCADE, related_name='images')
+    image = CloudinaryField('image')
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return f"Image for {self.slideshow.title}"
+
+class Slideshow(models.Model):
+    title = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-created_at']
