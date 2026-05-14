@@ -5,7 +5,7 @@
 
 {% block extra_css %}
 <style>
-  /* ========== STATIC GALLERIES ========== */
+  /* ========== STATIC & DYNAMIC GALLERIES (full‑screen) ========== */
   .gallery-section {
     position: relative;
     width: 100%;
@@ -98,99 +98,6 @@
     font-weight: bold;
   }
 
-  /* ========== DYNAMIC SLIDESHOWS CARDS ========== */
-  .slideshows-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
-    margin: 2rem 0;
-  }
-  .slideshow-card {
-    background: rgba(30,20,50,0.85);
-    backdrop-filter: blur(8px);
-    border-radius: 1.5rem;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s;
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-  .slideshow-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
-  }
-  .slideshow-carousel {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    background: #2a1f3a;
-  }
-  .slideshow-slides {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-  .slideshow-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-  }
-  .slideshow-slide.active {
-    opacity: 1;
-  }
-  .carousel-controls {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    z-index: 2;
-  }
-  .carousel-arrow {
-    background: rgba(0,0,0,0.5);
-    border: none;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-  }
-  .carousel-dots {
-    display: flex;
-    gap: 0.4rem;
-    align-items: center;
-  }
-  .carousel-dot {
-    width: 6px;
-    height: 6px;
-    background-color: rgba(255,255,255,0.5);
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  .carousel-dot.active {
-    background-color: #ffcd5c;
-    width: 8px;
-    height: 8px;
-  }
-  .slideshow-info {
-    padding: 1rem;
-  }
-  .slideshow-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #ffefc0;
-    text-align: center;
-  }
-
   @media (max-width: 768px) {
     .gallery-section {
       height: 40vh;
@@ -210,7 +117,31 @@
 
 {% block content %}
 
-<!-- ================= STATIC GALLERIES (most recent first) ================= -->
+<!-- ================= DYNAMIC GALLERIES (full‑width, on top) ================= -->
+{% if slideshows %}
+  {% for slideshow in slideshows %}
+    {% if slideshow.images.all %}
+      <div class="gallery-title">{{ slideshow.title }}</div>
+      <div class="gallery-section" id="galleryDynamic{{ slideshow.id }}">
+        <div class="gallery-slideshow-container" id="slideshowDynamic{{ slideshow.id }}">
+          {% for img in slideshow.images.all %}
+            <div class="gallery-slide" style="background-image: url('{{ img.image.url }}');"></div>
+          {% endfor %}
+        </div>
+        <div class="gallery-caption">
+          {{ slideshow.description|default:"Moments of worship, prayer, and breakthrough" }}
+        </div>
+        <div class="gallery-controls">
+          <button class="gallery-arrow prevDynamic{{ slideshow.id }}">&#10094;</button>
+          <div class="gallery-dots" id="dotsDynamic{{ slideshow.id }}"></div>
+          <button class="gallery-arrow nextDynamic{{ slideshow.id }}">&#10095;</button>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+<!-- ================= STATIC GALLERIES (remain below) ================= -->
 <!-- NORTHAMPTON 2026 -->
 <div class="gallery-title">Leaders and Ministers Retreat – Northampton 2026</div>
 <div class="gallery-section" id="galleryNorthampton2026">
@@ -284,48 +215,12 @@
   </div>
 </div>
 
-<!-- ================= DYNAMIC SLIDESHOWS (from admin) ================= -->
-{% if slideshows %}
-<div class="container">
-  <div class="section-title">
-    <i class="fas fa-images"></i> More Slideshows
-  </div>
-  <div class="slideshows-grid">
-    {% for slideshow in slideshows %}
-    <div class="slideshow-card">
-      {% if slideshow.images.all %}
-      <div class="slideshow-carousel" data-id="{{ slideshow.id }}">
-        <div class="slideshow-slides">
-          {% for img in slideshow.images.all %}
-          <div class="slideshow-slide" style="background-image: url('{{ img.image.url }}');"></div>
-          {% endfor %}
-        </div>
-        <div class="carousel-controls">
-          <button class="carousel-arrow prev">&#10094;</button>
-          <div class="carousel-dots" id="dots-{{ slideshow.id }}"></div>
-          <button class="carousel-arrow next">&#10095;</button>
-        </div>
-      </div>
-      {% else %}
-      <div class="slideshow-carousel" style="display: flex; align-items: center; justify-content: center;">
-        <span style="color: #cdc4e8;">No images</span>
-      </div>
-      {% endif %}
-      <div class="slideshow-info">
-        <h3 class="slideshow-title">{{ slideshow.title }}</h3>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-</div>
-{% endif %}
-
 {% endblock %}
 
 {% block extra_js %}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // ========== STATIC GALLERIES ==========
+    // ========== REUSABLE GALLERY INITIALISER ==========
     function initGallery(containerId, slideshowId, prevBtnClass, nextBtnClass, dotsId) {
       const container = document.getElementById(containerId);
       if (!container) return;
@@ -378,67 +273,26 @@
       resetTimer();
     }
 
+    // ========== INIT STATIC GALLERIES ==========
     initGallery('galleryNorthampton2026', 'slideshowNorthampton2026', '.prevBtnNor2026', '.nextBtnNor2026', 'dotsNor2026');
     initGallery('galleryBirmingham', 'slideshowBirmingham', '.prevBtnBham', '.nextBtnBham', 'dotsBham');
     initGallery('galleryNorthampton2025', 'slideshowNorthampton2025', '.prevBtnNor2025', '.nextBtnNor2025', 'dotsNor2025');
     initGallery('galleryEdinburgh', 'slideshowEdinburgh', '.prevBtnEdin', '.nextBtnEdin', 'dotsEdin');
 
-    // ========== DYNAMIC SLIDESHOWS ==========
-    document.querySelectorAll('.slideshow-carousel').forEach(carousel => {
-      const slidesDiv = carousel.querySelector('.slideshow-slides');
-      if (!slidesDiv) return;
-      const slides = Array.from(slidesDiv.querySelectorAll('.slideshow-slide'));
-      if (slides.length <= 1) return;
+    // ========== INIT DYNAMIC GALLERIES (full‑width) ==========
+    {% for slideshow in slideshows %}
+      {% if slideshow.images.all %}
+        initGallery(
+          'galleryDynamic{{ slideshow.id }}',
+          'slideshowDynamic{{ slideshow.id }}',
+          '.prevDynamic{{ slideshow.id }}',
+          '.nextDynamic{{ slideshow.id }}',
+          'dotsDynamic{{ slideshow.id }}'
+        );
+      {% endif %}
+    {% endfor %}
 
-      let current = 0;
-      let timer = null;
-
-      const slideshowId = carousel.dataset.id;
-      const dotsContainer = carousel.querySelector('.carousel-dots');
-      if (dotsContainer) {
-        dotsContainer.innerHTML = '';
-        slides.forEach((_, idx) => {
-          const dot = document.createElement('div');
-          dot.classList.add('carousel-dot');
-          if (idx === 0) dot.classList.add('active');
-          dot.addEventListener('click', () => goTo(idx));
-          dotsContainer.appendChild(dot);
-        });
-      }
-      const dots = carousel.querySelectorAll('.carousel-dot');
-
-      function update() {
-        slides.forEach((s, i) => s.classList.toggle('active', i === current));
-        dots.forEach((d, i) => d.classList.toggle('active', i === current));
-      }
-
-      function goTo(i) {
-        current = (i + slides.length) % slides.length;
-        update();
-        resetTimer();
-      }
-
-      function next() { goTo(current + 1); }
-      function prev() { goTo(current - 1); }
-
-      function resetTimer() {
-        if (timer) clearInterval(timer);
-        timer = setInterval(next, 5000);
-      }
-
-      const prevBtn = carousel.querySelector('.prev');
-      const nextBtn = carousel.querySelector('.next');
-      if (prevBtn) prevBtn.addEventListener('click', () => { prev(); resetTimer(); });
-      if (nextBtn) nextBtn.addEventListener('click', () => { next(); resetTimer(); });
-
-      update();
-      resetTimer();
-
-      carousel.addEventListener('mouseenter', () => clearInterval(timer));
-      carousel.addEventListener('mouseleave', resetTimer);
-    });
-
-    // Preload all background images
+    // ========== PRELOAD ALL BACKGROUND IMAGES ==========
     function preloadAllBackgrounds() {
       const slides = document.querySelectorAll('.gallery-slide, .slideshow-slide');
       slides.forEach(slide => {
