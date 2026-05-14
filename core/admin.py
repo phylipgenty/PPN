@@ -5,8 +5,10 @@ from .models import (
     Testimony,
     NewsletterSubscriber,
     Newsletter,
-    Event,
-    EventImage,
+    # Event,           # <-- REMOVED – no longer needed
+    # EventImage,      # <-- REMOVED
+    Slideshow,
+    SlideshowImage,
     Sermon,
     BlogPost
 )
@@ -70,21 +72,20 @@ class NewsletterAdmin(admin.ModelAdmin):
     fields = ('title', 'cover_image', 'pdf_file', 'pdf_url', 'is_published')
 
 
-# EVENTS INLINE (GALLERY IMAGES)
-class EventImageInline(admin.StackedInline):
-    model = EventImage
+# =========================
+# SLIDESHOW (new, simple gallery)
+# =========================
+class SlideshowImageInline(admin.StackedInline):
+    model = SlideshowImage
     extra = 1
     fields = ('image', 'order')
     ordering = ('order',)
 
-
-# EVENTS
-@admin.register(Event)
-class EventAdmin(admin.ModelAdmin):
-    list_display = ('title', 'start_date', 'location', 'is_upcoming')
-    list_filter = ('is_upcoming', 'start_date')
-    search_fields = ('title', 'location')
-    inlines = [EventImageInline]
+@admin.register(Slideshow)
+class SlideshowAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_at')
+    fields = ('title',)
+    inlines = [SlideshowImageInline]
 
 
 # SERMONS
