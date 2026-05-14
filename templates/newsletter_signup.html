@@ -274,10 +274,41 @@
   </div>
   {% endif %}
 
-  <!-- ========== HARDCODED NEWSLETTERS (ORIGINAL LIST STYLE) ========== -->
-  <div class="resources-section">
-    <h3><i class="fas fa-archive"></i> Read Past Newsletters</h3>
-    <div class="resources-list">
+  <!-- ========== HARDCODED PAST NEWSLETTERS – TWO COLUMNS BY YEAR ========== -->
+<div class="heading-wrapper">
+  <h2 class="section-heading">📚 Past Newsletters</h2>
+</div>
+<div class="year-columns">
+  <!-- 2026 COLUMN -->
+  <div class="year-column">
+    <h3>2026</h3>
+    <div class="newsletter-list">
+      <!-- May 2026 – n6.pdf -->
+      <a href="{% static 'images/newsletters/n6.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> May 2026
+      </a>
+      <!-- April 2026 – n1.pdf -->
+      <a href="{% static 'images/newsletters/n1.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> April 2026
+      </a>
+      <!-- March 2026 – n2.pdf -->
+      <a href="{% static 'images/newsletters/n2.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> March 2026
+      </a>
+      <!-- February 2026 – n5.pdf -->
+      <a href="{% static 'images/newsletters/n5.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> February 2026
+      </a>
+      <!-- January 2026 – n3.pdf -->
+      <a href="{% static 'images/newsletters/n3.pdf' %}" class="resource-link" target="_blank">
+        <i class="fas fa-file-pdf"></i> January 2026
+      </a>
+    </div>
+  </div>
+  <!-- 2025 COLUMN -->
+  <div class="year-column">
+    <h3>2025</h3>
+    <div class="newsletter-list">
       <a href="{% static 'images/newsletters/n6.pdf' %}" class="resource-link" target="_blank">
         <i class="fas fa-file-pdf"></i> December 2025
       </a>
@@ -316,7 +347,7 @@
       </a>
     </div>
   </div>
-
+</div>
   <!-- ========== SUBSCRIPTION FORM (BOTTOM) ========== -->
   <div class="subscription-section">
     <h2><i class="fas fa-envelope-open-text"></i> Stay Connected</h2>
