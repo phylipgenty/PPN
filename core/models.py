@@ -31,7 +31,11 @@ class Appointment(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone = models.CharField(max_length=20)
-    appointment_type = models.CharField(max_length=20, choices=APPOINTMENT_TYPES, default='general')
+    appointment_type = models.CharField(
+        max_length=20,
+        choices=APPOINTMENT_TYPES,
+        default='general'
+    )
     preferred_date = models.DateField()
     preferred_time = models.TimeField()
     message = models.TextField(blank=True)
@@ -81,10 +85,10 @@ class NewsletterSubscriber(models.Model):
 class Newsletter(models.Model):
     title = models.CharField(max_length=200)
     cover_image = CloudinaryField('image', blank=True, null=True)
-    
+
     # OPTION 1: Upload PDF to Cloudinary
     pdf_file = CloudinaryField('file', blank=True, null=True)
-    
+
     # OPTION 2: Use external link (Google Drive, Dropbox, etc.)
     pdf_url = models.URLField(
         blank=True,
@@ -120,10 +124,30 @@ class Event(models.Model):
         ordering = ['-start_date']
 
 
+# Event Gallery Images
+class EventImage(models.Model):
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.CASCADE,
+        related_name='images'
+    )
+    image = CloudinaryField('image')
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return f"Image for {self.event.title}"
+
+
 # Sermons
 class Sermon(models.Model):
     title = models.CharField(max_length=200)
-    video_id = models.CharField(max_length=50, help_text="YouTube video ID (the part after v=)")
+    video_id = models.CharField(
+        max_length=50,
+        help_text="YouTube video ID (the part after v=)"
+    )
     preacher = models.CharField(max_length=100)
     date = models.DateField()
     description = models.TextField(blank=True)
@@ -141,7 +165,10 @@ class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     image = CloudinaryField('image', blank=True, null=True)
     content = models.TextField()
-    author = models.CharField(max_length=100, default="Pastor Henry Onyirioha")
+    author = models.CharField(
+        max_length=100,
+        default="Pastor Henry Onyirioha"
+    )
     date = models.DateField(auto_now_add=True)
     is_published = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -159,7 +186,11 @@ class Donation(models.Model):
     email = models.EmailField()
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, default='pending')
-    paypal_transaction_id = models.CharField(max_length=100, blank=True, null=True)
+    paypal_transaction_id = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -6,6 +6,7 @@ from .models import (
     NewsletterSubscriber,
     Newsletter,
     Event,
+    EventImage,
     Sermon,
     BlogPost
 )
@@ -17,6 +18,7 @@ class ContactMessageAdmin(admin.ModelAdmin):
     list_filter = ('is_read', 'created_at')
     search_fields = ('name', 'email', 'subject', 'message')
     readonly_fields = ('created_at',)
+
     actions = ['mark_as_read']
 
     def mark_as_read(self, request, queryset):
@@ -43,6 +45,7 @@ class TestimonyAdmin(admin.ModelAdmin):
     list_display = ('title', 'name', 'location', 'is_approved', 'created_at')
     list_filter = ('is_approved', 'created_at')
     search_fields = ('title', 'name', 'location', 'content')
+
     actions = ['approve_testimonies']
 
     def approve_testimonies(self, request, queryset):
@@ -58,7 +61,7 @@ class NewsletterSubscriberAdmin(admin.ModelAdmin):
     search_fields = ('email',)
 
 
-# 🆕 UPDATED NEWSLETTER ADMIN
+# NEWSLETTER
 @admin.register(Newsletter)
 class NewsletterAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at', 'is_published')
@@ -67,12 +70,21 @@ class NewsletterAdmin(admin.ModelAdmin):
     fields = ('title', 'cover_image', 'pdf_file', 'pdf_url', 'is_published')
 
 
+# EVENTS INLINE (GALLERY IMAGES)
+class EventImageInline(admin.StackedInline):
+    model = EventImage
+    extra = 1
+    fields = ('image', 'order')
+    ordering = ('order',)
+
+
 # EVENTS
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ('title', 'start_date', 'location', 'is_upcoming')
     list_filter = ('is_upcoming', 'start_date')
     search_fields = ('title', 'location')
+    inlines = [EventImageInline]
 
 
 # SERMONS

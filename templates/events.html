@@ -5,7 +5,7 @@
 
 {% block extra_css %}
 <style>
-  /* Shared gallery styles */
+  /* ========== STATIC GALLERIES (unchanged) ========== */
   .gallery-section {
     position: relative;
     width: 100%;
@@ -14,7 +14,6 @@
     margin-bottom: 3rem;
     background: #000;
   }
-
   .gallery-section .gallery-slideshow-container {
     position: absolute;
     top: 0;
@@ -23,7 +22,6 @@
     height: 100%;
     z-index: 0;
   }
-
   .gallery-section .gallery-slide {
     position: absolute;
     top: 0;
@@ -37,11 +35,9 @@
     will-change: opacity;
     backface-visibility: hidden;
   }
-
   .gallery-section .gallery-slide.active {
     opacity: 1;
   }
-
   .gallery-section .gallery-caption {
     position: absolute;
     bottom: 20px;
@@ -55,7 +51,6 @@
     font-size: 1.2rem;
     font-weight: bold;
   }
-
   .gallery-controls {
     position: absolute;
     bottom: 80px;
@@ -67,7 +62,6 @@
     align-items: center;
     gap: 1rem;
   }
-
   .gallery-arrow {
     background: rgba(0,0,0,0.5);
     border: none;
@@ -77,16 +71,13 @@
     padding: 0.3rem 0.8rem;
     border-radius: 50%;
   }
-
   .gallery-arrow:hover {
     background: rgba(0,0,0,0.8);
   }
-
   .gallery-dots {
     display: flex;
     gap: 0.5rem;
   }
-
   .gallery-dot {
     width: 10px;
     height: 10px;
@@ -94,13 +85,11 @@
     border-radius: 50%;
     cursor: pointer;
   }
-
   .gallery-dot.active {
     background-color: #ffcd5c;
     width: 14px;
     height: 14px;
   }
-
   .gallery-title {
     text-align: center;
     color: #ffefc0;
@@ -109,54 +98,112 @@
     font-weight: bold;
   }
 
+  /* ========== DYNAMIC EVENTS CARDS (with slideshow) ========== */
   .events-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 2rem;
     margin: 2rem 0;
   }
-
   .event-card {
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s;
+    background: rgba(30,20,50,0.85);
+    backdrop-filter: blur(8px);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.1);
   }
-
   .event-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 24px rgba(0,0,0,0.2);
   }
-
-  .event-image {
+  /* Carousel inside event card */
+  .event-carousel {
+    position: relative;
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #2a1f3a;
   }
-
+  .event-slides {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .event-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .event-slide.active {
+    opacity: 1;
+  }
+  .event-carousel .controls {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    z-index: 2;
+  }
+  .event-carousel .carousel-arrow {
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+  }
+  .event-carousel .dots {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  .event-carousel .dot {
+    width: 6px;
+    height: 6px;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .event-carousel .dot.active {
+    background-color: #ffcd5c;
+    width: 8px;
+    height: 8px;
+  }
   .event-info {
-    padding: 1.5rem;
+    padding: 1rem;
   }
-
   .event-title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: #ffefc0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
   }
-
-  .event-date,
-  .event-location {
-    font-size: 0.85rem;
+  .event-date, .event-location {
+    font-size: 0.75rem;
     color: #cdc4e8;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
-
   .event-description {
+    font-size: 0.85rem;
     color: #e0d6f5;
-    line-height: 1.5;
-    margin-top: 0.8rem;
+    line-height: 1.4;
+    margin-top: 0.5rem;
   }
 
   @media (max-width: 768px) {
@@ -178,7 +225,23 @@
 
 {% block content %}
 
-<!-- ================= GALLERY 1: BIRMINGHAM 2025 ================= -->
+<!-- ================= STATIC GALLERIES (most recent first) ================= -->
+<!-- NORTHAMPTON 2026 -->
+<div class="gallery-title">Leaders and Ministers Retreat – Northampton 2026</div>
+<div class="gallery-section" id="galleryNorthampton2026">
+  <div class="gallery-slideshow-container" id="slideshowNorthampton2026">
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor1.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor8.jpeg' %}');"></div>
+  </div>
+  <div class="gallery-caption">Moments of worship, prayer, and breakthrough</div>
+  <div class="gallery-controls">
+    <button class="gallery-arrow prevBtnNor2026">&#10094;</button>
+    <div class="gallery-dots" id="dotsNor2026"></div>
+    <button class="gallery-arrow nextBtnNor2026">&#10095;</button>
+  </div>
+</div>
+
+<!-- BIRMINGHAM 2025 -->
 <div class="gallery-title">PPN Annual Healing and Deliverance Conference – Birmingham 2025</div>
 <div class="gallery-section" id="galleryBirmingham">
   <div class="gallery-slideshow-container" id="slideshowBirmingham">
@@ -197,7 +260,25 @@
   </div>
 </div>
 
-<!-- ================= GALLERY 2: EDINBURGH 2024 ================= -->
+<!-- NORTHAMPTON 2025 -->
+<div class="gallery-title">Leaders and Ministers Retreat – Northampton 2025</div>
+<div class="gallery-section" id="galleryNorthampton2025">
+  <div class="gallery-slideshow-container" id="slideshowNorthampton2025">
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor7.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor2.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor3.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor5.jpeg' %}');"></div>
+    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor6.jpeg' %}');"></div>
+  </div>
+  <div class="gallery-caption">Moments of worship, prayer, and breakthrough</div>
+  <div class="gallery-controls">
+    <button class="gallery-arrow prevBtnNor2025">&#10094;</button>
+    <div class="gallery-dots" id="dotsNor2025"></div>
+    <button class="gallery-arrow nextBtnNor2025">&#10095;</button>
+  </div>
+</div>
+
+<!-- EDINBURGH 2024 -->
 <div class="gallery-title">PPN Annual Healing and Deliverance Conference – Edinburgh 2024</div>
 <div class="gallery-section" id="galleryEdinburgh">
   <div class="gallery-slideshow-container" id="slideshowEdinburgh">
@@ -218,40 +299,7 @@
   </div>
 </div>
 
-<!-- ================= GALLERY 3: NORTHAMPTON 2025 ================= -->
-<div class="gallery-title">Leaders and Ministers Retreat – Northampton 2025</div>
-<div class="gallery-section" id="galleryNorthampton2025">
-  <div class="gallery-slideshow-container" id="slideshowNorthampton2025">
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor7.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor2.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor3.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor5.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor6.jpeg' %}');"></div>
-  </div>
-  <div class="gallery-caption">Moments of worship, prayer, and breakthrough</div>
-  <div class="gallery-controls">
-    <button class="gallery-arrow prevBtnNor2025">&#10094;</button>
-    <div class="gallery-dots" id="dotsNor2025"></div>
-    <button class="gallery-arrow nextBtnNor2025">&#10095;</button>
-  </div>
-</div>
-
-<!-- ================= GALLERY 4: NORTHAMPTON 2026 ================= -->
-<div class="gallery-title">Leaders and Ministers Retreat – Northampton 2026</div>
-<div class="gallery-section" id="galleryNorthampton2026">
-  <div class="gallery-slideshow-container" id="slideshowNorthampton2026">
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor1.jpeg' %}');"></div>
-    <div class="gallery-slide" style="background-image: url('{% static 'images/Northampton/nor8.jpeg' %}');"></div>
-  </div>
-  <div class="gallery-caption">Moments of worship, prayer, and breakthrough</div>
-  <div class="gallery-controls">
-    <button class="gallery-arrow prevBtnNor2026">&#10094;</button>
-    <div class="gallery-dots" id="dotsNor2026"></div>
-    <button class="gallery-arrow nextBtnNor2026">&#10095;</button>
-  </div>
-</div>
-
-<!-- ================= DYNAMIC EVENTS FROM ADMIN ================= -->
+<!-- ================= DYNAMIC EVENTS (multi‑image carousel) ================= -->
 {% if events %}
 <div class="container">
   <div class="section-title">
@@ -259,16 +307,34 @@
   </div>
   <div class="events-grid">
     {% for event in events %}
-    <div class="event-card glass-card-light">
-      {% if event.image %}
-        <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-image">
+    <div class="event-card">
+      {% if event.images.all %}
+      <div class="event-carousel" data-event-id="{{ event.id }}">
+        <div class="event-slides">
+          {% for img in event.images.all %}
+          <div class="event-slide" style="background-image: url('{{ img.image.url }}');"></div>
+          {% endfor %}
+        </div>
+        <div class="controls">
+          <button class="carousel-arrow prev" data-event="{{ event.id }}">&#10094;</button>
+          <div class="dots" id="dots-{{ event.id }}"></div>
+          <button class="carousel-arrow next" data-event="{{ event.id }}">&#10095;</button>
+        </div>
+      </div>
       {% else %}
-        <img src="{% static 'images/event-placeholder.jpg' %}" alt="Event placeholder" class="event-image">
+      <div class="event-carousel" style="display: flex; align-items: center; justify-content: center;">
+        <span style="color: #cdc4e8;">No images</span>
+      </div>
       {% endif %}
       <div class="event-info">
         <h3 class="event-title">{{ event.title }}</h3>
-        <div class="event-date">{{ event.start_date|date:"M d, Y" }}</div>
-        <div class="event-location">{{ event.location }}</div>
+        <div class="event-date">
+          <i class="far fa-calendar-alt"></i> {{ event.start_date|date:"M d, Y" }}
+          {% if event.end_date and event.end_date != event.start_date %} – {{ event.end_date|date:"M d, Y" }}{% endif %}
+        </div>
+        <div class="event-location">
+          <i class="fas fa-map-marker-alt"></i> {{ event.location }}
+        </div>
         <p class="event-description">{{ event.description|truncatechars:120 }}</p>
       </div>
     </div>
@@ -282,31 +348,21 @@
 {% block extra_js %}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Helper to initialize a single gallery
+    // ========== INIT STATIC GALLERIES ==========
     function initGallery(containerId, slideshowId, prevBtnClass, nextBtnClass, dotsId) {
       const container = document.getElementById(containerId);
-      if (!container) {
-        console.warn(`Container ${containerId} not found`);
-        return false;
-      }
+      if (!container) return false;
       const slideshow = document.getElementById(slideshowId);
-      if (!slideshow) {
-        console.warn(`Slideshow ${slideshowId} not found`);
-        return false;
-      }
+      if (!slideshow) return false;
       const slides = Array.from(slideshow.querySelectorAll('.gallery-slide'));
-      if (slides.length === 0) {
-        console.warn(`No slides in ${containerId}`);
-        return false;
-      }
+      if (slides.length === 0) return false;
 
       let current = 0;
       let timer = null;
 
-      // Create dots
       const dotsContainer = document.getElementById(dotsId);
       if (dotsContainer) {
-        dotsContainer.innerHTML = ''; // clear in case of re‑init
+        dotsContainer.innerHTML = '';
         slides.forEach((_, idx) => {
           const dot = document.createElement('div');
           dot.classList.add('gallery-dot');
@@ -318,12 +374,8 @@
       const dots = document.querySelectorAll(`#${containerId} .gallery-dot`);
 
       function update() {
-        slides.forEach((slide, idx) => {
-          slide.classList.toggle('active', idx === current);
-        });
-        dots.forEach((dot, idx) => {
-          dot.classList.toggle('active', idx === current);
-        });
+        slides.forEach((slide, idx) => slide.classList.toggle('active', idx === current));
+        dots.forEach((dot, idx) => dot.classList.toggle('active', idx === current));
       }
 
       function goTo(i) {
@@ -345,22 +397,75 @@
       if (prevBtn) prevBtn.onclick = prev;
       if (nextBtn) nextBtn.onclick = next;
 
-      // Force initial active slide
       update();
       resetTimer();
-
       return true;
     }
 
-    // Initialize all galleries
-    initGallery('galleryBirmingham', 'slideshowBirmingham', '.prevBtnBham', '.nextBtnBham', 'dotsBham');
-    initGallery('galleryEdinburgh', 'slideshowEdinburgh', '.prevBtnEdin', '.nextBtnEdin', 'dotsEdin');
-    initGallery('galleryNorthampton2025', 'slideshowNorthampton2025', '.prevBtnNor2025', '.nextBtnNor2025', 'dotsNor2025');
     initGallery('galleryNorthampton2026', 'slideshowNorthampton2026', '.prevBtnNor2026', '.nextBtnNor2026', 'dotsNor2026');
+    initGallery('galleryBirmingham', 'slideshowBirmingham', '.prevBtnBham', '.nextBtnBham', 'dotsBham');
+    initGallery('galleryNorthampton2025', 'slideshowNorthampton2025', '.prevBtnNor2025', '.nextBtnNor2025', 'dotsNor2025');
+    initGallery('galleryEdinburgh', 'slideshowEdinburgh', '.prevBtnEdin', '.nextBtnEdin', 'dotsEdin');
 
-    // Preload all background images for all galleries
+    // ========== INIT DYNAMIC EVENT CAROUSELS ==========
+    document.querySelectorAll('.event-carousel').forEach(carousel => {
+      const slidesDiv = carousel.querySelector('.event-slides');
+      if (!slidesDiv) return;
+      const slides = Array.from(slidesDiv.querySelectorAll('.event-slide'));
+      if (slides.length <= 1) return; // no carousel if only one image or none
+
+      let current = 0;
+      let timer = null;
+
+      const eventId = carousel.dataset.eventId;
+      const dotsContainer = carousel.querySelector('.dots');
+      if (dotsContainer) {
+        dotsContainer.innerHTML = '';
+        slides.forEach((_, idx) => {
+          const dot = document.createElement('div');
+          dot.classList.add('dot');
+          if (idx === 0) dot.classList.add('active');
+          dot.addEventListener('click', () => goTo(idx));
+          dotsContainer.appendChild(dot);
+        });
+      }
+      const dots = carousel.querySelectorAll('.dot');
+
+      function update() {
+        slides.forEach((slide, idx) => slide.classList.toggle('active', idx === current));
+        dots.forEach((dot, idx) => dot.classList.toggle('active', idx === current));
+      }
+
+      function goTo(i) {
+        current = (i + slides.length) % slides.length;
+        update();
+        resetTimer();
+      }
+
+      function next() { goTo(current + 1); }
+      function prev() { goTo(current - 1); }
+
+      function resetTimer() {
+        if (timer) clearInterval(timer);
+        timer = setInterval(next, 5000);
+      }
+
+      const prevBtn = carousel.querySelector('.prev');
+      const nextBtn = carousel.querySelector('.next');
+      if (prevBtn) prevBtn.addEventListener('click', () => { prev(); resetTimer(); });
+      if (nextBtn) nextBtn.addEventListener('click', () => { next(); resetTimer(); });
+
+      update();
+      resetTimer();
+
+      // Optional: pause on hover
+      carousel.addEventListener('mouseenter', () => clearInterval(timer));
+      carousel.addEventListener('mouseleave', resetTimer);
+    });
+
+    // Preload all background images (static + dynamic)
     function preloadAllBackgrounds() {
-      const slides = document.querySelectorAll('.gallery-slide');
+      const slides = document.querySelectorAll('.gallery-slide, .event-slide');
       slides.forEach(slide => {
         const bg = window.getComputedStyle(slide).backgroundImage;
         if (bg && bg !== 'none') {
@@ -371,9 +476,6 @@
       });
     }
     preloadAllBackgrounds();
-
-    // Optional: if you still see blank slides, force a resize event to wake up any lazy loaded images
-    window.dispatchEvent(new Event('resize'));
   });
 </script>
 {% endblock %}
