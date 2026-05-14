@@ -5,7 +5,7 @@
 
 {% block extra_css %}
 <style>
-  /* ========== STATIC GALLERIES (unchanged) ========== */
+  /* ========== STATIC GALLERIES ========== */
   .gallery-section {
     position: relative;
     width: 100%;
@@ -98,39 +98,38 @@
     font-weight: bold;
   }
 
-  /* ========== DYNAMIC EVENTS CARDS (with slideshow) ========== */
-  .events-grid {
+  /* ========== DYNAMIC SLIDESHOWS CARDS ========== */
+  .slideshows-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 2rem;
     margin: 2rem 0;
   }
-  .event-card {
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s;
+  .slideshow-card {
     background: rgba(30,20,50,0.85);
     backdrop-filter: blur(8px);
     border-radius: 1.5rem;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s;
     border: 1px solid rgba(255,255,255,0.1);
   }
-  .event-card:hover {
+  .slideshow-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 24px rgba(0,0,0,0.2);
   }
-  /* Carousel inside event card */
-  .event-carousel {
+  .slideshow-carousel {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
     background: #2a1f3a;
   }
-  .event-slides {
+  .slideshow-slides {
     position: relative;
     width: 100%;
     height: 100%;
   }
-  .event-slide {
+  .slideshow-slide {
     position: absolute;
     top: 0;
     left: 0;
@@ -141,10 +140,10 @@
     opacity: 0;
     transition: opacity 0.5s ease;
   }
-  .event-slide.active {
+  .slideshow-slide.active {
     opacity: 1;
   }
-  .event-carousel .controls {
+  .carousel-controls {
     position: absolute;
     bottom: 10px;
     left: 0;
@@ -155,7 +154,7 @@
     gap: 1rem;
     z-index: 2;
   }
-  .event-carousel .carousel-arrow {
+  .carousel-arrow {
     background: rgba(0,0,0,0.5);
     border: none;
     color: white;
@@ -165,45 +164,31 @@
     height: 28px;
     border-radius: 50%;
   }
-  .event-carousel .dots {
+  .carousel-dots {
     display: flex;
     gap: 0.4rem;
     align-items: center;
   }
-  .event-carousel .dot {
+  .carousel-dot {
     width: 6px;
     height: 6px;
     background-color: rgba(255,255,255,0.5);
     border-radius: 50%;
     cursor: pointer;
   }
-  .event-carousel .dot.active {
+  .carousel-dot.active {
     background-color: #ffcd5c;
     width: 8px;
     height: 8px;
   }
-  .event-info {
+  .slideshow-info {
     padding: 1rem;
   }
-  .event-title {
+  .slideshow-title {
     font-size: 1.2rem;
     font-weight: 700;
     color: #ffefc0;
-    margin-bottom: 0.3rem;
-  }
-  .event-date, .event-location {
-    font-size: 0.75rem;
-    color: #cdc4e8;
-    margin-bottom: 0.3rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .event-description {
-    font-size: 0.85rem;
-    color: #e0d6f5;
-    line-height: 1.4;
-    margin-top: 0.5rem;
+    text-align: center;
   }
 
   @media (max-width: 768px) {
@@ -299,43 +284,35 @@
   </div>
 </div>
 
-<!-- ================= DYNAMIC EVENTS (multi‑image carousel) ================= -->
-{% if events %}
+<!-- ================= DYNAMIC SLIDESHOWS (from admin) ================= -->
+{% if slideshows %}
 <div class="container">
   <div class="section-title">
-    <i class="fas fa-calendar-alt"></i> Upcoming Events
+    <i class="fas fa-images"></i> More Slideshows
   </div>
-  <div class="events-grid">
-    {% for event in events %}
-    <div class="event-card">
-      {% if event.images.all %}
-      <div class="event-carousel" data-event-id="{{ event.id }}">
-        <div class="event-slides">
-          {% for img in event.images.all %}
-          <div class="event-slide" style="background-image: url('{{ img.image.url }}');"></div>
+  <div class="slideshows-grid">
+    {% for slideshow in slideshows %}
+    <div class="slideshow-card">
+      {% if slideshow.images.all %}
+      <div class="slideshow-carousel" data-id="{{ slideshow.id }}">
+        <div class="slideshow-slides">
+          {% for img in slideshow.images.all %}
+          <div class="slideshow-slide" style="background-image: url('{{ img.image.url }}');"></div>
           {% endfor %}
         </div>
-        <div class="controls">
-          <button class="carousel-arrow prev" data-event="{{ event.id }}">&#10094;</button>
-          <div class="dots" id="dots-{{ event.id }}"></div>
-          <button class="carousel-arrow next" data-event="{{ event.id }}">&#10095;</button>
+        <div class="carousel-controls">
+          <button class="carousel-arrow prev">&#10094;</button>
+          <div class="carousel-dots" id="dots-{{ slideshow.id }}"></div>
+          <button class="carousel-arrow next">&#10095;</button>
         </div>
       </div>
       {% else %}
-      <div class="event-carousel" style="display: flex; align-items: center; justify-content: center;">
+      <div class="slideshow-carousel" style="display: flex; align-items: center; justify-content: center;">
         <span style="color: #cdc4e8;">No images</span>
       </div>
       {% endif %}
-      <div class="event-info">
-        <h3 class="event-title">{{ event.title }}</h3>
-        <div class="event-date">
-          <i class="far fa-calendar-alt"></i> {{ event.start_date|date:"M d, Y" }}
-          {% if event.end_date and event.end_date != event.start_date %} – {{ event.end_date|date:"M d, Y" }}{% endif %}
-        </div>
-        <div class="event-location">
-          <i class="fas fa-map-marker-alt"></i> {{ event.location }}
-        </div>
-        <p class="event-description">{{ event.description|truncatechars:120 }}</p>
+      <div class="slideshow-info">
+        <h3 class="slideshow-title">{{ slideshow.title }}</h3>
       </div>
     </div>
     {% endfor %}
@@ -348,14 +325,14 @@
 {% block extra_js %}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // ========== INIT STATIC GALLERIES ==========
+    // ========== STATIC GALLERIES ==========
     function initGallery(containerId, slideshowId, prevBtnClass, nextBtnClass, dotsId) {
       const container = document.getElementById(containerId);
-      if (!container) return false;
+      if (!container) return;
       const slideshow = document.getElementById(slideshowId);
-      if (!slideshow) return false;
+      if (!slideshow) return;
       const slides = Array.from(slideshow.querySelectorAll('.gallery-slide'));
-      if (slides.length === 0) return false;
+      if (!slides.length) return;
 
       let current = 0;
       let timer = null;
@@ -374,8 +351,8 @@
       const dots = document.querySelectorAll(`#${containerId} .gallery-dot`);
 
       function update() {
-        slides.forEach((slide, idx) => slide.classList.toggle('active', idx === current));
-        dots.forEach((dot, idx) => dot.classList.toggle('active', idx === current));
+        slides.forEach((s, i) => s.classList.toggle('active', i === current));
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
       }
 
       function goTo(i) {
@@ -399,7 +376,6 @@
 
       update();
       resetTimer();
-      return true;
     }
 
     initGallery('galleryNorthampton2026', 'slideshowNorthampton2026', '.prevBtnNor2026', '.nextBtnNor2026', 'dotsNor2026');
@@ -407,33 +383,33 @@
     initGallery('galleryNorthampton2025', 'slideshowNorthampton2025', '.prevBtnNor2025', '.nextBtnNor2025', 'dotsNor2025');
     initGallery('galleryEdinburgh', 'slideshowEdinburgh', '.prevBtnEdin', '.nextBtnEdin', 'dotsEdin');
 
-    // ========== INIT DYNAMIC EVENT CAROUSELS ==========
-    document.querySelectorAll('.event-carousel').forEach(carousel => {
-      const slidesDiv = carousel.querySelector('.event-slides');
+    // ========== DYNAMIC SLIDESHOWS ==========
+    document.querySelectorAll('.slideshow-carousel').forEach(carousel => {
+      const slidesDiv = carousel.querySelector('.slideshow-slides');
       if (!slidesDiv) return;
-      const slides = Array.from(slidesDiv.querySelectorAll('.event-slide'));
-      if (slides.length <= 1) return; // no carousel if only one image or none
+      const slides = Array.from(slidesDiv.querySelectorAll('.slideshow-slide'));
+      if (slides.length <= 1) return;
 
       let current = 0;
       let timer = null;
 
-      const eventId = carousel.dataset.eventId;
-      const dotsContainer = carousel.querySelector('.dots');
+      const slideshowId = carousel.dataset.id;
+      const dotsContainer = carousel.querySelector('.carousel-dots');
       if (dotsContainer) {
         dotsContainer.innerHTML = '';
         slides.forEach((_, idx) => {
           const dot = document.createElement('div');
-          dot.classList.add('dot');
+          dot.classList.add('carousel-dot');
           if (idx === 0) dot.classList.add('active');
           dot.addEventListener('click', () => goTo(idx));
           dotsContainer.appendChild(dot);
         });
       }
-      const dots = carousel.querySelectorAll('.dot');
+      const dots = carousel.querySelectorAll('.carousel-dot');
 
       function update() {
-        slides.forEach((slide, idx) => slide.classList.toggle('active', idx === current));
-        dots.forEach((dot, idx) => dot.classList.toggle('active', idx === current));
+        slides.forEach((s, i) => s.classList.toggle('active', i === current));
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
       }
 
       function goTo(i) {
@@ -458,14 +434,13 @@
       update();
       resetTimer();
 
-      // Optional: pause on hover
       carousel.addEventListener('mouseenter', () => clearInterval(timer));
       carousel.addEventListener('mouseleave', resetTimer);
     });
 
-    // Preload all background images (static + dynamic)
+    // Preload all background images
     function preloadAllBackgrounds() {
-      const slides = document.querySelectorAll('.gallery-slide, .event-slide');
+      const slides = document.querySelectorAll('.gallery-slide, .slideshow-slide');
       slides.forEach(slide => {
         const bg = window.getComputedStyle(slide).backgroundImage;
         if (bg && bg !== 'none') {
