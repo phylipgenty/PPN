@@ -13,7 +13,9 @@ from .models import (
     BlogPost,
     NewsletterSubscriber,
     Donation,
-    PrayerRequest   # already imported here
+    PrayerRequest,
+    Newsletter,
+    Slideshow   # ✅ ADDED
 )
 
 # =========================
@@ -127,30 +129,43 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
+
 def manchester(request):
     return render(request, 'manchester.html')
 
-# No duplicate import here – PrayerRequest already imported at top
+
 def prayer_request(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
         message = request.POST.get('message')
+
         if name and email and message:
-            PrayerRequest.objects.create(name=name, email=email, message=message)
+            PrayerRequest.objects.create(
+                name=name,
+                email=email,
+                message=message
+            )
             messages.success(request, "Your prayer request has been submitted. We will pray for you.")
         else:
             messages.error(request, "Please fill in all fields.")
+
         return redirect('index')
-    # If someone visits the URL directly (GET), redirect to home
+
     return redirect('index')
+
 
 # =========================
 # EVENTS
 # =========================
 def events(request):
     events = Event.objects.all().order_by('start_date')
-    return render(request, 'events.html', {'events': events})
+    slideshows = Slideshow.objects.all().order_by('-created_at')  # ✅ ADDED
+
+    return render(request, 'events.html', {
+        'events': events,
+        'slideshows': slideshows
+    })
 
 
 # =========================
@@ -170,7 +185,7 @@ def blog_list(request):
 
 
 # =========================
-# BLOG DETAIL – using primary key (pk)
+# BLOG DETAIL
 # =========================
 def blog_detail(request, pk):
     blog = get_object_or_404(BlogPost, pk=pk, is_published=True)
@@ -180,8 +195,6 @@ def blog_detail(request, pk):
 # =========================
 # NEWSLETTER
 # =========================
-from .models import NewsletterSubscriber, Newsletter  # make sure Newsletter is included
-
 def newsletter_signup(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -202,6 +215,8 @@ def newsletter_signup(request):
     return render(request, 'newsletter_signup.html', {
         'newsletters': newsletters
     })
+
+
 # =========================
 # DEBUG IMAGES
 # =========================
@@ -231,7 +246,7 @@ def process_donation(request):
         name = request.POST.get('name')
         email = request.POST.get('email')
         amount = request.POST.get('amount')
-        currency = request.POST.get('currency', 'GBP')  # Get currency from form, default GBP
+        currency = request.POST.get('currency', 'GBP')
 
         if name and email and amount:
             donation = Donation.objects.create(
@@ -274,11 +289,14 @@ def donation_cancel(request):
 def regular(request):
     return render(request, 'regular.html')
 
+
 def testimony_detail(request, pk):
     testimony = get_object_or_404(Testimony, pk=pk, is_approved=True)
     return render(request, 'testimony_detail.html', {'testimony': testimony})
+
+
 # =========================
-# CREATE ADMIN (TEMPORARY)
+# ADMIN CREATION (TEMP)
 # =========================
 from django.http import HttpResponse
 from django.contrib.auth import get_user_model
@@ -286,15 +304,18 @@ from django.contrib.auth import get_user_model
 def create_admin(request):
     User = get_user_model()
     if not User.objects.filter(username='prayer').exists():
-        User.objects.create_superuser('prayer', 'media@prayerpowernetwork.org.uk', 'PrayerPowerNetwork_2026')
-        return HttpResponse("Admin created: username=prayer, password=PrayerPowerNetwork_2026")
+        User.objects.create_superuser(
+            'prayer',
+            'media@prayerpowernetwork.org.uk',
+            'PrayerPowerNetwork_2026'
+        )
+        return HttpResponse("Admin created")
     return HttpResponse("Admin already exists")
 
 
 # =========================
-# CLOUDINARY DEBUG (TEMPORARY)
+# CLOUDINARY DEBUG
 # =========================
-from django.http import HttpResponse
 from django.core.files.storage import default_storage
 import os
 
@@ -303,16 +324,14 @@ def debug_cloudinary(request):
     api_key = os.environ.get('CLOUDINARY_API_KEY', 'NOT SET')
     api_secret = os.environ.get('CLOUDINARY_API_SECRET', 'NOT SET')
     cloudinary_url = os.environ.get('CLOUDINARY_URL', 'NOT SET')
-    storage_class = str(default_storage.__class__)
-    
+
     html = f"""
-    <h2>Cloudinary Debug Info</h2>
+    <h2>Cloudinary Debug</h2>
     <ul>
-        <li><b>CLOUDINARY_CLOUD_NAME:</b> {cloud_name}</li>
-        <li><b>CLOUDINARY_API_KEY:</b> {api_key}</li>
-        <li><b>CLOUDINARY_API_SECRET:</b> {api_secret[:5]}... (truncated)</li>
-        <li><b>CLOUDINARY_URL:</b> {cloudinary_url[:40] if cloudinary_url != 'NOT SET' else 'NOT SET'}</li>
-        <li><b>Default Storage Class:</b> {storage_class}</li>
+        <li>CLOUD NAME: {cloud_name}</li>
+        <li>API KEY: {api_key}</li>
+        <li>API SECRET: {api_secret[:5]}...</li>
+        <li>URL: {cloudinary_url[:40]}</li>
     </ul>
     """
     return HttpResponse(html)
