@@ -257,7 +257,7 @@ body {
   box-shadow: 0 20px 32px -12px rgba(0, 0, 0, 0.4);
 }
 #joinCard { background-image: url('../images/prayer_1.jpg'); }
-#liveCard {background-image: url('../images/img3_1.jpeg');}
+#liveCard {background-image: url('../images/sunday_charge.jpeg');}
 #prayerCard { background-image: url('../images/requests.jpg'); }
 .card-overlay {
   position: absolute;
