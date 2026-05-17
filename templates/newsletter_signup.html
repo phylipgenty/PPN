@@ -11,10 +11,10 @@
     padding: 0 1rem;
   }
 
-  /* Grid for dynamic newsletters – 4 columns */
+  /* Grid for dynamic newsletters – NOW 3 COLUMNS */
   .newsletter-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     margin: 2rem 0;
   }
@@ -91,7 +91,7 @@
     margin-bottom: 1rem;
   }
 
-  /* ========== NEW: TWO‑COLUMN LAYOUT FOR HARDCODED NEWSLETTERS ========== */
+  /* Two‑column layout for hardcoded newsletters (unchanged) */
   .year-columns {
     display: flex;
     flex-wrap: wrap;
@@ -245,15 +245,13 @@
     color: #aaccff;
   }
 
-  /* Responsive */
+  /* Responsive breakpoints – adjusted for 3‑column default */
   @media (max-width: 992px) {
-    .newsletter-grid { grid-template-columns: repeat(3, 1fr); }
+    .newsletter-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 768px) {
     .newsletter-grid { grid-template-columns: repeat(2, 1fr); }
-    .year-columns {
-      flex-direction: column;
-    }
+    .year-columns { flex-direction: column; }
   }
   @media (max-width: 576px) {
     .newsletter-grid { grid-template-columns: 1fr; }
@@ -263,7 +261,7 @@
 
 {% block content %}
 <div class="container newsletter-container">
-  <!-- ========== DYNAMIC NEWSLETTERS FROM ADMIN (4‑COLUMN GRID) ========== -->
+  <!-- ========== DYNAMIC NEWSLETTERS FROM ADMIN (NOW 3 COLUMNS) ========== -->
   {% if newsletters %}
   <div class="heading-wrapper">
     <h2 class="section-heading">📬 Read Current Newsletters</h2>
@@ -280,7 +278,6 @@
         <h3 class="newsletter-title">{{ nl.title }}</h3>
         <div class="newsletter-date">{{ nl.created_at|date:"F Y" }}</div>
         
-        <!-- Conditional link: use pdf_url if available, otherwise pdf_file.url -->
         {% if nl.pdf_url %}
           <a href="{{ nl.pdf_url }}" target="_blank" class="read-newsletter">Read →</a>
         {% elif nl.pdf_file %}
@@ -294,7 +291,7 @@
   </div>
   {% endif %}
 
-  <!-- ========== HARDCODED PAST NEWSLETTERS – TWO COLUMNS BY YEAR ========== -->
+  <!-- ========== HARDCODED PAST NEWSLETTERS – TWO COLUMNS (UNCHANGED) ========== -->
   <div class="heading-wrapper">
     <h2 class="section-heading">📚 Past Newsletters</h2>
   </div>
