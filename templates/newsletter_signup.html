@@ -11,7 +11,7 @@
     padding: 0 1rem;
   }
 
-  /* Grid for dynamic newsletters – NOW 3 COLUMNS */
+  /* Grid for dynamic newsletters – 3 COLUMNS */
   .newsletter-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -91,7 +91,7 @@
     margin-bottom: 1rem;
   }
 
-  /* Two‑column layout for hardcoded newsletters (unchanged) */
+  /* Two‑column layout for hardcoded newsletters */
   .year-columns {
     display: flex;
     flex-wrap: wrap;
@@ -245,7 +245,7 @@
     color: #aaccff;
   }
 
-  /* Responsive breakpoints – adjusted for 3‑column default */
+  /* Responsive breakpoints */
   @media (max-width: 992px) {
     .newsletter-grid { grid-template-columns: repeat(2, 1fr); }
   }
@@ -261,7 +261,7 @@
 
 {% block content %}
 <div class="container newsletter-container">
-  <!-- ========== DYNAMIC NEWSLETTERS FROM ADMIN (NOW 3 COLUMNS) ========== -->
+  <!-- ========== DYNAMIC NEWSLETTERS FROM ADMIN (3 COLUMNS) ========== -->
   {% if newsletters %}
   <div class="heading-wrapper">
     <h2 class="section-heading">📬 Read Current Newsletters</h2>
@@ -291,15 +291,19 @@
   </div>
   {% endif %}
 
-  <!-- ========== HARDCODED PAST NEWSLETTERS – TWO COLUMNS (UNCHANGED) ========== -->
+  <!-- ========== HARDCODED PAST NEWSLETTERS – TWO COLUMNS ========== -->
   <div class="heading-wrapper">
     <h2 class="section-heading">📚 Past Newsletters</h2>
   </div>
   <div class="year-columns">
-    <!-- 2026 COLUMN -->
+    <!-- 2026 COLUMN (with new June 2026 added at top) -->
     <div class="year-column">
       <h3>2026</h3>
       <div class="newsletter-list">
+        <!-- June 2026 – NEW -->
+        <a href="{% static 'images/newsletters/j26.pdf' %}" class="resource-link" target="_blank">
+          <i class="fas fa-file-pdf"></i> June 2026
+        </a>
         <a href="{% static 'images/newsletters/n6.pdf' %}" class="resource-link" target="_blank">
           <i class="fas fa-file-pdf"></i> May 2026
         </a>
@@ -317,7 +321,7 @@
         </a>
       </div>
     </div>
-    <!-- 2025 COLUMN -->
+    <!-- 2025 COLUMN (unchanged) -->
     <div class="year-column">
       <h3>2025</h3>
       <div class="newsletter-list">
@@ -361,7 +365,7 @@
     </div>
   </div>
 
-  <!-- ========== SUBSCRIPTION FORM (BOTTOM) ========== -->
+  <!-- ========== SUBSCRIPTION FORM ========== -->
   <div class="subscription-section">
     <h2><i class="fas fa-envelope-open-text"></i> Stay Connected</h2>
     <p>Subscribe to receive future newsletters and prayer alerts directly in your inbox.</p>
