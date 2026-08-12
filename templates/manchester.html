@@ -84,6 +84,58 @@
     .countdown { font-size: 1.5rem; }
     .map-container iframe { height: 300px; }
   }
+
+  /* Flier section */
+.flier-section {
+  text-align: center;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  max-width: 800px;
+}
+
+.flier-image {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+/* Feedback button wrapper */
+.feedback-btn-wrapper {
+  margin-top: 0.5rem;
+}
+
+/* Gold‑themed button */
+.feedback-btn {
+  display: inline-block;
+  background: #ffcd5c;
+  color: #1a1a2a;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0.8rem 2rem;
+  border-radius: 3rem;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.1s;
+  box-shadow: 0 4px 12px rgba(255, 205, 92, 0.3);
+}
+
+.feedback-btn:hover {
+  background: #ffc43a;
+  transform: scale(1.02);
+}
+
+.feedback-btn i {
+  margin-right: 0.6rem;
+}
+
+@media (max-width: 576px) {
+  .feedback-btn {
+    font-size: 0.95rem;
+    padding: 0.6rem 1.5rem;
+  }
+}
 </style>
 {% endblock %}
 
@@ -99,9 +151,18 @@
   </div>
 </div>
 
-<!-- Flier image below -->
+<!-- Flier image with feedback button -->
 <div class="flier-section">
-  <img src="{% static 'images/feedback.jpeg' %}" alt="Feedback with QR Code">
+  <img src="{% static 'images/OK.jpeg' %}" alt="Feedback with QR Code" class="flier-image">
+  
+  <!-- Feedback button -->
+  <div class="feedback-btn-wrapper">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdcMs0athTRxamjXpl3dorkvuTiQkXE6nRCj0fyPV0yuIh-QQ/viewform?usp=publish-editor" 
+       target="_blank" 
+       class="feedback-btn">
+      <i class="fas fa-comment-alt"></i> Share Your Feedback
+    </a>
+  </div>
 </div>
 
 <!-- Google Maps location -->
