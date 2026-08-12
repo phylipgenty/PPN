@@ -14,10 +14,10 @@
 <body>
 
 <nav class="navbar">
-  <div class="logo">
+  <a href="{% url 'index' %}" class="logo">
     <img src="{% static 'images/PPN logo1.png' %}" alt="Logo" class="logo-img">
     PRAYER POWER NETWORK
-  </div>
+  </a>
 
   <div class="menu-icon" id="menuToggle">
     <i class="fas fa-bars"></i>
@@ -25,7 +25,7 @@
 
   <ul class="nav-links" id="navLinks">
     <!-- Home -->
-    <li><a href="#index">Home</a></li>
+    <li><a href="{% url 'index' %}">Home</a></li>
 
     <!-- About -->
     <li><a href="{% url 'about' %}">About</a></li>
