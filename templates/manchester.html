@@ -136,6 +136,37 @@
     padding: 0.6rem 1.5rem;
   }
 }
+
+/* Watch Now button wrapper */
+.watch-btn-wrapper {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+/* YouTube‑style button */
+.watch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #ff0000;           /* YouTube red */
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  padding: 0.9rem 2.5rem;
+  border-radius: 3rem;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.1s;
+  box-shadow: 0 4px 16px rgba(255, 0, 0, 0.35);
+}
+
+.watch-btn:hover {
+  background: #cc0000;
+  transform: scale(1.03);
+}
+
+.watch-btn i {
+  font-size: 1.4rem;
+}
 </style>
 {% endblock %}
 
@@ -154,7 +185,15 @@
 <!-- Flier image with feedback button -->
 <div class="flier-section">
   <img src="{% static 'images/OK.jpeg' %}" alt="Feedback with QR Code" class="flier-image">
-  
+  <!-- Watch Now Button -->
+<div class="watch-btn-wrapper">
+  <a href="https://www.youtube.com/channel/UCS1lJ8S-1KBpQavhqSiwehQ" 
+     target="_blank" 
+     class="watch-btn">
+    <i class="fab fa-youtube"></i> Watch Now
+  </a>
+</div>
+
   <!-- Feedback button -->
   <div class="feedback-btn-wrapper">
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdcMs0athTRxamjXpl3dorkvuTiQkXE6nRCj0fyPV0yuIh-QQ/viewform?usp=publish-editor" 
