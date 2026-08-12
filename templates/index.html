@@ -331,6 +331,29 @@
   display: none;
 }
 */
+
+.hero-slideshow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+.hero-slide.active {
+  opacity: 1;
+}
   </style>
 </head>
 <body>
@@ -346,63 +369,68 @@
   </div>
 
   <ul class="nav-links" id="navLinks">
-  <!-- Home -->
-  <li><a href="#home">Home</a></li>
+    <!-- Home -->
+    <li><a href="#home">Home</a></li>
 
-  <!-- About -->
-  <li><a href="{% url 'about' %}">About</a></li>
+    <!-- About -->
+    <li><a href="{% url 'about' %}">About</a></li>
 
-  <!-- TESTIMONIES DROPDOWN (combines read + share) -->
-  <li class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">
-      Testimonies <i class="fas fa-caret-down"></i>
-    </a>
-    <div class="dropdown-content">
-      <a href="{% url 'testimonies' %}">Read Testimonies</a>
-      <a href="{% url 'test' %}">Share Your Testimony</a>
-    </div>
-  </li>
+    <!-- TESTIMONIES DROPDOWN -->
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">
+        Testimonies <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="dropdown-content">
+        <a href="{% url 'testimonies' %}">Read Testimonies</a>
+        <a href="{% url 'test' %}">Share Your Testimony</a>
+      </div>
+    </li>
 
-  <!-- MEDIA DROPDOWN -->
-  <li class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">
-      Media <i class="fas fa-caret-down"></i>
-    </a>
-    <div class="dropdown-content">
-      <a href="{% url 'sermons' %}">Sermons</a>
-      <a href="{% url 'blog_list' %}">Blogs</a>
-      <a href="{% url 'events' %}">Gallery</a>
-    </div>
-  </li>
+    <!-- MEDIA DROPDOWN -->
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">
+        Media <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="dropdown-content">
+        <a href="{% url 'sermons' %}">Sermons</a>
+        <a href="{% url 'blog_list' %}">Blogs</a>
+        <a href="{% url 'events' %}">Gallery</a>
+      </div>
+    </li>
 
-  <!-- NEWSLETTER (standalone link) -->
-  <li><a href="{% url 'newsletter_signup' %}">Newsletter</a></li>
+    <!-- NEWSLETTER -->
+    <li><a href="{% url 'newsletter_signup' %}">Newsletter</a></li>
 
-  <!-- MORE DROPDOWN -->
-  <li class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">
-      More <i class="fas fa-caret-down"></i>
-    </a>
-    <div class="dropdown-content">
-      <a href="{% url 'contact' %}">Contact</a>
-      <a href="{% url 'appointment' %}">Book Appointment</a>
-    </div>
-  </li>
+    <!-- ===== MANCHESTER CONFERENCE (NEW) ===== -->
+    <li><a href="{% url 'manchester' %}">Manchester Conference</a></li>
 
-  <!-- DONATE (standalone button) -->
-  <li><a href="{% url 'donate' %}" class="donate-btn">Donate</a></li>
-</ul>
+    <!-- MORE DROPDOWN -->
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">
+        More <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="dropdown-content">
+        <a href="{% url 'contact' %}">Contact</a>
+        <a href="{% url 'appointment' %}">Book Appointment</a>
+      </div>
+    </li>
+
+    <!-- DONATE -->
+    <li><a href="{% url 'donate' %}" class="donate-btn">Donate</a></li>
+  </ul>
 </nav>
-
-<!-- Hero Section -->
+<!-- ===== HERO CAROUSEL ===== -->
 <div class="hero" id="home">
-  <img src="{% static 'images/henry2.jpeg' %}" alt="Welcome to Prayer Power Network" class="hero-img">
+  <div class="hero-slideshow">
+    <div class="hero-slide active" style="background-image: url('{% static 'images/henry2.jpeg' %}');"></div>
+    <div class="hero-slide" style="background-image: url('{% static 'images/GDD_1.jpeg' %}');"></div>
+    <div class="hero-slide" style="background-image: url('{% static 'images/GDD_2.jpeg' %}');"></div>
+  </div>
   <div class="overlay"></div>
   <div class="hero-content">
     <h1>Welcome to</h1>
     <h1>Prayer Power</h1>
     <h1>Network</h1>
-    <p>Experience supernatural intervention through prayer, worship, and the Word. Join a global community of believers seeking God's presence.</p>
   </div>
 </div>
 
@@ -547,6 +575,7 @@
 
 <script src="{% static 'js/script.js' %}"></script>
 <script>
+  // ========== MANCHESTER COUNTDOWN ==========
   function startManchesterCountdown() {
     const countdownEl = document.getElementById('manchesterCountdown');
     if (!countdownEl) return;
@@ -568,6 +597,7 @@
   }
   startManchesterCountdown();
 
+  // ========== FADE-UP ANIMATIONS ==========
   const fadeElements = document.querySelectorAll('.fade-up');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -579,6 +609,7 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
   fadeElements.forEach(el => observer.observe(el));
 
+  // ========== HAMBURGER MENU ==========
   const toggleBtn = document.getElementById('menuToggle');
   const navLinks = document.getElementById('navLinks');
   if (toggleBtn && navLinks) {
@@ -588,6 +619,7 @@
     });
   }
 
+  // ========== MODAL ==========
   const modal = document.getElementById('prayerModal');
   if (modal) {
     window.addEventListener('click', (e) => {
@@ -595,8 +627,9 @@
     });
   }
 
+  // ========== MOBILE DROPDOWN SUBMENU TOGGLE ==========
   (function() {
-    // Hamburger menu toggle
+    // Hamburger menu toggle (already handled above, but keep for safety)
     const toggleBtn = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
     if (toggleBtn && navLinks) {
@@ -618,6 +651,42 @@
         }
       });
     });
+  })();
+
+  // ========== HERO CAROUSEL (NEW) ==========
+  (function() {
+    const slides = document.querySelectorAll('.hero-slide');
+    if (slides.length > 0) {
+      let current = 0;
+      let timer = null;
+
+      function goTo(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === index);
+        });
+      }
+
+      function nextSlide() {
+        current = (current + 1) % slides.length;
+        goTo(current);
+      }
+
+      function startCarousel() {
+        if (timer) clearInterval(timer);
+        timer = setInterval(nextSlide, 5000); // change every 5 seconds
+      }
+
+      // Initialise first slide
+      goTo(0);
+      startCarousel();
+
+      // Pause on hover (optional)
+      const hero = document.querySelector('.hero');
+      if (hero) {
+        hero.addEventListener('mouseenter', () => clearInterval(timer));
+        hero.addEventListener('mouseleave', startCarousel);
+      }
+    }
   })();
 </script>
 </body>
